@@ -1,0 +1,53 @@
+﻿@charset "utf-8";
+/* CSS Document */
+body{background:#000 url(../images/login/login_bg.jpg) no-repeat center center; font-family:"微软雅黑", "宋体"; font-size:12px; text-align:center; color:#fff; min-height:768px;margin:0; border:none; padding:0;}
+ul,li{list-style:none;}
+ul,li,p,img,input{margin:0; border:none; padding:0;}
+img,input{vertical-align:middle;}
+.clear{clear:both;}
+a{color:#333; text-decoration:none;}
+a:hover{color:#f00; text-decoration:underline;}
+
+.container{width:1000px; margin:0 auto; text-align:center;top:90px; position:fixed; left:45%; margin-left:-500px;}
+.content{width:100%;text-align:left; position:relative;}
+.imgcode {cursor: pointer;height: 40px;width: 119px;border-top-right-radius:6px;border-bottom-right-radius:6px;}
+
+.box{background:url(../images/bg5.png) no-repeat; width:293px; height:120px; margin-top:10px; padding-left:10px;position:relative; overflow:hidden; float:left;}
+@media screen and (min-height: 900px){
+.login_logo{margin-left:206px;}
+.user_psword{position:absolute; left:460px; top:231px; cursor:text;height:40px; line-height:40px; font-size:14px; color:#98b8e7; z-index:100;}
+.user_psword1{top:311px; left:530px;}
+.user_psword_code{top:392px; left:700px;}
+.login_box{width:305px; position:absolute; top:231px; left:450px;height:40px;color:#98b8e7;background-color:#000;background-color:rgba(0,0,0,0.6); padding-left:60px; border:solid 1px #060e37;-moz-border-radius: 6px;-webkit-border-radius: 6px;border-radius: 6px; z-index:99; outline:none;}
+.login_box1{ left:520px; top:311px;}
+.login_box_code{ left:690px; top:389px;}
+.login_box:hover{ border:solid 1px #3f9bdb;}
+.login_btn{background-color:#000;background-color:rgba(0,0,0,0.3); border:solid 1px #fff;-moz-border-radius: 6px;-webkit-border-radius: 6px;border-radius: 6px;width:365px; height:40px; line-height:40px; color:#fff; font-weight:bold; text-align:center; font-size:14px;position:absolute; top:466px; left:768px; cursor:pointer;}
+.code {left: 939px; position: absolute;top: 390px;width: 133px;z-index: 99;}
+}
+@media screen and (max-height: 900px) and (min-height:830px){
+.login_logo{margin-left:246px;}
+.user_psword{position:absolute; left:510px; top:231px; cursor:text;height:40px; line-height:40px; font-size:14px; color:#98b8e7; z-index:100;}
+.user_psword1{top:311px; left:580px;}
+.user_psword_code{top:390px; left:650px;}
+.login_box{width:305px; position:absolute; top:231px; left:500px;height:40px;color:#98b8e7;background-color:#000;background-color:rgba(0,0,0,0.6); padding-left:60px; border:solid 1px #060e37;-moz-border-radius: 6px;-webkit-border-radius: 6px;border-radius: 6px; z-index:99; outline:none;}
+.login_box1{ left:570px; top:311px;}
+.login_box_code{ left:643px; top:389px;}
+.login_box:hover{ border:solid 1px #3f9bdb;}
+.login_btn{background-color:#000;background-color:rgba(0,0,0,0.3); border:solid 1px #fff;-moz-border-radius: 6px;-webkit-border-radius: 6px;border-radius: 6px;width:365px; height:40px; line-height:40px; color:#fff; font-weight:bold; text-align:center; font-size:14px;position:absolute; top:466px; left:728px; cursor:pointer;}
+.code {left: 891px; position: absolute;top: 390px;width: 133px;z-index: 99;}
+}
+@media screen and (max-height: 830px){
+.login_logo{margin-left:268px;}
+.user_psword{position:absolute; left:560px; top:231px; cursor:text;height:40px; line-height:40px; font-size:14px; color:#98b8e7; z-index:100;}
+.user_psword1{top:311px; left:630px;}
+.user_psword_code{top:392px; left:700px;}
+.login_box{width:305px; position:absolute; top:231px; left:550px;height:40px;color:#98b8e7;background-color:#000;background-color:rgba(0,0,0,0.6); padding-left:60px; border:solid 1px #060e37;-moz-border-radius: 6px;-webkit-border-radius: 6px;border-radius: 6px; z-index:99; outline:none;}
+.login_box1{ left:620px; top:311px;}
+.login_box_code{ left:690px; top:389px;}
+.login_box:hover{ border:solid 1px #3f9bdb;}
+.login_btn{background-color:#000;background-color:rgba(0,0,0,0.3); border:solid 1px #fff;-moz-border-radius: 6px;-webkit-border-radius: 6px;border-radius: 6px;width:365px; height:40px; line-height:40px; color:#fff; font-weight:bold; text-align:center; font-size:14px;position:absolute; top:466px; left:768px; cursor:pointer;}
+.code {left: 939px; position: absolute;top: 390px;width: 133px;z-index: 99;}
+}
+.login_btn:hover{background-color:#f0d705; border:solid 1px #f0d705; color:#964108;}
+.bottom{top:235px; margin-left:252px;height:70px;line-height:26px; padding-top:30px; position:absolute; color:#fff;}

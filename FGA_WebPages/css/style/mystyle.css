@@ -1,0 +1,70 @@
+﻿.num-top {
+    background: #ff4500 none repeat scroll 0 0;
+    border: 1px solid #dd2464;
+    color: #fff;
+    display: inline;
+    float: left;
+    font-size: 10px;
+    height: 16px;
+    line-height: 16px;
+    margin-left: 10px;
+    text-align: center;
+    width: 12px;
+}
+
+.backtop {
+    cursor: pointer;
+    right: 10px;
+    bottom: 2px;
+    position: fixed;
+    display: none;
+    z-index:999;
+}
+
+.tr_loading {
+}
+
+    .tr_loading td {
+        text-align: center !important;
+        color: gray;
+        height: 30px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+        .tr_loading td img {
+            width: 25px;
+            height: 25px;
+            margin-right: 8px;
+            padding: 0;
+        }
+
+.tip {
+    color: Red;
+}
+.pop_up {
+    position: absolute;
+}
+.pop_up_left {
+    background: rgba(0, 0, 0, 0) url("../../images/alarm_left_bg.png") no-repeat scroll left center;
+    float: left;
+    height: 123px;
+    padding: 10px 10px 10px 20px;
+    text-align: left;
+}
+.txt_right, .colonyTable td.txt_right {
+    color: #000;
+    font-weight: bold;
+    text-align: right;
+}
+.pop_up_right {
+    background: rgba(0, 0, 0, 0) url("../../images/alarm_right_bg.png") no-repeat scroll right center;
+    float: left;
+    height: 113px;
+    width: 10px;
+}
+/*.boxContent{position:absolute; left:0; top:34px; width:100%; font-size:14px; border-radius:3px; border:solid 1px #c0c0c0; z-index:999; background-color:#fff; padding:10px 0;}
+.boxContent li{height:30px; line-height:30px; border-bottom:dashed 1px #d8d5d5; margin:3px 10px; text-align:left;}
+.boxContent li a{display:block;padding-left:10px; }
+.boxContent li a:hover,.boxContent li.active a{color:#0e7aed; background-color:#e8f5fb; display:block;padding-left:10px;text-decoration:none;}
+.data3 ul.boxContent{left:auto;right:-1px; top:39px; width:200px;}*/

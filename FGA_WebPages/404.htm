@@ -1,0 +1,24 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>BADrequest</title>
+    <link href="css/commonstyle.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+    .error{ width:100%; text-align:center; color:#6495ed; margin-top:20%;  font-size:1.4em; font-weight:normal; }
+    a{ font-size:12px; text-decoration:none;color:#6495ed; }
+    a:hover{ color:Blue;}
+    </style>
+    <script>
+        function logout() {
+            top.location.href = "login.aspx";
+        }
+    </script>
+</head>
+<body>
+<div class="error">
+<span>抱歉，访问好像出了点问题！请尝试下面操作：</span><br /><br /><br />
+<!--<span><a href="javascript:history.go(-1);">[返回重试]</a></span>-->
+<span onclick="logout()"><a href="javascript:void(0)">[重新登录]</a></span>
+</div>
+</body>
+</html>

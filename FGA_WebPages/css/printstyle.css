@@ -1,0 +1,166 @@
+﻿/*table td {
+    padding: 6px;
+    border-collapse: collapse;
+    margin: 0px;
+    text-align: center;
+    line-height: 200%;
+    font-size: 16px;
+}
+
+tr td {
+    border: 1px solid;
+    height: 40px;
+}
+
+.hide {
+    display: none;
+}
+
+.tabnowap {
+    table-layout: fixed;
+}
+
+    .tabnowap td {
+        word-break: keep-all;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+.auto-style1 {
+    text-decoration: underline;
+}*/
+
+.tabform {
+    border-top: 1px solid #000;
+    border-left: 1px solid #000;
+    table-layout: fixed;
+}
+
+    .tabform th {
+        border-bottom: 1px solid #000;
+        border-right: 1px solid #000;
+    }
+
+    .tabform td {
+        padding: 3px;
+        padding-right: 15px;
+        border-bottom: 1px solid #000;
+        border-right: 1px solid #000;
+        height: 50px;
+    }
+
+        .tabform td table td {
+            border: 0;
+        }
+
+body, div, td, h1, h2, h3, span {
+    font-family: 宋体 Arial;
+    font-size: 14px;
+}
+
+h2 {
+    font-size: 30px;
+}
+
+h3 {
+    font-size: 20px;
+}
+
+body {
+    background-color: white;
+}
+
+td, th {
+    line-height: 30px;
+    padding-left: 10px;
+}
+
+.dprint {
+    width: 780px;
+    margin: auto;
+    background-color: white;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 40px;
+}
+
+.dnote {
+    width: 790px;
+    margin: auto;
+    padding: 10px;
+    padding-left: 0;
+}
+
+.ft1 {
+    font-family: 宋体;
+}
+
+.ft2 {
+    font-family: 楷体;
+}
+
+.no-border {
+    border: 0;
+    border-bottom: 0;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+}
+
+label {
+    font-weight: normal;
+}
+
+.tdseal {
+    height: 200px;
+    padding: 0;
+}
+
+.d1 {
+    height: 70px;
+    margin: 0;
+}
+
+    .d1 img {
+        margin-left: 120px;
+        width: 120px;
+        height: 120px;
+    }
+
+.d2 {
+    margin: 0;
+}
+
+.d3 {
+    margin: 0;
+}
+
+.tabform {
+    border: 0;
+}
+
+    .tabform td {
+        border: 1px solid #000;
+    }
+
+        .tabform td.no-border {
+            border: 0;
+        }
+
+label.underline {
+    border-bottom: solid 1px #000;
+    width: 150px;
+}
+
+tr.bigheight {
+    height: 180px;
+}
+
+tr.middleheight {
+    height: 100px;
+}
+
+td.bottomalign {
+    vertical-align: bottom;
+}

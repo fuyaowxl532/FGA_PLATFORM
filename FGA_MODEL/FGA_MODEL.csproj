@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{347C3EEC-CAB8-4278-9079-DE747139C701}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FGA_MODEL</RootNamespace>
+    <AssemblyName>FGA_MODEL</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=4.0.8.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\03.ThirdParty\Newtonsoft.Json.DLL</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Args\PowersArgs.cs" />
+    <Compile Include="Args\RolepowersArgs.cs" />
+    <Compile Include="Args\RolesArgs.cs" />
+    <Compile Include="Args\SearchArgs.cs" />
+    <Compile Include="Args\Sys_logArgs.cs" />
+    <Compile Include="Args\UserrolesArgs.cs" />
+    <Compile Include="Args\UsersArgs.cs" />
+    <Compile Include="ARG\ARGOrderListModel.cs" />
+    <Compile Include="ARG_BoxLabelModel.cs" />
+    <Compile Include="Asset\IT_AssetCategory.cs" />
+    <Compile Include="Asset\IT_AssetInfoModel.cs" />
+    <Compile Include="Asset\IT_AssetLogModel.cs" />
+    <Compile Include="Financial\CycleInventory_Detail.cs" />
+    <Compile Include="Financial\CycleInventory_H.cs" />
+    <Compile Include="index\PlexLocation.cs" />
+    <Compile Include="ITAsset_Droplist.cs" />
+    <Compile Include="InterPlantTransferModel.cs" />
+    <Compile Include="index\arg_bendingModel.cs" />
+    <Compile Include="index\DataReWrite.cs" />
+    <Compile Include="ITAssetInfos.cs" />
+    <Compile Include="ContainerViewObject.cs" />
+    <Compile Include="PlexUserModel.cs" />
+    <Compile Include="PowersModel.cs" />
+    <Compile Include="Production\FGA_PartTransferDetailModel.cs" />
+    <Compile Include="Production\FGA_PartTransfer_HModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReasonModel.cs" />
+    <Compile Include="RolepowersModel.cs" />
+    <Compile Include="RolesModel.cs" />
+    <Compile Include="statsbyscannerModel.cs" />
+    <Compile Include="Sys_LogModel.cs" />
+    <Compile Include="UserrolesModel.cs" />
+    <Compile Include="UsersModel.cs" />
+    <Compile Include="userctrlModel.cs" />
+    <Compile Include="CurrentCarNoModel.cs" />
+    <Compile Include="BarcodeHelperModel.cs" />
+    <Compile Include="JobStatusModel.cs" />
+    <Compile Include="EDIReleaseModel.cs" />
+    <Compile Include="PlexContainer.cs" />
+    <Compile Include="LoadPartList.cs" />
+    <Compile Include="PartTransferctrlModel.cs" />
+    <Compile Include="HandOverHead.cs" />
+    <Compile Include="SmalllotModel.cs" />
+    <Compile Include="OEM_OrderTrkModel.cs" />
+    <Compile Include="ProductLabelModel.cs" />
+    <Compile Include="EDILoadModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FGA_NUtility\FGA_NUtility.csproj">
+      <Project>{e08ac0b4-eed9-4c28-8a47-de80f0b5a1fb}</Project>
+      <Name>FGA_NUtility</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

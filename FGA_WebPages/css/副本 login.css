@@ -1,0 +1,20 @@
+﻿@charset "utf-8";
+/* CSS Document */
+body{background:#083475 url(../images/login_bg.jpg) no-repeat center; font-family:"微软雅黑", "宋体"; font-size:12px; text-align:center; color:#333; min-height:100%;margin:0; border:none; padding:0;}
+ul,li{list-style:none;}
+ul,li,p,img,input{margin:0; border:none; padding:0;}
+img,input{vertical-align:middle;}
+.clear{clear:both;}
+a{color:#333; text-decoration:none;}
+a:hover{color:#f00; text-decoration:underline;}
+
+.container{width:100%; text-align:center;position:fixed; top:40%; margin-top:-50px;}
+.content{background:url(../images/login_content_bg.png) no-repeat; width:619px; height:256px; padding-left:20px; padding-top:35px; margin:0 auto; text-align:left; position:relative;}
+.login_logo{float:left; margin-top:30px; margin-left:35px; margin-right:35px;}
+.box{background:url(../images/bg5.png) no-repeat; width:293px; height:120px; margin-top:10px; padding-left:10px;position:relative; overflow:hidden; float:left;}
+.user_psword{position:absolute; left:65px; top:27px; cursor:text; color:#aaa;}
+.user_psword1{top:79px;}
+.login_box{background:url(../images/icon_user.png) no-repeat left 8px; width:225px; padding-left:45px; margin-left:12px; margin-top:15px; height:38px;  color:#b6b7b3;}
+.login_box1{background:url(../images/icon_psword.png) no-repeat left 8px;}
+.login_btn{background:url(../images/btn6.png) no-repeat; width:303px; height:36px; line-height:36px; color:#fff; font-weight:bold; text-align:center; font-size:14px; margin-top:10px; cursor:pointer;}
+.bottom{top:235px; margin-left:252px;height:70px;line-height:26px; padding-top:30px; position:absolute; color:#fff;}

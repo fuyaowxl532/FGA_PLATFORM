@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F9A8D7C9-D840-4BE7-811E-E736EAD64AD0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FGA_DAL</RootNamespace>
+    <AssemblyName>FGA_DAL</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MySql.Data, Version=6.2.1.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\FGA_DLL\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Base\CommandInfo.cs" />
+    <Compile Include="Base\SQLServerHelper.cs" />
+    <Compile Include="Base\SQLServerHelper_Plex.cs" />
+    <Compile Include="Base\SQLServerHelper_WMS.cs" />
+    <Compile Include="Base\SQLServerHelper_FGA.cs" />
+    <Compile Include="Partial\PowersDAL.cs" />
+    <Compile Include="Partial\ReasonDAL.cs" />
+    <Compile Include="Partial\RolepowersDAL.cs" />
+    <Compile Include="Partial\RolesDAL.cs" />
+    <Compile Include="Partial\Sys_LogDAL.cs" />
+    <Compile Include="Partial\UserrolesDAL.cs" />
+    <Compile Include="Partial\UsersDAL.cs" />
+    <Compile Include="PowersDAL.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReasonDAL.cs" />
+    <Compile Include="RolepowersDAL.cs" />
+    <Compile Include="RolesDAL.cs" />
+    <Compile Include="Sys_LogDAL.cs" />
+    <Compile Include="UserrolesDAL.cs" />
+    <Compile Include="UsersDAL.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FGA_MODEL\FGA_MODEL.csproj">
+      <Project>{347c3eec-cab8-4278-9079-de747139c701}</Project>
+      <Name>FGA_MODEL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FGA_NUtility\FGA_NUtility.csproj">
+      <Project>{e08ac0b4-eed9-4c28-8a47-de80f0b5a1fb}</Project>
+      <Name>FGA_NUtility</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

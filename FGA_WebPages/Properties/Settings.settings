@@ -1,0 +1,15 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="FGA_PLATFORM.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="FGA_PLATFORM_TestPOL_Service" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://testapi.plexonline.com/DataSource/Service.asmx</Value>
+    </Setting>
+    <Setting Name="FGA_PLATFORM_PLEXSOAP_Service" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://api.plexonline.com/datasource/service.asmx</Value>
+    </Setting>
+    <Setting Name="FGA_PLATFORM_FGA_WS_Part_By_MDM_Add" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://172.16.80.46:83/Web%20Service/Part_By_MDM_Add.asmx</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DiscoveryClientResultsFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Results>
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.ContractReference" url="http://172.16.80.46:83/Web Service/Part_By_MDM_Add.asmx?wsdl" filename="Part_By_MDM_Add.wsdl" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.DiscoveryDocumentReference" url="http://172.16.80.46:83/Web Service/Part_By_MDM_Add.asmx?disco" filename="Part_By_MDM_Add.disco" />
+  </Results>
+</DiscoveryClientResultsFile>
