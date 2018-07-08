@@ -62,7 +62,7 @@ namespace FGA_PLATFORM.business.ITAsset
 
                 string sql = "select * from " +
                     "(SELECT ROW_NUMBER()OVER(ORDER BY FCI.AssetKey DESC) Indexs,FCI.*,FIT.Status FROM [WMS_BarCode_V10].[dbo].[FGA_AssetCard_T] FCI " +
-                    "left join FGA_ITAssetInfos_T FIT ON FCI.AssetKey = FIT.AssetKey WHERE 1=1 ";
+                    "left join FGA_ITAssetInfos_T FIT ON FCI.AssetKey = FIT.AssetKey WHERE 1=1 and isnull(FCI.Dr,'0') = '0' ";
 
                 if (!String.IsNullOrEmpty(itsn))
                     sql = sql + " and FCI.[IT_AssetNO] like '%" + itsn + "%'";
