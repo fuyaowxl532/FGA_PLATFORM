@@ -128,6 +128,7 @@ namespace FGA_PLATFORM.business.production
         [WebMethod]
         public static string reWork(string data)
         {
+            int count = 0;
             UsersModel model = (UsersModel)HttpContext.Current.Session[SysConst.S_LOGIN_USER];
 
             List<string> sqllist = new List<string>();
@@ -141,11 +142,15 @@ namespace FGA_PLATFORM.business.production
             {
                 string sql1 = " update FGA_EDI_LOAD_T set Slstatus = '1',LoadStatus = 'Cancelled',updateby = '" + model + "', " +
                               " updatedate = getdate() where LoadID = '"+vo.LoadID+"'";
+                sqllist.Add(sql1);
 
+                string sql2 = "update [FGA_EDI_862_T] set rstatus = '0' where EDI_RowID IN (SELECT EDI_RowID FROM FGA_LoadPart_T WHERE LoadID ='"+ vo.LoadID + "')";
+                sqllist.Add(sql2);
+
+                count = FGA_DAL.Base.SQLServerHelper.ExecuteSqlTran(sqllist);
             }
 
-
-            return "1";
+            return count.ToString();
         }
     }
 }

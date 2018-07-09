@@ -160,9 +160,9 @@ namespace FGA_PLATFORM.business.production
                 foreach (EDIReleaseModel m in listmodel)
                 {
                     sql2 = "insert into FGA_LoadPart_T ([LoadID],[PartNO],[Quantity],[CustomerPart] " +
-                                  " ,[JobSequence],[EDI_RowID]) values ('{0}','{1}','{2}','{3}','{4}','{5}')";
+                                  " ,[JobSequence],[EDI_RowID],[Creator],[CreateDate]) values ('{0}','{1}','{2}','{3}','{4}','{5}','{6}',getdate())";
                     sql2 = string.Format(sql2, SEQ, m.part_no, m.Quantity,
-                        m.Customer_Part_No, m.JOB_SEQUENCE,m.EDI_RowID);
+                        m.Customer_Part_No, m.JOB_SEQUENCE,m.EDI_RowID, model.USERNAME);
 
                     rowid += "," + m.EDI_RowID;
                     FGA_DAL.Base.SQLServerHelper.ExecuteSql(sql2);
