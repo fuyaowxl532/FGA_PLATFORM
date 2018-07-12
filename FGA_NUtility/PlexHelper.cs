@@ -15,7 +15,7 @@ namespace FGA_NUtility
             FGA_NUtility.POL.Service service = new FGA_NUtility.POL.Service();
             System.Net.NetworkCredential credential = new System.Net.NetworkCredential("FuyaoDaytonWs@plex.com", "6deb1ee-e9b");
             System.Net.CredentialCache credentialCache = new System.Net.CredentialCache();
-            service.Url = "https://testapi.plexonline.com/DataSource/Service.asmx";
+            //service.Url = "https://testapi.plexonline.com/DataSource/Service.asmx";
             credentialCache.Add(new Uri(service.Url), "BASIC", credential);
             service.Credentials = credentialCache;
 

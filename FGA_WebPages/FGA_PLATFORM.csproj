@@ -124,6 +124,7 @@
     <Content Include="business\production\arg_bendinghome.aspx" />
     <Content Include="business\production\Arg_BoxLabel.aspx" />
     <Content Include="business\production\BarcodeHelper.aspx" />
+    <Content Include="business\production\EDICtrlCenter.aspx" />
     <Content Include="business\production\EDIrelease.aspx" />
     <Content Include="business\production\EDI_LoadDetail.aspx" />
     <Content Include="business\production\FGAJobManagement.aspx" />
@@ -1667,6 +1668,13 @@
     </Compile>
     <Compile Include="business\production\BarcodeHelper.aspx.designer.cs">
       <DependentUpon>BarcodeHelper.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="business\production\EDICtrlCenter.aspx.cs">
+      <DependentUpon>EDICtrlCenter.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="business\production\EDICtrlCenter.aspx.designer.cs">
+      <DependentUpon>EDICtrlCenter.aspx</DependentUpon>
     </Compile>
     <Compile Include="business\production\EDIrelease.aspx.cs">
       <DependentUpon>EDIrelease.aspx</DependentUpon>

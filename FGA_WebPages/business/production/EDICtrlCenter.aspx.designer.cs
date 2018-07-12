@@ -10,6 +10,6 @@
 namespace FGA_PLATFORM.business.production {
     
     
-    public partial class EDIrelease {
+    public partial class EDICtrlCenter {
     }
 }
