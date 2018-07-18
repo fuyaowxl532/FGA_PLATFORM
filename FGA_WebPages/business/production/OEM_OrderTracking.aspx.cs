@@ -290,7 +290,7 @@ namespace FGA_PLATFORM.business.production
                                    " ,[Location],0,[OrderQuantity],[OrderQuantity]/[StandardQuantity],[LastInBoundTime],[Lastlocation],[LastInBoundUser] " +
                                    " ,[OrderNoID],[Customer],[OrderStatus],[DeliveryStatus],[KeyCenter],[Program],[AddressCode],[OrderKey],[LastEditUser] " +
                                    " ,[LastEditTime] from FGA_OEMORDERTRK_T_tmp fott left join " +
-                                   " (select PVP.Part_No, PFT.Factory from [part_v_part] PVP left join[PartGroup_Factory_t] pft " +
+                                   " (select distinct PVP.Part_No, PFT.Factory from [part_v_part] PVP left join[PartGroup_Factory_t] pft " +
                                    " on pvp.Part_Group_Key = pft.Part_Group_Key " +
                                    " where pft.Factory<> 'All') PG on  fott.PartNO COLLATE DATABASE_DEFAULT = PG.Part_No " +
                                    " left join ContainerType_FromPlex_v cfv on  fott.PartNO COLLATE DATABASE_DEFAULT = cfv.Part_No where fott.creater ='" + user + "'";

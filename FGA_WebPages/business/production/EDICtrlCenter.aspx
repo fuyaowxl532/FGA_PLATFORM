@@ -34,7 +34,7 @@
 
 </head>
 <body>
-      <input type="button"  name="export" style="background:white;color:#00b8ce" value="RELEASE" onclick=" releaseData()" />		   
+      <input type="button"  name="export" style="background:white;color:#00b8ce" value="RELEASE" onclick=" MergeData()" />		   
 
 <script src="../../mouldifi-v-2.0/js/plugins/jasny/jasny-bootstrap.min.js"></script>
 <!-- Select2-->

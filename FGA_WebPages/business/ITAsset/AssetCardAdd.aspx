@@ -211,12 +211,16 @@
             async: true,
             success: function (data) {
                 var json = data.d;
-                if (json != '0') {
+                if (json.length < 10) {
 
-                    $('#success').html("Successsful!Asset Key: " + json);
-                    $('#success').show();
-                    showModal();
+                    if (json != '0') {
+                         $('#success').html("Successsful!Asset Key: " + json);
+                         $('#success').show();
+                         showModal();
+                    }
                 }
+                else
+                    alert(json);
             }
         });
     }

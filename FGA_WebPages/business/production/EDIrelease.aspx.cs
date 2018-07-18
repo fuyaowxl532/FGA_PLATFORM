@@ -49,7 +49,8 @@ namespace FGA_PLATFORM.business.production
                     sql = "SELECT [customer_name],[Customer_Address_Code],[Customer_Part_No],[Customer_Part_Revision] " +
                             " ,[part_no],[Due_Date] ,[Ship_Date],[ORDER_NO] ,[Lot_No],[BATCH_NO]" +
                             " ,[Standard_Quantity],[Quantity],[JOB_SEQUENCE],[EDI_RowID] " +
-                            " FROM [FGA_PLATFORM].[dbo].[FGA_EDI_862_T] where rstatus = 0 and PARTTYPE = '" + ET + "' ORDER BY SHIP_DATE,JOB_SEQUENCE DESC";
+                            " FROM [FGA_PLATFORM].[dbo].[FGA_EDI_862_T] where rstatus = 0 and PARTTYPE = '" + ET + "' " +
+                            "order by [Customer_Address_Code],SUBSTRING([Customer_Part_No],1,7),[Ship_Date],[BATCH_NO],[Lot_No],[JOB_SEQUENCE]";
                 }
 
                 if (model.USERNAME == "administrator")
@@ -57,7 +58,8 @@ namespace FGA_PLATFORM.business.production
                     sql = "SELECT [customer_name],[Customer_Address_Code],[Customer_Part_No],[Customer_Part_Revision] " +
                                                 " ,[part_no],[Due_Date] ,[Ship_Date],[ORDER_NO] ,[Lot_No],[BATCH_NO]" +
                                                 " ,[Standard_Quantity],[Quantity],[JOB_SEQUENCE],[EDI_RowID] " +
-                                                " FROM [FGA_PLATFORM].[dbo].[FGA_EDI_862_T]   ORDER BY SHIP_DATE,JOB_SEQUENCE DESC";
+                                                " FROM [FGA_PLATFORM].[dbo].[FGA_EDI_862_T]   " +
+                                                "order by [Customer_Address_Code],SUBSTRING([Customer_Part_No],1,7),[Ship_Date],[BATCH_NO],[Lot_No],[JOB_SEQUENCE]";
                 }
                 
                 DataSet ds = new DataSet();

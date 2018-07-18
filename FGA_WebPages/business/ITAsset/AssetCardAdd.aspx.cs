@@ -67,27 +67,55 @@ namespace FGA_PLATFORM.business.ITAsset
             UsersModel model = (UsersModel)HttpContext.Current.Session[SysConst.S_LOGIN_USER];
             List<String> sqllist = new List<String>();
 
-            //生成日志表
-            string sql1 = "select next value for FGA_AssetCardID";
-            string akey = "ITA" + FGA_DAL.Base.SQLServerHelper_WMS.GetSingle(sql1).ToString();
+            //数据重复性检查
+            string errorMsg = String.Empty;
 
-            string sql2 = " INSERT INTO [FGA_AssetCard_T]([AssetKey],[AssetName],[Category],[Brand],[IT_AssetNO],[FIN_AssetNO],[SerialNO] " +
-                          ",[CreateDate],[Creator],[InsuranceDate],[MacAddress],[Note],[Dr],[LastAction],[AssetConfig]) " +
-                          "VALUES('" + akey + "','" + AssetVO.AssetName + "','" + AssetVO.Category + "','" + AssetVO.Brand + "','" + AssetVO.IT_AssetNO + "' " +
-                          " ,'" + AssetVO.FIN_AssetNO + "','" + AssetVO.SerialNO + "',getdate(),'" + model.USERNAME + "','' " +
-                          " ,'" + AssetVO.MacAddress + "','" + AssetVO.Note + "','0','Asset Added','" + AssetVO.AssetConfig + "')";
+            if (!String.IsNullOrEmpty(AssetVO.IT_AssetNO))
+            {
+                if (ValueRepeatCheck("IT_AssetNO", AssetVO.IT_AssetNO))
+                    errorMsg = "IT_AssetNO is repeat" + '\n';
+            }
+            if (!String.IsNullOrEmpty(AssetVO.FIN_AssetNO))
+            {
+                if (ValueRepeatCheck("FIN_AssetNO", AssetVO.FIN_AssetNO))
+                    errorMsg = "FIN_AssetNO is repeat" + '\n';
+            }
+            if (!String.IsNullOrEmpty(AssetVO.SerialNO))
+            {
+                if (ValueRepeatCheck("SerialNO", AssetVO.SerialNO))
+                    errorMsg = "SerialNO is repeat" + '\n';
+            }
+            if (!String.IsNullOrEmpty(AssetVO.MacAddress))
+            {
+                if (ValueRepeatCheck("MacAddress", AssetVO.MacAddress))
+                    errorMsg = "MAC ID is repeat" + '\n';
+            }
 
-            string sql3 = "insert into [FGA_ITAssetInfos_T]([Issue_Date],[Creator],[CreateDate],[PlexID],[Active],[Status],[AssetKey],[Note]) " +
-                          "values(convert(varchar(10),getdate(),120),'" + model.USERNAME + "',getdate(),'fy.it','0','Idle','" + akey + "','" + AssetVO.Note + "') ";
+            if (String.IsNullOrEmpty(errorMsg))
+            {
+                //生成日志表
+                string sql1 = "select next value for FGA_AssetCardID";
+                string akey = "ITA" + FGA_DAL.Base.SQLServerHelper_WMS.GetSingle(sql1).ToString();
 
-            sqllist.Add(sql2);
-            sqllist.Add(sql3);
+                string sql2 = " INSERT INTO [FGA_AssetCard_T]([AssetKey],[AssetName],[Category],[Brand],[IT_AssetNO],[FIN_AssetNO],[SerialNO] " +
+                              ",[CreateDate],[Creator],[InsuranceDate],[MacAddress],[Note],[Dr],[LastAction],[AssetConfig]) " +
+                              "VALUES('" + akey + "','" + AssetVO.AssetName + "','" + AssetVO.Category + "','" + AssetVO.Brand + "','" + AssetVO.IT_AssetNO + "' " +
+                              " ,'" + AssetVO.FIN_AssetNO + "','" + AssetVO.SerialNO + "',getdate(),'" + model.USERNAME + "','' " +
+                              " ,'" + AssetVO.MacAddress + "','" + AssetVO.Note + "','0','Asset Added','" + AssetVO.AssetConfig + "')";
 
-            if (FGA_DAL.Base.SQLServerHelper_WMS.ExecuteSqlTran(sqllist) > 0)
-                res = akey;
+                string sql3 = "insert into [FGA_ITAssetInfos_T]([Issue_Date],[Creator],[CreateDate],[PlexID],[Active],[Status],[AssetKey],[Note]) " +
+                              "values(convert(varchar(10),getdate(),120),'" + model.USERNAME + "',getdate(),'fy.it','0','Idle','" + akey + "','" + AssetVO.Note + "') ";
+
+                sqllist.Add(sql2);
+                sqllist.Add(sql3);
+
+                if (FGA_DAL.Base.SQLServerHelper_WMS.ExecuteSqlTran(sqllist) > 0)
+                    res = akey;
+                else
+                    res = "0";
+            }
             else
-                res = "0";
-
+                res = errorMsg;
 
             return res;
         }
@@ -146,5 +174,23 @@ namespace FGA_PLATFORM.business.ITAsset
             return res;
         }
 
+        public static bool ValueRepeatCheck(string col, string value)
+        {
+
+            bool vc = false;
+
+            string sql = "SELECT AssetKey FROM [WMS_BarCode_V10].[dbo].[FGA_AssetCard_T] where isnull(dr,'0') = 0 and " + col;
+
+            sql = sql + "= '" + value + " ";
+
+            string data = FGA_DAL.Base.SQLServerHelper_WMS.GetSingle(sql) == null ? "" : FGA_DAL.Base.SQLServerHelper_WMS.GetSingle(sql).ToString();
+
+            if (!String.IsNullOrEmpty(data))
+                vc = true;
+
+            return vc;
+        }
     }
 }
+
+   
