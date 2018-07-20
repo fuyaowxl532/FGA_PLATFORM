@@ -39,13 +39,28 @@ namespace FGA_PLATFORM.business.production
             if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
                 List<EDIReleaseModel> luw = new List<EDIReleaseModel>();
-                int pcycle = 0;
+                int pcycle    = 0;
+                int groupqty  = 0;
+                int sqty      = 0;
+                bool newGroup = true;
+                string mid = ""; 
+                string pdate = DateTime.Now.Year.ToString().Substring(2, 2)
+                               + (DateTime.Now.Month.ToString().Length == 1 ? "0" + DateTime.Now.Month.ToString() : DateTime.Now.Month.ToString())
+                               + (DateTime.Now.Day.ToString().Length == 1 ? "0" + DateTime.Now.Day.ToString() : DateTime.Now.Day.ToString());
 
                 for (int i = 0; i < ds.Tables[0].Rows.Count; i = i+1+pcycle) {
-
+                    
                     pcycle = 0;
+                   
                     EDIReleaseModel ERM = new EDIReleaseModel(ds.Tables[0].Rows[i]);
                     int count = ERM.Quantity;
+
+                    if (newGroup)
+                    {
+                        groupqty = 0;
+                        sqty     = ERM.Standard_Quantity;
+                        mid      = pdate + i;
+                    }
 
                     if (i + 1 < ds.Tables[0].Rows.Count)
                     {
@@ -58,27 +73,70 @@ namespace FGA_PLATFORM.business.production
                             {
                                 if (ERM.part_no == ERM_Next.part_no)
                                 {
-                                    if (count + ERM_Next.Quantity < ERM_Next.Standard_Quantity)
+                                    //首先判断是否新组合
+                                    if (newGroup)
                                     {
-                                        count = count + ERM_Next.Quantity;
-                                        pcycle++;
-                                        continue;
-                                    }
+                                        if (count + ERM_Next.Quantity < ERM_Next.Standard_Quantity)
+                                        {
+                                            count = count + ERM_Next.Quantity;
+                                            //groupqty = groupqty + ERM_Next.Quantity;
+                                            newGroup = false;
+                                            pcycle++;
+                                            continue;
+                                        }
 
-                                    if (count + ERM_Next.Quantity == ERM_Next.Standard_Quantity)
-                                    {
-                                        pcycle++;
-                                        break;
+                                        if (count + ERM_Next.Quantity == ERM_Next.Standard_Quantity)
+                                        {
+                                            pcycle++;
+                                            break;
+                                        }
+                                        if (count + ERM_Next.Quantity > ERM_Next.Standard_Quantity)
+                                        {
+                                            count = count + ERM_Next.Quantity - ERM_Next.Standard_Quantity;
+                                            //groupqty = groupqty + count + ERM_Next.Quantity - ERM_Next.Standard_Quantity;
+                                            newGroup = false;
+                                            pcycle++;
+                                        }
                                     }
-                                    if (count + ERM_Next.Quantity > ERM_Next.Standard_Quantity)
+                                    else
                                     {
-                                        count = count + ERM_Next.Quantity - ERM_Next.Standard_Quantity;
-                                        pcycle++;
+                                        if (groupqty + count > sqty)
+                                        {
+
+                                        }
+                                        else
+                                        {
+                                            if (groupqty + count == sqty)
+                                            {
+                                                ERM.Quantity = count;
+                                                ERM.MasterID = mid;
+                                                groupqty = groupqty + count;
+                                                newGroup = true;
+                                                luw.Add(ERM);
+                                                pcycle++;
+                                                break;
+                                            }
+                                            else
+                                            {
+                                                count = count + ERM_Next.Quantity;
+                                                newGroup = false;
+                                                pcycle++;
+                                                continue;
+                                            }
+                                        }
                                     }
                                 }
                                 else
                                 {
                                     ERM.Quantity = count;
+                                    ERM.MasterID = mid;
+                                    groupqty = groupqty + count;
+
+                                    if(groupqty != sqty)
+                                        newGroup = false;
+                                    else
+                                        newGroup = true;
+
                                     luw.Add(ERM);
                                     break;
                                 }
@@ -86,6 +144,14 @@ namespace FGA_PLATFORM.business.production
                             else
                             {
                                 ERM.Quantity = count;
+                                ERM.MasterID = mid;
+                                groupqty = groupqty + count;
+
+                                if (groupqty != sqty)
+                                    newGroup = false;
+                                else
+                                    newGroup = true;
+
                                 luw.Add(ERM);
                                 break;
                             }
@@ -93,6 +159,7 @@ namespace FGA_PLATFORM.business.production
                     }
                     else {
                         ERM.Quantity = count;
+                        ERM.MasterID = mid;
                         luw.Add(ERM);
                     }
                 }
@@ -105,10 +172,10 @@ namespace FGA_PLATFORM.business.production
 
                     foreach (EDIReleaseModel vo in luw) {
                         string insertsql = "insert into [FGA_EDI_862_T]([customer_name],[Customer_Address_Code],[Customer_Part_No],[part_no],[part_name]" +
-                                           ",[Ship_Date],[ORDER_NO],[Lot_No],[BATCH_NO],[Standard_Quantity],[Quantity],[JOB_SEQUENCE],[rstatus],[PartType])" +
+                                           ",[Ship_Date],[ORDER_NO],[Lot_No],[BATCH_NO],[Standard_Quantity],[Quantity],[JOB_SEQUENCE],[rstatus],[PartType],[MasterID])" +
                                            "values('Honda North America','" + vo.Customer_Address_Code+ "','" + vo.Customer_Part_No + "','" + vo.part_no + "'," +
                                            "'"+ vo.part_name + "','" + vo.Ship_Date + "','10000','" + vo.Lot_No + "','" + vo.BATCH_NO + "',"+vo.Standard_Quantity+"," +
-                                           ""+vo.Quantity+",'"+vo.JOB_SEQUENCE+"','0','Side')";
+                                           ""+vo.Quantity+",'"+vo.JOB_SEQUENCE+"','0','Side','"+vo.MasterID+"')";
 
                         sqllist.Add(insertsql);
                     }
@@ -116,26 +183,6 @@ namespace FGA_PLATFORM.business.production
                     FGA_DAL.Base.SQLServerHelper_WMS.ExecuteSqlTran(sqllist);
                 }
             }
-
-            ////获取分类信息
-            ////ShipTo、ShipDate、BatchNO、StandardQuantity、CustomerPartNO前7位
-            //string sqlH = "SELECT  distinct [serialno] customer_name,SUBSTRING([location],1,7) Customer_Part_No,[def2] Ship_Date, " +
-            //              "[def5] BATCH_NO,[def7] Standard_Quantity FROM [WMS_BarCode_V10].[dbo].[serial_test]";
-
-            //DataSet dsh = new DataSet();
-            //dsh = FGA_DAL.Base.SQLServerHelper_WMS.Query(sqlH);
-            //if (dsh != null && dsh.Tables.Count > 0 && dsh.Tables[0].Rows.Count > 0)
-            //{
-            //    Dictionary<string, bool> check = new Dictionary<string, bool>();
-            //    foreach (DataRow row in ds.Tables[0].Rows)
-            //    {
-            //        EDIReleaseModel ERM = new EDIReleaseModel(row);
-            //        string key = ERM.customer_name + ERM.Customer_Part_No + ERM.Ship_Date + ERM.BATCH_NO + ERM.Standard_Quantity;
-            //        check.Add(key, true);
-
-
-            //    }
-            //}
 
             return res;
         }

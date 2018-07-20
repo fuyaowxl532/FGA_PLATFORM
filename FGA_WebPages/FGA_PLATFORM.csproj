@@ -122,6 +122,7 @@
     <Content Include="business\production\ARGPackPartialBox.aspx" />
     <Content Include="business\production\ARG\LabelManagement\ARGOrderList.aspx" />
     <Content Include="business\production\arg_bendinghome.aspx" />
+    <Content Include="business\production\Arg_CrateLabel.aspx" />
     <Content Include="business\production\Arg_BoxLabel.aspx" />
     <Content Include="business\production\BarcodeHelper.aspx" />
     <Content Include="business\production\EDICtrlCenter.aspx" />
@@ -1654,6 +1655,13 @@
     </Compile>
     <Compile Include="business\production\arg_bendinghome.aspx.designer.cs">
       <DependentUpon>arg_bendinghome.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="business\production\Arg_CrateLabel.aspx.cs">
+      <DependentUpon>Arg_CrateLabel.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="business\production\Arg_CrateLabel.aspx.designer.cs">
+      <DependentUpon>Arg_CrateLabel.aspx</DependentUpon>
     </Compile>
     <Compile Include="business\production\Arg_BoxLabel.aspx.cs">
       <DependentUpon>Arg_BoxLabel.aspx</DependentUpon>

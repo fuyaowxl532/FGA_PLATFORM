@@ -21,6 +21,7 @@ namespace FGA_MODEL
         public string ORDER_NO  { get; set; }
         public string Lot_No { get; set; }
         public string BATCH_NO { get; set; }
+        public string MasterID { get; set; }
         public int EDI_Key { get; set; }
         public string EDI_Action { get; set; }
         public string EDI_Status { get; set; }
@@ -61,6 +62,8 @@ namespace FGA_MODEL
                 Lot_No = Convertor.ToString(row["Lot_No"]);
             if (row.Table.Columns.Contains("BATCH_NO"))
                 BATCH_NO = Convertor.ToString(row["BATCH_NO"]);
+            if (row.Table.Columns.Contains("MasterID"))
+                MasterID = Convertor.ToString(row["MasterID"]);
             if (row.Table.Columns.Contains("EDI_Action"))
                 EDI_Action = Convertor.ToString(row["EDI_Action"]);
             if (row.Table.Columns.Contains("EDI_Status"))
