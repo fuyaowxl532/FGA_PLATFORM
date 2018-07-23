@@ -21,6 +21,40 @@ namespace FGA_PLATFORM.business.production
         }
 
         /// <summary>
+        /// 导入保存数据
+        /// add by it-wxl
+        /// add date 12/20/2017
+        /// </summary>
+        /// <returns></returns>
+        [WebMethod]
+        public static string saveDataImport(string data)
+        {
+            //按用户查看EDI的数据
+            string user = (HttpContext.Current.Session[SysConst.S_LOGIN_USER] as UsersModel).USERNAME;
+            List<string> sqllist = new List<string>();
+            List<string> sqllist1 = new List<string>();
+
+            List<EDIReleaseModel> listmodel = new List<EDIReleaseModel>();
+            JavaScriptSerializer jssl = new JavaScriptSerializer();
+            listmodel = jssl.Deserialize<List<EDIReleaseModel>>(data);
+
+            foreach (EDIReleaseModel pc in listmodel)
+            {
+                if (!String.IsNullOrEmpty(""))
+                {
+                    string sql = "";
+
+                    sqllist.Add(sql);
+                }
+            }
+
+            if (FGA_DAL.Base.SQLServerHelper_WMS.ExecuteSqlTran(sqllist) > 0)
+                return "1";
+            else
+                return "0";
+        }
+
+        /// <summary>
         /// 页面初始化读取workcenter
         /// </summary>
         /// <returns></returns>

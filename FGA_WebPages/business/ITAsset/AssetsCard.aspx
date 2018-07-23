@@ -78,20 +78,20 @@
     <table class="bordered">
         <thead>
             <tr>
-                <th></th>
-                <th>*</th>
-                <th>AssetKey</th>
-                <th>AssectName</th>
-                <th>Category</th>
-                <th>Brand</th>
-                <th>SerialNO</th>
-                <th>IT_AssetNO</th>
-                <th>Fin_AssetNO</th>
-                <th>MacID</th>
-                <th>Status</th>
-                <th>InBoundDate</th>
-                <th>Creator</th>
-                <th>Operation</th>
+                <th style ="text-align:left"></th>
+                <th style ="text-align:left">*</th>
+                <th style ="text-align:left">AssetKey</th>
+                <th style ="text-align:left">AssectName</th>
+                <th style ="text-align:left">Category</th>
+                <th style ="text-align:left">Brand</th>
+                <th style ="text-align:left">SerialNO</th>
+                <th style ="text-align:left">IT_AssetNO</th>
+                <th style ="text-align:left">Fin_AssetNO</th>
+                <th style ="text-align:left">MacID</th>
+                <th style ="text-align:left">Status</th>
+                <th style ="text-align:left">InBoundDate</th>
+                <th style ="text-align:left">Creator</th>
+                <th style ="text-align:left">Operation</th>
             </tr>
         </thead>
         <tbody id="tabResult">
@@ -167,19 +167,19 @@
                         for (var i = 0; i < json.length; i++) {
 
 
-                            html += '<tr><td>' + json[i].Indexs + '</td>';
-                            html += '<td><input type="checkbox" name = "cb1" /></td>';
-                            html += '<td>' + json[i].AssetKey + '</td>';
-                            html += '<td>' + json[i].AssetName + '</td>';
-                            html += '<td>' + json[i].Category + '</td>';
-                            html += '<td>' + json[i].Brand + '</td>';
-                            html += '<td>' + json[i].SerialNO + '</td>';
-                            html += '<td>' + json[i].IT_AssetNO + '</td>';
-                            html += '<td>' + json[i].FIN_AssetNO + '</td>';
-                            html += '<td>' + json[i].MacAddress + '</td>';
-                            html += '<td>' + json[i].Status + '</td>';
-                            html += '<td>' + new Date(parseInt(json[i].InBoundDate)).toLocaleString() + '</td>';
-                            html += '<td>' + json[i].Creator + '</td>';
+                            html += '<tr><td style ="text-align:left">' + json[i].Indexs + '</td>';
+                            html += '<td style ="text-align:left"><input type="checkbox" name = "cb1" /></td>';
+                            html += '<td style ="text-align:left">' + json[i].AssetKey + '</td>';
+                            html += '<td style ="text-align:left">' + json[i].AssetName + '</td>';
+                            html += '<td style ="text-align:left">' + json[i].Category + '</td>';
+                            html += '<td style ="text-align:left">' + json[i].Brand + '</td>';
+                            html += '<td style ="text-align:left">' + json[i].SerialNO + '</td>';
+                            html += '<td style ="text-align:left">' + json[i].IT_AssetNO + '</td>';
+                            html += '<td style ="text-align:left">' + json[i].FIN_AssetNO + '</td>';
+                            html += '<td style ="text-align:left">' + json[i].MacAddress + '</td>';
+                            html += '<td style ="text-align:left">' + json[i].Status + '</td>';
+                            html += '<td style ="text-align:left">' + new Date(parseInt(json[i].InBoundDate)).toLocaleString() + '</td>';
+                            html += '<td style ="text-align:left">' + json[i].Creator + '</td>';
                             html += '<td>';
 
                             html += '<button title="View" class="btn btn-info  btn-sm" type="button" onclick="javascript:assetCommand(\'view\',\'' + json[i].AssetKey + '\');"><i class="icon-info"></i></button>&nbsp;&nbsp;';

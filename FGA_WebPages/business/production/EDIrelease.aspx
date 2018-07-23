@@ -9,30 +9,19 @@
 <meta name="keywords" content="Responsive, HTML5, admin theme, business, professional, Mouldifi, web design, CSS3"/>
 
 <title>EDI_Release</title>
-<link rel='shortcut icon' type='image/x-icon' href='images/favicon.ico' />
-<!-- /site favicon -->
-
-<!-- Entypo font stylesheet -->
-<link href="../../mouldifi-v-2.0/css/entypo.css" rel="stylesheet"/>
-<!-- /entypo font stylesheet -->
-
-<!-- Font awesome stylesheet -->
-<link href="../../mouldifi-v-2.0/css/font-awesome.min.css" rel="stylesheet"/>
-<!-- /font awesome stylesheet -->
-
+<link href="../../css/style/crumbs.css" rel="stylesheet" type="text/css" />
+<link id="pageskinstyle" href="../../css/style/style_gray.css" rel="stylesheet" />
+<link href="../../css/style/mystyle.css" rel="stylesheet" />
 <!-- Bootstrap stylesheet min version -->
+<link href="../../mouldifi-v-2.0/css/entypo.css" rel="stylesheet"/>
+<link href="../../mouldifi-v-2.0/css/font-awesome.min.css" rel="stylesheet"/>
 <link href="../../mouldifi-v-2.0/css/bootstrap.min.css" rel="stylesheet"/>
-<!-- /bootstrap stylesheet min version -->     
-
-<!-- Mouldifi core stylesheet -->
 <link href="../../mouldifi-v-2.0/css/mouldifi-core.css" rel="stylesheet"/>
+<link href="../../mouldifi-v-2.0/css/mouldifi-forms.css" rel="stylesheet">
+<link href="../../css/style.css" rel="stylesheet" />
 <!-- /mouldifi core stylesheet -->
-<link href="../../mouldifi-v-2.0/css/plugins/select2/select2.css" rel="stylesheet"/>
 <link href="../../mouldifi-v-2.0/css/mouldifi-forms.css" rel="stylesheet"/>
-<link href="../../mouldifi-v-2.0/css/plugins/datepicker/bootstrap-datepicker.css" rel="stylesheet"/>
 <script src="../../mouldifi-v-2.0/js/jquery.min.js"></script>
-<script src="../../mouldifi-v-2.0/js/tableExport.js"></script>
-<script src="../../mouldifi-v-2.0/js/jquery.base64.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>   
 
 <style type="text/css">
@@ -45,69 +34,56 @@ th
 
 </head>
 
-<body  style="overflow: hidden;">
+<body  style="overflow: hidden;background-color:white">
+     <div class="head"><i class="icon-tools"></i>&nbsp;&nbsp;Production=> SmallLot=> EDI Release</div>
 
-<div class="page-container">
- 
-    	<div class="row filter-wrapper visible-box" id="filter-box">
-		<div class="col-lg-8">
+    	<div class="row" style="margin-top:2px">
+		 <div class="col-lg-8">
+			 <div class="form-inline">
+							  <div class="form-group">
+								<input type="text" class="form-control"  placeholder="Ship To" id="_orderno">
+							  </div>
+							  <div class="form-group">
+								<input type="text" class="form-control"  placeholder="Part NO" id="_partno">
+							  </div>
+							  <button type="submit" class="btn btn-primary" onclick="SearchData()">Search</button>
+                              <button type="submit" class="btn btn-primary" onclick=" releaseData()">RELEASE</button>
+			</div>
 			
-			<form class="form-inline">
-				<div class="form-group">
-					<label class="form-label">Customer Code</label>
-					<input class="form-control" id = "_orderno" type="text" placeholder="input" style="color: black; height:30px;width:150px;" />	
-				</div>
-				<div class="form-group">
-					<label class="form-label">Ship To</label>
-					<input class="form-control" id = "_partno" type="text" placeholder="input" style="color:black;height:30px;width:150px;"/>
-				</div>
-				<div class="form-group">
-					<label class="form-label">ShipDate_To</label>
-					<input class="form-control" id = "_materialno" type="text" placeholder="input" style="color:black;height:30px;width:150px;"/>
-				</div>
-
-				<div class="form-group" style="position:fixed;top:22px"  >
-				  <input type="button" class="btn btn-primary btn-sm" name="search" style="background:white;color:#00b8ce" value="Search" onclick="SearchData()" />
-                </div>
-
-                <div class="form-group" style="position:fixed;top:55px" >
-                  <input type="button" class="btn btn-primary btn-sm" name="export" style="background:white;color:#00b8ce" value="RELEASE" onclick=" releaseData()" />
-			    </div>
-
-			</form>
-       </div>
-	</div>
+        </div>
+	    </div>
 	<!-- /table -->
 	
-		<div style="width:100%;position:absolute;height:80%;overflow:auto;margin-left: 0px;float:left;margin-top:10px;">
+		<div style="width:100%;position:absolute;height:85%;overflow:auto;margin-left: 0px;float:left;margin-top:5px;">
 			
 							<div class="table-responsive">
-								<table id = "editable" class="table table-striped table-bordered table-hover dataTables-example" >
+								<table id = "editable" class="table table-bordered" >
 									<thead>
 										<tr>
-                                     	<th>#</th>
-                                        <th>ROW</th>
-			                            <th>CstName</th>
-			                            <th>CstAddress</th>
-			                            <th>CstPartNo</th>
-			                            <th>PartNo</th>
-                                        <th>DueDate</th>
-			                            <th>ShipDate</th>
-			                            <th>Quantity</th>
-                                        <th>StandardQty</th>
-			                            <th>LotNo</th>
-                                        <th>BatchNo</th>
-                                        <th>JobSequence </th>
-                                        <th>CstPartRev</th>
-                                        <th>OrderNo</th>
-                                        <th>RowID</th>
+                                     	<th style ="background-color:black;color:white;text-align:left">#</th>
+                                        <th style ="background-color:black;color:white;text-align:left">ROW</th>
+                                        <th style ="background-color:black;color:white;text-align:left">Group</th>
+			                            <th style ="background-color:black;color:white;text-align:left">Customer</th>
+			                            <th style ="background-color:black;color:white;text-align:left">Ship To</th>
+			                            <th style ="background-color:black;color:white;text-align:left">CstPartNo</th>
+			                            <th style ="background-color:black;color:white;text-align:left">PartNo</th>
+                                        <th style ="background-color:black;color:white;text-align:left">DueDate</th>
+			                            <th style ="background-color:black;color:white;text-align:left">ShipDate</th>
+			                            <th style ="background-color:black;color:white;text-align:left">Quantity</th>
+                                        <th style ="background-color:black;color:white;text-align:left">StandardQty</th>
+			                            <th style ="background-color:black;color:white;text-align:left">LotNo</th>
+                                        <th style ="background-color:black;color:white;text-align:left">BatchNo</th>
+                                        <th style ="background-color:black;color:white;text-align:left">JobSequence </th>
+                                        <th style ="background-color:black;color:white;text-align:left">CstPartRev</th>
+                                        <th style ="background-color:black;color:white;text-align:left">OrderNo</th>
+                                        <th style ="background-color:black;color:white;text-align:left">RowID</th>
+                                       
 										</tr>
 									</thead>
-									<tbody id ="tby"></tbody>
+									<tbody id ="tby" style="background-color:white"></tbody>
 								</table>
 							</div>
-						</div>				
-</div>
+						</div>		
 
 <script src="../../mouldifi-v-2.0/js/plugins/jasny/jasny-bootstrap.min.js"></script>
 <!-- Select2-->
@@ -134,10 +110,24 @@ th
                 if (data.d != "") {
                    var json = $.parseJSON(data.d);
                    var slct = "";
+
                    for (var i = 0; i < json.length; i++) {
                        slct = slct + '<tr><td><input type="checkbox" name = "cb1" /></td>' +
-                           '<td> ' + (i + 1) + '</td> ' +
-                           '<td> ' + json[i].customer_name + '</td> ' +
+                           '<td> ' + (i + 1) + '</td> ';
+
+                           if (i == 0) {
+                               slct = slct + '<td style="background-color:yellow;"> ' + json[i].MasterID + '</td>';
+                           }
+                           else {
+                               if (json[i].MasterID != json[i - 1].MasterID) {
+                                   slct = slct + '<td style="background-color:yellow;"> ' + json[i].MasterID + '</td>';
+                               }
+                               else {
+                                    slct = slct + '<td> ' + json[i].MasterID + '</td>';
+                               }
+                           }
+
+                       slct = slct + '<td> ' + json[i].customer_name + '</td> ' +
                            '<td> ' + json[i].Customer_Address_Code + '</td> ' +
                            '<td> ' + json[i].Customer_Part_No + '</td> ' +
                            '<td> ' + json[i].part_no + '</td> ' +
@@ -151,7 +141,8 @@ th
                            '<td> ' + json[i].Customer_Part_Revision + '</td> ' +
                            '<td> ' + json[i].ORDER_NO + '</td> ' +
                            '<td> ' + json[i].EDI_RowID + '</td> ' +
-                       '</tr>';
+                           '</tr>';
+
                    }
 
                    $("#tby").html(slct);
@@ -178,25 +169,44 @@ th
                     var tr = checkedRow.parentNode.parentNode;
                     var tds = tr.cells;
                     //循环列
-                    row.customer_name = tds[2].innerHTML;
-                    row.Customer_Address_Code = tds[3].innerHTML;
-                    row.Customer_Part_No = tds[4].innerHTML;
-                    row.Part_No = tds[5].innerHTML;
-                    row.Due_Date = tds[6].innerHTML;
-                    row.Ship_Date = tds[7].innerHTML;
-                    row.Quantity = parseInt(tds[8].innerHTML);
-                    row.Standard_Quantity = parseInt(tds[9].innerHTML);
-                    row.Lot_No = tds[10].innerHTML;
-                    row.Batch_No = tds[11].innerHTML;
-                    row.Job_Sequence = parseInt(tds[12].innerHTML);
-                    row.Customer_Part_Revision = tds[13].innerHTML;
-                    row.Order_No = tds[14].innerHTML;
-                    row.EDI_RowID = tds[15].innerHTML;
+                    row.MasterID = tds[2].innerHTML;
+                    row.customer_name = tds[3].innerHTML;
+                    row.Customer_Address_Code = tds[4].innerHTML;
+                    row.Customer_Part_No = tds[5].innerHTML;
+                    row.Part_No = tds[6].innerHTML;
+                    row.Due_Date = tds[7].innerHTML;
+                    row.Ship_Date = tds[8].innerHTML;
+                    row.Quantity = parseInt(tds[9].innerHTML);
+                    row.Standard_Quantity = parseInt(tds[10].innerHTML);
+                    row.Lot_No = tds[11].innerHTML;
+                    row.Batch_No = tds[12].innerHTML;
+                    row.Job_Sequence = parseInt(tds[13].innerHTML);
+                    row.Customer_Part_Revision = tds[14].innerHTML;
+                    row.Order_No = tds[15].innerHTML;
+                    row.EDI_RowID = tds[16].innerHTML;
 
                     data.push(row);
                 }
                
             }
+        }
+
+        //校验Data合法性
+        var sqty  = data[0].Standard_Quantity;
+        var count = 0;
+        var Mid   = data[0].MasterID;
+
+        for (var i = 0; i < data.length; i++) {
+            count = count + data[i].Quantity;
+            if (Mid != data[i].MasterID) {
+                alert("The Group must be the same!"+"Group NO: "+Mid);
+                return;
+            }
+        }
+
+        if (count != sqty) {
+            alert("Total quantity and Standard Quantity must be equal!"+'\n'+"Selected  Quantity is " + count +"."+'\n'+"Standard Quantity is "+sqty+".");
+            return;
         }
 
         var jsondata = JSON.stringify(data);

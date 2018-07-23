@@ -12,6 +12,8 @@ namespace FGA_MODEL
     {
         public int RecordCnt { get; set; }
         public int Indexs { get; set; }
+        public int IsCheck { get; set; }
+        public DateTime CheckDate { get; set; }
         public string First_Name { get; set; }
         public string Last_Name { get; set; }
         public string AssetName { get; set; }
@@ -57,6 +59,8 @@ namespace FGA_MODEL
                 RecordCnt = Convertor.ToInt32(row["RecordCnt"]);
             if (row.Table.Columns.Contains("Indexs"))
                 Indexs = Convertor.ToInt32(row["Indexs"]);
+            if (row.Table.Columns.Contains("IsCheck"))
+                IsCheck = Convertor.ToInt32(row["IsCheck"]);
             if (row.Table.Columns.Contains("First_Name"))
                 First_Name = Convertor.ToString(row["First_Name"]);
             if (row.Table.Columns.Contains("Last_Name"))
@@ -113,6 +117,8 @@ namespace FGA_MODEL
                 LastEditUser = Convertor.ToString(row["LastEditUser"]);
             if (row.Table.Columns.Contains("AssetKey"))
                 AssetKey = Convertor.ToString(row["AssetKey"]);
+            if (row.Table.Columns.Contains("CheckDate"))
+                CheckDate = Convertor.ToDateTime(row["CheckDate"]);
         }
     }
 

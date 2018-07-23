@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace FGA_PLATFORM.business.ITAsset
 {
-    public partial class AssetTurnOverHistory : System.Web.UI.Page
+    public partial class AssetPolicy : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

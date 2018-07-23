@@ -103,8 +103,8 @@ namespace FGA_PLATFORM.business.ITAsset
                               " ,'" + AssetVO.FIN_AssetNO + "','" + AssetVO.SerialNO + "',getdate(),'" + model.USERNAME + "','' " +
                               " ,'" + AssetVO.MacAddress + "','" + AssetVO.Note + "','0','Asset Added','" + AssetVO.AssetConfig + "')";
 
-                string sql3 = "insert into [FGA_ITAssetInfos_T]([Issue_Date],[Creator],[CreateDate],[PlexID],[Active],[Status],[AssetKey],[Note]) " +
-                              "values(convert(varchar(10),getdate(),120),'" + model.USERNAME + "',getdate(),'fy.it','0','Idle','" + akey + "','" + AssetVO.Note + "') ";
+                string sql3 = "insert into [FGA_ITAssetInfos_T]([Issue_Date],[Creator],[CreateDate],[PlexID],[Active],[Status],[AssetKey],[Note],[IsCheck]) " +
+                              "values(convert(varchar(10),getdate(),120),'" + model.USERNAME + "',getdate(),'fy.it','0','Idle','" + akey + "','" + AssetVO.Note + "',0) ";
 
                 sqllist.Add(sql2);
                 sqllist.Add(sql3);

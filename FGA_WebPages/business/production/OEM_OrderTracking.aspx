@@ -337,11 +337,6 @@ td{
             SearchData();
         });
 
-        //初始化销售人员
-        //if (role == 'Sales') {
-        //     $("#pcreator").find("option:contains("+puser+")").attr("selected",true);
-        //}
-
         //加载自动检索
         $('#btnSearch').click();
 
@@ -439,6 +434,7 @@ td{
 
         $("#_import").val("");
     }
+
     function fixdata(data) {
         var o = "", l = 0, w = 10240;
         for (; l < data.byteLength / w; ++l) o += String.fromCharCode.apply(null, new Uint8Array(data.slice(l * w, l * w + w)));

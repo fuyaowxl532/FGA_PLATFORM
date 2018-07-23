@@ -7,9 +7,9 @@
 // </自动生成>
 //------------------------------------------------------------------------------
 
-namespace FGA_PLATFORM.business.production {
+namespace FGA_PLATFORM.business.ITAsset {
     
     
-    public partial class OEM_OrderTracking {
+    public partial class AssetPolicy {
     }
 }

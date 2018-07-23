@@ -23,6 +23,22 @@ namespace FGA_PLATFORM.business.ITAsset
 
         }
 
+        //获取当前用户名及部门
+        [WebMethod]
+        public static string getUserInfo() {
+            string res = String.Empty;
+            UsersModel model = (UsersModel)HttpContext.Current.Session[SysConst.S_LOGIN_USER];
+            String dept = "Non";
+
+            String sql = "SELECT PlexID,Department FROM [WMS_BarCode_V10].[dbo].[FGA_PlexUser_T] where PlexID ='"+ model.USERNAME+ "'";
+            DataSet ds = new DataSet();
+            ds = FGA_DAL.Base.SQLServerHelper_WMS.Query(sql);
+            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+                dept = ds.Tables[0].Rows[0][1] == null ? "Non" : ds.Tables[0].Rows[0][1].ToString();
+
+            return "UName@"+ model.USERNAME +"Dept&"+dept;
+        }
+
         /// <summary>
         /// 界面查询
         /// add by it-wxl 06/14/2018
@@ -62,6 +78,17 @@ namespace FGA_PLATFORM.business.ITAsset
 
             }
             return res;
+        }
+
+        //确认资产
+        [WebMethod]
+        public static string checkassetInfo(String assetKey)
+        {
+            String sql = "update [FGA_ITAssetInfos_T] set IsCheck = 1,CheckDate = getdate() where AssetKey = '"+ assetKey + "'  ";
+            int count  = FGA_DAL.Base.SQLServerHelper_WMS.ExecuteSql(sql);
+
+
+            return count.ToString();
         }
     }
 }

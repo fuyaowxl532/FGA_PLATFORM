@@ -111,7 +111,7 @@
     <Content Include="business\ITAsset\AssetRegister.aspx" />
     <Content Include="business\ITAsset\AssetsCard.aspx" />
     <Content Include="business\ITAsset\AssetTransfer.aspx" />
-    <Content Include="business\ITAsset\AssetTurnOverHistory.aspx" />
+    <Content Include="business\ITAsset\AssetPolicy.aspx" />
     <Content Include="business\ITAsset\MainScreenCard.aspx" />
     <Content Include="business\ITAsset\MainScreen.aspx" />
     <Content Include="business\ITAsset\MyITAssets.aspx" />
@@ -1579,12 +1579,12 @@
     <Compile Include="business\ITAsset\AssetTransfer.aspx.designer.cs">
       <DependentUpon>AssetTransfer.aspx</DependentUpon>
     </Compile>
-    <Compile Include="business\ITAsset\AssetTurnOverHistory.aspx.cs">
-      <DependentUpon>AssetTurnOverHistory.aspx</DependentUpon>
+    <Compile Include="business\ITAsset\AssetPolicy.aspx.cs">
+      <DependentUpon>AssetPolicy.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="business\ITAsset\AssetTurnOverHistory.aspx.designer.cs">
-      <DependentUpon>AssetTurnOverHistory.aspx</DependentUpon>
+    <Compile Include="business\ITAsset\AssetPolicy.aspx.designer.cs">
+      <DependentUpon>AssetPolicy.aspx</DependentUpon>
     </Compile>
     <Compile Include="business\ITAsset\MainScreenCard.aspx.cs">
       <DependentUpon>MainScreenCard.aspx</DependentUpon>

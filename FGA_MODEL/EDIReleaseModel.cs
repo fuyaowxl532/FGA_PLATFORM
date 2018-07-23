@@ -30,8 +30,7 @@ namespace FGA_MODEL
         public int Quantity { get; set; }
         public int JOB_SEQUENCE { get; set; }
         public int EDI_RowID { get; set; }
-
-         /// <summary>
+        /// <summary>
         /// 默认构造函数
         /// </summary>
         public EDIReleaseModel()
