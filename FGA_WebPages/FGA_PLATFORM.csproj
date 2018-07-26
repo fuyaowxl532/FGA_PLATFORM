@@ -98,6 +98,7 @@
     <Content Include="business\financial\CycleInventoryByLocation.aspx" />
     <Content Include="business\financial\SelectLocation.aspx" />
     <Content Include="business\financial\statsByscanner.aspx" />
+    <Content Include="business\inventory\FGA_WIPReceive.aspx" />
     <Content Include="business\inventory\ContainerInfos.aspx" />
     <Content Include="business\inventory\ContainerTranscation.aspx" />
     <Content Include="business\inventory\InterPlant_Transfer.aspx" />
@@ -1487,6 +1488,13 @@
     </Compile>
     <Compile Include="business\financial\statsByscanner.aspx.designer.cs">
       <DependentUpon>statsByscanner.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="business\inventory\FGA_WIPReceive.aspx.cs">
+      <DependentUpon>FGA_WIPReceive.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="business\inventory\FGA_WIPReceive.aspx.designer.cs">
+      <DependentUpon>FGA_WIPReceive.aspx</DependentUpon>
     </Compile>
     <Compile Include="business\inventory\ContainerInfos.aspx.cs">
       <DependentUpon>ContainerInfos.aspx</DependentUpon>

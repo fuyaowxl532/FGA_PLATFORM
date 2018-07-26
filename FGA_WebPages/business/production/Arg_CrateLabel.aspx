@@ -40,18 +40,15 @@
 <style type="text/css">
 
 #left{
-  width: 45%;
-  height:900px;
+  width: 50%;
+  height:85%;
   float: left;
 }
 
 #right{
-   margin-left:46%;
-   width: 55%;
-}
-#viewLabel{
-   margin-left:46%;
-   width: 55%;
+   margin-left:51%;
+   height:40%;
+   width: 50%;
 }
 
 td{  
@@ -68,53 +65,44 @@ td{
      <div class="head"><i class="icon-tools"></i>&nbsp;&nbsp;Production=> ARGPackagingMag=> ARG_CrateLabel</div>
 
     <div id="left">
-        <!--Filter-->
-        <div style="background-color:gold">
-        <div class="filter-wrapper" style="float:left; height:75px; width:70%;margin-right:30px;" id="filter-box">
-                <div class="form-inline" style="margin-top: -10px">
-                    <div class="form-group">
-							<label class="form-label">PartNO</label>
-							<input id = "partno" type="text" placeholder="input"  style="color: black; height:30px;width:150px; "/>	
-						</div>
-					
-                        <div class="form-group" style="margin-left:-35px;">
-					        <label class="form-label">CrateStatus</label>
-					        <select class="select2" id ="status" style="width:120px">
-						        <option value="All">All</option>
-						        <option value="Finish">Finish</option>
-                                <option value="Partial">Partial</option>
-					        </select>
-				        </div>
-                </div>
-        </div>
 
-        <div style="background-color:#00BACE; margin-left:71%; height:75px; width:29%;">
-            <input type ="button"  class="btn btn-primary btn-sm" style="background:white;color:#00b8ce; width:30%;height:50%;margin-left:5%" onclick="queryData()" name="Query" value = "Query"   /> 
-			<input type ="button"  class="btn btn-primary btn-sm" style="background:white;color:#00b8ce; width:30%;height:50%;margin-left:5%" onclick="onPrint()"   name="Print"  value = "Print" />
-            <input type ="button"  class="btn btn-primary btn-sm" style="background:white;color:#00b8ce; width:30%;height:30%;margin-top:5%;margin-left:5%" onclick="onView()"    name="View"  value = "View" />
-            <input type ="button"  class="btn btn-primary btn-sm" style="background:white;color:#00b8ce; width:30%;height:30%;margin-top:5%;margin-left:5%" onclick="onCancel()"  name="Cancel"  value = "Cancel" />
-	    </div>
+        <div style="background-color:#00BACE; height:50px">
+          <div class="form-inline" style="padding-top:10px">
+			<div class="form-group" style="float:left;">
+			    <input type="text" class="form-control"  style="width:200px" placeholder="Part NO" id="partno"/>
+			</div>
+            <div style="margin-left:30%">
+                <label><input type="checkbox" id ="cbdii" checked="checked"/> Hide GREEN Orders</label>
+                &nbsp;&nbsp;&nbsp;
+			    <button type="submit" class="btn btn-blue" onclick="queryData()">Query</button>
+                <button type="submit" class="btn btn-blue" onclick="printLabel()">Print</button>
+                <%--<button type="submit" class="btn btn-blue" onclick="viewDetails()">View</button>--%>
+                <button type="submit" class="btn btn-red" onclick="cancelLabel()">Cancel</button>
+            </div>
+		 </div>
         </div>
-        <!--交接表头-->
-        <div  style="width:100%; height:750px; margin-top:5px;overflow-x:scroll;overflow-y:scroll;">
+        
+        <div  style="width:100%; height:100%; margin-top:5px;overflow-x:scroll;overflow-y:scroll;">
             <table id ="editable1"  class="table table-condensed">
 	            <thead>
 		            <tr>
                          <th style ="background-color:floralwhite;color:black;text-align:left">*</th>
-                                <th style ="background-color:floralwhite;color:black;text-align:left">RN</th>
-                                <th style ="background-color:floralwhite;color:black;text-align:left">PartNO</th>
-						        <th style ="background-color:floralwhite;color:black;text-align:left">BoxType</th>
-                                <th style ="background-color:floralwhite;color:black;text-align:left">O_Qty</th>
-						        <th style ="background-color:floralwhite;color:black;text-align:left">F_Qty</th>
-						        <th style ="background-color:floralwhite;color:black;text-align:left">Div</th>
-                                <th style ="background-color:floralwhite;color:black;text-align:left">ShipDate</th>
-                                <th style ="background-color:floralwhite;color:black;text-align:left">Loc</th>
-                                <th style ="background-color:floralwhite;color:black;text-align:left">Status</th>
-                                <th style ="background-color:floralwhite;color:black;text-align:left">LabelNO</th>
-                                <th style ="background-color:floralwhite;color:black;text-align:left">BarcodeNO</th>
-                                <th style ="background-color:floralwhite;color:black;text-align:left">Creator</th>
-                                <th style ="background-color:floralwhite;color:black;text-align:left">CreateDate</th>
-                                <th style ="background-color:floralwhite;color:black;text-align:left">ItemID</th>
+                         <th style ="background-color:floralwhite;color:black;text-align:left">RN</th>
+                         <th style ="background-color:floralwhite;color:black;text-align:left">PartNO</th>
+						 <th style ="background-color:floralwhite;color:black;text-align:left">BoxType</th>
+                         <th style ="background-color:floralwhite;color:black;text-align:left">O_Qty</th>
+						 <th style ="background-color:floralwhite;color:black;text-align:left">F_Qty</th>
+						 <th style ="background-color:floralwhite;color:black;text-align:left">Div</th>
+                         <th style ="background-color:floralwhite;color:black;text-align:left">ShipDate</th>
+                         <th style ="background-color:floralwhite;color:black;text-align:left">Loc</th>
+                         <th style ="background-color:floralwhite;color:black;text-align:left">Status</th>
+                         <th style ="background-color:floralwhite;color:black;text-align:left">LabelNO</th>
+                         <th style ="background-color:floralwhite;color:black;text-align:left">BarcodeNO</th>
+                         <th style ="background-color:floralwhite;color:black;text-align:left">Creator</th>
+                         <th style ="background-color:floralwhite;color:black;text-align:left">CreateDate</th>
+                         <th style ="background-color:floralwhite;color:black;text-align:left">ItemID</th>
+                         <th style ="background-color:floralwhite;color:black;text-align:left">InvoiceNO</th>
+                         <th style ="background-color:floralwhite;color:black;text-align:left">BoxNO</th>
 		            </tr>
 	            </thead>
 	            <tbody id ="tby" style="background-color:white; font-family:Arial, Helvetica, sans-serif""></tbody>
@@ -125,16 +113,16 @@ td{
     </div>
 	    
     <div id="right">
-        <div class="filter-wrapper" style="background: #00BACE;height:75px;">
-            <h1 style="font-weight:bold;">Partial Crate:</h1>
+        <div class="filter-wrapper" style="background: #00BACE;height:50px;">
+            <h1 style="font-weight:bold;margin-top:-10px">Partial Crate:</h1>
         </div>
-         <!--交接详细记录-->
-	    <div  style="height:400px; margin-top:5px;overflow-y:scroll;overflow-x:hidden">
+	    <div  style="margin-top:5px;overflow-y:scroll;overflow-x:hidden">
 			<table id ="editable2" class="table table-condensed">
 				<thead >
 					<tr>	
 						<th style ="background-color:black;color:floralwhite;text-align:left">BarcodeNO</th>
 						<th style ="background-color:black;color:floralwhite;text-align:left">PartNO</th>
+                        <th style ="background-color:black;color:floralwhite;text-align:left">CreateDate</th>
 						<th style ="background-color:black;color:floralwhite;text-align:left">BoxType</th>
                         <th style ="background-color:black;color:floralwhite;text-align:left">Loc</th>
                         <th style ="background-color:black;color:floralwhite;text-align:left">BoxStatus</th>
@@ -142,23 +130,22 @@ td{
                         <th style ="background-color:black;color:floralwhite;text-align:left">F_Qty</th>
                         <th style ="background-color:black;color:floralwhite;text-align:left">Div</th>
                         <th style ="background-color:black;color:floralwhite;text-align:left">Creator</th>
-                        <th style ="background-color:black;color:floralwhite;text-align:left">CreateDate</th>
+                       
 					</tr>
 				</thead>
 				<tbody id ="tby2"></tbody>
 			</table>
 	    </div>	
-    </div>
 
-    <div id="viewLabel">
-        <div class="row">
+        <%--<div id="viewLabel" style="height:40%;">
+        <div class="row" style="margin-top:20%">
 				<div class="col-lg-12">
 					<div class="panel panel-default">
-						<div class="panel-heading no-border clearfix"> 
-							<h2 class="panel-title">Crate Label View</h2>
+						<div class="panel-heading no-border clearfix" > 
+							<h2 class="panel-title" style="padding-left:2%">Crate Label View</h2>
 						</div>
 						<div class="panel-body">
-                            <div>
+                            <div style="padding-left:2%">
                                 <table  border="1" style="white-space:nowrap;table-layout:fixed" id ="boxLabel" >
                                     <tr>
                                             <td style="font-weight:bold;"><p></p>Order Number<p></p></td>
@@ -185,11 +172,11 @@ td{
                                         </tr>
                                         <tr>
                                             <td align="center"><p  id ="partid" style="font-size:larger;font-weight:bold">*</p></td>
-                                            <td id="b01"align="center" ></td>
+                                            <td id="b01" align="center" ></td>
                                             <td id="b02" align="center"></td>
-                                            <td id="b03"align="center"></td>
-                                            <td id="b04"align="center" ></td>
-                                            <td id="b05"align="center"></td>
+                                            <td id="b03" align="center"></td>
+                                            <td id="b04" align="center" ></td>
+                                            <td id="b05" align="center"></td>
                                             <td id="b06" align="center"></td>
                                             <td id="b07" align="center"></td>
                                         </tr>
@@ -240,8 +227,105 @@ td{
 						</div>
 					</div>
 				</div>
-		</div>
+		</div>
+
+    </div>--%>
+
     </div>
+
+    <%--<div id="viewLabel" style="height:40%;margin-left:46%;width: 55%;">
+        <div class="row" style="margin-top:10%">
+				<div class="col-lg-12">
+					<div class="panel panel-default">
+						<div class="panel-heading no-border clearfix"> 
+							<h2 class="panel-title">Crate Label View</h2>
+						</div>
+						<div class="panel-body">
+                            <div>
+                                <table  border="1" style="white-space:nowrap;table-layout:fixed" id ="boxLabel" >
+                                    <tr>
+                                            <td style="font-weight:bold;"><p></p>Order Number<p></p></td>
+                                            <td style="font-weight:bold;"><p></p>Customer<p></p></td>
+                                            <td style="font-weight:bold;"><p></p>Delivery Date<p></p></td>
+                                            <td style="font-weight:bold;"><p></p>Packing Method<p></p></td>
+                                            <td colspan="4" rowspan="2" id ="Bbid">BarcodeNO</td>
+                                        </tr>
+                                        <tr>
+                                            <td align="center"><p id="orderid" style="font-size:larger; font-weight:bold">*</p></td>
+                                            <td align="center"><p id="custid" style="font-size:larger;flex-align:center">*</p></td>
+                                            <td align="center"><p id="shipid" style="font-size:larger;flex-align:center">*</p></td>
+                                            <td align="center"><p id="boxtypid" style="font-size:larger;flex-align:center">*</p></td>                     
+                                        </tr>
+                                        <tr>
+                                            <td style="font-weight:bold; "><p></p>FYG PART No.<p></p></td>   
+                                            <td style="font-weight:bold;" ><p></p>Base<p></p></td>
+                                            <td style="font-weight:bold;" ><p></p>Pallet QTY<p></p></td>
+                                            <td style="font-weight:bold;" ><p></p>Load QTY<p></p></td>
+                                            <td style="font-weight:bold;" ><p></p>Accessory Quantity<p></p></td>
+                                            <td style="font-weight:bold;" ><p></p>Corner Tape<p></p></td> 
+                                            <td style="font-weight:bold;" ><p></p>Height<p></p></td>
+                                            <td style="font-weight:bold;" ><p></p>Cusion Block<p></p></td>
+                                        </tr>
+                                        <tr>
+                                            <td align="center"><p  id ="partid" style="font-size:larger;font-weight:bold">*</p></td>
+                                            <td id="b01" align="center" ></td>
+                                            <td id="b02" align="center"></td>
+                                            <td id="b03" align="center"></td>
+                                            <td id="b04" align="center" ></td>
+                                            <td id="b05" align="center"></td>
+                                            <td id="b06" align="center"></td>
+                                            <td id="b07" align="center"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Component Part</th>
+                                            <th>Accessory Part Type</th>
+                                            <th>Accessory Part</th>
+                                            <th>Accessory Part Type</th>
+                                            <th colspan="2" ></th>
+                                            <td >C</td>
+                                            <td id="c01" ></td>
+                                        </tr>
+                                        <tr>
+                                            <td id ="f01" ></td>
+                                            <td id ="t01" ></td>
+                                            <td id ="f05" ></td>
+                                            <td id ="t05" ></td>
+                                            <td colspan="2" rowspan="4" ></td>
+                                            <td>Antenna</td>
+                                            <td id="c02"></td>
+                                        </tr>
+                                        <tr>
+                                            <td id ="f02"></td>
+                                            <td id ="t02" ></td>
+                                            <td id ="f06"></td>
+                                            <td id ="t06"></td>
+                                            <td>Rain sensor</td>
+                                            <td id="c03" ></td>
+                                        </tr>
+                                        <tr>
+                                            <td id ="f03" ></td>
+                                            <td id ="t03" ></td>
+                                            <td id ="f07"></td>
+                                            <td id ="t07" ></td>
+                                            <td>Lace</td>
+                                            <td id="c04" ></td>
+                                        </tr>
+                                        <tr>
+                                            <td id ="f04" ></td>
+                                            <td id ="t04"></td>
+                                            <td id ="f08" ></td>
+                                            <td id ="t08" ></td>
+                                            <td>3M Lace</td>
+                                            <td id="c05" ></td>
+                                        </tr>
+                                </table>
+                            </div>
+						</div>
+					</div>
+				</div>
+		</div>
+
+    </div>--%>
 
 <script src="../../mouldifi-v-2.0/js/plugins/jasny/jasny-bootstrap.min.js"></script>
 <!-- Select2-->
@@ -249,6 +333,13 @@ td{
 <script src="../../javascript/JSPager.js"></script>
 
 <script type="text/javascript">
+
+    //Enter Query Information
+    $(document).keydown(function (event) {
+        if (event.keyCode == 13) {
+            queryData();
+        }
+    });
 
     $(document).ready(function () {
         $(".select2").select2();
@@ -258,14 +349,23 @@ td{
     //add by it-wxl 05/04/2017
     function queryData() {
         $("#editable1 tr:not(:first)").remove();
+
+        var cbdii = "0";
+        if ($('#cbdii').is(':checked')) {
+            cbdii = "1";
+        }
+        else {
+            cbdii = "0";
+        }
         
         var _pn  = $("#partno").val();        //本厂编号
         var _sts = $("#status").val();        //状态
+        var pids ="";
 
         $.ajax({
             type: "Post",
             url: "Arg_CrateLabel.aspx/SearchData",
-            data: "{pncode:'" + _pn + "'}",
+            data: "{pncode:'" + _pn + "',isHide:'" + cbdii + "'}",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             async: true,
@@ -294,10 +394,13 @@ td{
                             var table = document.getElementById("editable1");
                             var nextIndex = table.rows.length;
                             var nextRow = table.insertRow(nextIndex);
-                            if (json[i].OrderQuantity - json[i].Quantity ==0)
+                            if (json[i].CrateStatus == "Finish")
                                 nextRow.bgColor = "yellowgreen";
-                            else
+                            else {
                                 nextRow.bgColor = "Yellow";
+                                pids = pids + json[i].BoxLabel;
+                            }
+                               
 
                             nextRow.insertCell(0).innerHTML = '<input type="checkbox" name = "cb1" />';
                             nextRow.insertCell(1).innerHTML = nextIndex;
@@ -314,6 +417,9 @@ td{
                             nextRow.insertCell(12).innerHTML = json[i].BLCreator;
                             nextRow.insertCell(13).innerHTML = cdate;
                             nextRow.insertCell(14).innerHTML = json[i].ItemID;
+                            nextRow.insertCell(15).innerHTML = json[i].InvoiceNO;
+                            nextRow.insertCell(16).innerHTML = json[i].BoxNO;
+
                         }
                         else
                         {
@@ -335,19 +441,19 @@ td{
                             nextRow.insertCell(12).innerHTML = json[i].BLCreator;
                             nextRow.insertCell(13).innerHTML = cdate;
                             nextRow.insertCell(14).innerHTML = json[i].ItemID;
+                            nextRow.insertCell(15).innerHTML = json[i].InvoiceNO;
+                            nextRow.insertCell(16).innerHTML = json[i].BoxNO;
                         }
                     }
-
+                     queryPartialDate(pids);
                 }
             }
         });
-
-        queryPartialDate();
     }
 
     //查询半箱
 	//add by it-wxl 05/04/2017
-	function queryPartialDate() {
+	function queryPartialDate(BarcodeID) {
 	    $("#editable2 tr:not(:first)").remove();
         
 	    var _pn    = $("#partno").val();        //本厂编号
@@ -355,7 +461,7 @@ td{
 	    $.ajax({
 	        type: "Post",
 	        url: "Arg_CrateLabel.aspx/SearchPartialData",
-	        data: "{pncode:'" + _pn + "'}",
+	        data: "{BarcodeID:'" + BarcodeID + "'}",
 	        contentType: "application/json; charset=utf-8",
 	        dataType: "json",
 	        async: true,
@@ -368,6 +474,7 @@ td{
 	                    slct = slct + '<tr>'+
                                         '<td> ' +json[i].BarcodeNO+ '</td> ' +
                                         '<td> ' + json[i].PartNO + '</td> ' +
+                                        '<td>' + new Date(parseInt(json[i].Createtime)).toLocaleString() + '</td> ' +
                                         '<td> ' + json[i].BoxType + '</td> ' +
                                         '<td> ' + json[i].Location + '</td> ' +
                                         '<td> ' + json[i].BoxStatus + '</td> ' +
@@ -375,7 +482,7 @@ td{
                                         '<td> ' + json[i].Quantity + '</td> ' +
                                         '<td> ' + (json[i].OrderQty - json[i].Quantity) + '</td> ' +
                                         '<td> ' +json[i].Creator+ '</td> ' +
-                                        '<td>' + new Date(parseInt(json[i].Createtime)).toLocaleString() + '</td> ' +
+                                      
                                         '</tr>';
 	                }
 	                $("#tby2").html(slct);
@@ -384,17 +491,188 @@ td{
 	    });
     }
 
-    //打印箱牌
-    //ZPL
-    //add by it-wxl 09212017
-    function prtlabelzpl() {
+    //预览箱牌信息
+    function viewDetails() {
+        //查看前清空界面数据
+        $('#f01').html("");
+        $('#t01').html("");
+        $('#f02').html("");
+        $('#t02').html("");
+        $('#f03').html("");
+        $('#t03').html("");
+        $('#f04').html("");
+        $('#t04').html("");
+        $('#f05').html("");
+        $('#t05').html("");
+        $('#f06').html("");
+        $('#t06').html("");
+        $('#f07').html("");
+        $('#t07').html("");
+        $('#f08').html("");
+        $('#t08').html("");
+
+        $('#c01').html("");
+        $('#c02').html("");
+        $('#c03').html("");
+        $('#c04').html("");
+        $('#c05').html("");
+
+        var inputs = document.getElementById("editable1").getElementsByTagName("input");
+
+        for (var i = 0; i < inputs.length; i++) {
+            
+            var row = {};
+
+            if (inputs[i].type == "checkbox") {
+                if (inputs[i].checked && inputs[i].name == "cb1") {
+                    
+                    var checkedRow = inputs[i];
+                    var tr = checkedRow.parentNode.parentNode;
+                    var tds = tr.cells;
+
+                    var value = "";//条码号
+
+                    var invno = jQuery.trim(tds[12].innerHTML);
+                    var boxno = jQuery.trim(tds[13].innerHTML);
+                    var partNO = jQuery.trim(tds[2].innerHTML);
+                    var boxtype = jQuery.trim(tds[3].innerHTML);
+                    var labelid = jQuery.trim(tds[10].innerHTML);
+                    var itemid = jQuery.trim(tds[18].innerHTML);
+                    var shipdate = tds[7].innerHTML;
+                    var orderQty = tds[4].innerHTML;
+
+                    //基本信息
+                    $('#orderid').html(invno + "-" + boxno);
+                    $('#shipid').html(shipdate);
+                    $('#boxtypid').html(boxtype);
+                    $('#labelid').html(labelid);
+                    $('#partid').html(partNO);
+                    $('#b02').html(orderQty); 
+
+                    //获取产品附件信息
+                    $.ajax({
+                        type: "Post",
+                        url: "Arg_BoxLabel.aspx/getPartAcc",
+                        data: "{pncode:'" + partNO + "'}",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        async: false,
+                        success: function (data) {
+                            if (data.d != "") {
+                                var json = $.parseJSON(data.d);
+                                $('#b03').html(json.length);
+
+                                for (i = 0; i < json.length; i++) {
+                                    if (i == 0) {
+                                        $('#f01').html(json[0].Component_Part);
+                                        $('#t01').html(json[0].Component_Type);
+                                    }
+                                    if (i == 1) {
+                                        $('#f02').html(json[1].Component_Part);
+                                        $('#t02').html(json[1].Component_Type);
+                                    }
+                                    if (i == 2) {
+                                        $('#f03').html(json[2].Component_Part);
+                                        $('#t03').html(json[2].Component_Type);
+                                    }
+                                    if (i == 3) {
+                                        $('#f04').html(json[3].Component_Part);
+                                        $('#t04').html(json[3].Component_Type);
+                                    }
+                                    if (i == 4) {
+                                        $('#f05').html(json[4].Component_Part);
+                                        $('#t05').html(json[4].Component_Type);
+                                    }
+                                    if (i == 5) {
+                                        $('#f06').html(json[5].Component_Part);
+                                        $('#t06').html(json[5].Component_Type);
+                                    }
+                                    if (i == 6) {
+                                        $('#f07').html(json[6].Component_Part);
+                                        $('#t07').html(json[6].Component_Type);
+                                    }
+                                    if (i == 7) {
+                                        $('#f08').html(json[7].Component_Part);
+                                        $('#t08').html(json[7].Component_Type);
+                                    }
+
+                                }
+                            }
+                        }
+                    });
+
+                    //获取产品属性
+                    $.ajax({
+                        type: "Post",
+                        url: "Arg_BoxLabel.aspx/getPartInfos",
+                        data: "{pncode:'" + partNO + "',pnum:'" + orderQty + "'}",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        async: false,
+                        success: function (data) {
+                            if (data.d != "") {
+                                var json = data.d;
+                                var high = json.substr(4, json.indexOf("gasket") - 4);
+                                var gasket = json.substr(json.indexOf("gasket") + 6, json.indexOf("corner") - json.indexOf("gasket") - 6);
+                                var corner = json.substr(json.indexOf("corner") + 6, json.indexOf("base") - json.indexOf("corner") - 6);
+                                var base = json.substr(json.indexOf("base") + 4);
+
+
+                                $('#b01').html(base);    //底座编码
+                                $('#b04').html(corner);  //包角模式
+                                $('#b05').html(high);    //箱高
+                                $('#b06').html(gasket);  //垫片规格
+                            }
+                            else {
+                                alert("error!");
+                            }
+
+                        }
+                    });
+
+                    //获取包边模式
+                    $.ajax({
+                        type: "Post",
+                        url: "Arg_BoxLabel.aspx/getPartEdge",
+                        data: "{pncode:'" + partNO + "'}",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        async: false,
+                        success: function (data) {
+                            if (data.d != "") {
+                                var json = $.parseJSON(data.d);
+                                for (i = 0; i < json.length; i++) {
+                                    //判断包边模式
+                                    if (json[i].EdgeType == "Antenna") {
+                                        $('#c02').html("N");
+                                    }
+                                    if (json[i].EdgeType == "Rain Sensor") {
+                                        $('#c03').html("R");
+                                    }
+                                    if (json[i].EdgeType == "Lace") {
+                                        $('#c04').html("L");
+                                    }
+                                    if (json[i].EdgeType == "3M Lace") {
+                                        $('#c05').html("A");
+                                    }
+                                }
+                            }
+                            else {
+                                $('#c01').html("C");
+                            }
+                        }
+                    });
+
+                    return;
+                }
+            }
+        }
 
     }
 
     //打印箱牌
     //箱牌   当BoxLabel未空
     //半箱   当BoxLabel已创建
-
     function printLabel() {
 
         var roel;
@@ -417,40 +695,40 @@ td{
                     {
 
                         //查看前清空界面数据
-                        $('#f01').html("");
-                        $('#t01').html("");
-                        $('#f02').html("");
-                        $('#t02').html("");
-                        $('#f03').html("");
-                        $('#t03').html("");
-                        $('#f04').html("");
-                        $('#t04').html("");
-                        $('#f05').html("");
-                        $('#t05').html("");
-                        $('#f06').html("");
-                        $('#t06').html("");
-                        $('#f07').html("");
-                        $('#t07').html("");
-                        $('#f08').html("");
-                        $('#t08').html("");
+                        //$('#f01').html("");
+                        //$('#t01').html("");
+                        //$('#f02').html("");
+                        //$('#t02').html("");
+                        //$('#f03').html("");
+                        //$('#t03').html("");
+                        //$('#f04').html("");
+                        //$('#t04').html("");
+                        //$('#f05').html("");
+                        //$('#t05').html("");
+                        //$('#f06').html("");
+                        //$('#t06').html("");
+                        //$('#f07').html("");
+                        //$('#t07').html("");
+                        //$('#f08').html("");
+                        //$('#t08').html("");
 
-                        $('#c01').html("");
-                        $('#c02').html("");
-                        $('#c03').html("");
-                        $('#c04').html("");
-                        $('#c05').html("");
+                        //$('#c01').html("");
+                        //$('#c02').html("");
+                        //$('#c03').html("");
+                        //$('#c04').html("");
+                        //$('#c05').html("");
 
-                        $('#P1').html("");
-                        $('#P2').html("");
-                        $('#P3').html("");
-                        $('#P4').html("");
-                        $('#P5').html("");
-                        $('#P6').html("");
-                        $('#P7').html("");
-                        $('#P8').html("");
-                        $('#P9').html("");
+                        //$('#P1').html("");
+                        //$('#P2').html("");
+                        //$('#P3').html("");
+                        //$('#P4').html("");
+                        //$('#P5').html("");
+                        //$('#P6').html("");
+                        //$('#P7').html("");
+                        //$('#P8').html("");
+                        //$('#P9').html("");
 
-                        var inputs = document.getElementById("editable").getElementsByTagName("input");
+                        var inputs = document.getElementById("editable1").getElementsByTagName("input");
 
                         for (var i = 0; i < inputs.length; i++) {
                             var row = {};
@@ -464,17 +742,17 @@ td{
                                     var value = "";  //条码号
                                     var print = "";  //打印机名称
 
-                                    var invno = jQuery.trim(tds[12].innerHTML);
-                                    var boxno = jQuery.trim(tds[13].innerHTML);
+                                    var invno = jQuery.trim(tds[15].innerHTML);
+                                    var boxno = jQuery.trim(tds[16].innerHTML);
                                     var OrderNumber = invno + "-" + boxno;
                                     var partNO = jQuery.trim(tds[2].innerHTML);
                                     var boxtype = jQuery.trim(tds[3].innerHTML);
                                     var labelid = jQuery.trim(tds[10].innerHTML);
-                                    var itemid = jQuery.trim(tds[18].innerHTML);
-                                    var shipdate = tds[8].innerHTML;
+                                    var itemid = jQuery.trim(tds[14].innerHTML);
+                                    var shipdate = tds[7].innerHTML;
                                     var orderQty = tds[4].innerHTML;
                                     var boxlabel = tds[11].innerHTML;
-                                    var loc = tds[7].innerHTML;
+                                    var loc = tds[8].innerHTML;
                                     var pqty = tds[5].innerHTML;
                                     var C1 = "";
                                     var N2 = "";
@@ -550,12 +828,12 @@ td{
                                             if (parseInt(tall_f) <= lqty_f && parseInt(tall_f) >= 0)
                                             {
                                                 //基本信息
-                                                $('#orderid').html(invno + "-" + boxno);
-                                                $('#shipid').html(shipdate);
-                                                $('#boxtypid').html(boxtype);
-                                                $('#labelid').html(labelid);
-                                                $('#partid').html(partNO);
-                                                $('#b02').html(orderQty);
+                                                //$('#orderid').html(invno + "-" + boxno);
+                                                //$('#shipid').html(shipdate);
+                                                //$('#boxtypid').html(boxtype);
+                                                //$('#labelid').html(labelid);
+                                                //$('#partid').html(partNO);
+                                                //$('#b02').html(orderQty);
                                                 //获取产品附件信息
                                                 $.ajax({
                                                     type: "Post",
@@ -573,57 +851,57 @@ td{
                                                                 if (i == 0) {
                                                                     bom1  = json[0].Component_Part;
                                                                     //bomt1 = json[0].Component_Type;
-                                                                    $('#f01').html(json[0].Component_Part);
-                                                                    $('#t01').html(json[0].Component_Type);
+                                                                    //$('#f01').html(json[0].Component_Part);
+                                                                    //$('#t01').html(json[0].Component_Type);
 
                                                                 }
                                                                 if (i == 1) {
                                                                     bom2 = json[1].Component_Part;
                                                                     //bomt2 = json[1].Component_Type;
-                                                                    $('#f02').html(json[1].Component_Part);
-                                                                    $('#t02').html(json[1].Component_Type);
+                                                                    //$('#f02').html(json[1].Component_Part);
+                                                                    //$('#t02').html(json[1].Component_Type);
 
                                                                 }
                                                                 if (i == 2) {
                                                                     bom3 = json[2].Component_Part;
                                                                     //bomt3 = json[2].Component_Type;
-                                                                    $('#f03').html(json[2].Component_Part);
-                                                                    $('#t03').html(json[2].Component_Type);
+                                                                    //$('#f03').html(json[2].Component_Part);
+                                                                    //$('#t03').html(json[2].Component_Type);
 
                                                                 }
                                                                 if (i == 3) {
                                                                     bom4 = json[3].Component_Part;
                                                                     //bomt4 = json[3].Component_Type;
-                                                                    $('#f04').html(json[3].Component_Part);
-                                                                    $('#t04').html(json[3].Component_Type);
+                                                                    //$('#f04').html(json[3].Component_Part);
+                                                                    //$('#t04').html(json[3].Component_Type);
 
                                                                 }
                                                                 if (i == 4) {
                                                                     bom5 = json[4].Component_Part;
                                                                     //bomt5 = json[4].Component_Type;
-                                                                    $('#f05').html(json[4].Component_Part);
-                                                                    $('#t05').html(json[4].Component_Type);
+                                                                    //$('#f05').html(json[4].Component_Part);
+                                                                    //$('#t05').html(json[4].Component_Type);
 
                                                                 }
                                                                 if (i == 5) {
                                                                     bom6 = json[5].Component_Part;
                                                                     //bomt6 = json[5].Component_Type;
-                                                                    $('#f06').html(json[5].Component_Part);
-                                                                    $('#t06').html(json[5].Component_Type);
+                                                                    //$('#f06').html(json[5].Component_Part);
+                                                                    //$('#t06').html(json[5].Component_Type);
 
                                                                 }
                                                                 if (i == 6) {
                                                                     bom7 = json[6].Component_Part;
                                                                     //bomt7 = json[6].Component_Type;
-                                                                    $('#f07').html(json[6].Component_Part);
-                                                                    $('#t07').html(json[6].Component_Type);
+                                                                    //$('#f07').html(json[6].Component_Part);
+                                                                    //$('#t07').html(json[6].Component_Type);
 
                                                                 }
                                                                 if (i == 7) {
                                                                     bom8 = json[7].Component_Part;
                                                                     //bomt8 = json[7].Component_Type;
-                                                                    $('#f08').html(json[7].Component_Part);
-                                                                    $('#t08').html(json[7].Component_Type);
+                                                                    //$('#f08').html(json[7].Component_Part);
+                                                                    //$('#t08').html(json[7].Component_Type);
 
                                                                 }
 
@@ -652,11 +930,11 @@ td{
                                                             if (brack != "" && boxtype.toUpperCase().indexOf("RACK") > -1)
                                                                 boxtype = brack;
 
-                                                            $('#b01').html(base);    //底座编码
-                                                            $('#b04').html(corner);  //包角模式
-                                                            $('#b05').html(high);    //箱高
-                                                            $('#b06').html(gasket);  //垫片规格
-                                                            $('#b09').html(tall_f);  //本次打印数量
+                                                            //$('#b01').html(base);    //底座编码
+                                                            //$('#b04').html(corner);  //包角模式
+                                                            //$('#b05').html(high);    //箱高
+                                                            //$('#b06').html(gasket);  //垫片规格
+                                                            //$('#b09').html(tall_f);  //本次打印数量
                                                         }
                                                         else {
                                                             alert("error!");
@@ -679,46 +957,46 @@ td{
                                                                 //判断包边模式
                                                                 if (json[i].EdgeType == "Antenna") {
                                                                     N2 = "N";
-                                                                    $('#c02').html("N");
+                                                                    //$('#c02').html("N");
                                                                 }
                                                                 if (json[i].EdgeType == "Rain Sensor") {
                                                                     R3 = "R";
-                                                                    $('#c03').html("R");
+                                                                    //$('#c03').html("R");
                                                                 }
                                                                 if (json[i].EdgeType == "Lace") {
                                                                     L4 = "L";
-                                                                    $('#c04').html("L");
+                                                                    //$('#c04').html("L");
                                                                 }
                                                                 if (json[i].EdgeType == "3M Lace") {
                                                                     A5 = "A";
-                                                                    $('#c05').html("A");
+                                                                    //$('#c05').html("A");
                                                                 }
                                                             }
                                                         }
                                                         else {
                                                             C1 = "C";
-                                                            $('#c01').html("C");
+                                                            //$('#c01').html("C");
                                                         }
                                                     }
                                                 });
 
                                                 //获取当前用户打印机
-                                                $.ajax({
-                                                    type: "Post",
-                                                    url: "Arg_BoxLabel.aspx/getPrinter",
-                                                    data: "",
-                                                    contentType: "application/json; charset=utf-8",
-                                                    dataType: "json",
-                                                    async: false,
-                                                    success: function (data) {
-                                                        if (data.d != "") {
-                                                            print = data.d;
-                                                        }
-                                                        else {
-                                                            print = "ZDesigner_ARGPackingSlip_OldOfice";
-                                                        }
-                                                    }
-                                                });
+                                                //$.ajax({
+                                                //    type: "Post",
+                                                //    url: "Arg_BoxLabel.aspx/getPrinter",
+                                                //    data: "",
+                                                //    contentType: "application/json; charset=utf-8",
+                                                //    dataType: "json",
+                                                //    async: false,
+                                                //    success: function (data) {
+                                                //        if (data.d != "") {
+                                                //            print = data.d;
+                                                //        }
+                                                //        else {
+                                                //            print = "ZDesigner_ARGPackingSlip_OldOfice";
+                                                //        }
+                                                //    }
+                                                //});
 
 
                                                 //获取条码号
@@ -762,7 +1040,7 @@ td{
                                                                     var lodop;
 
                                                                     LODOP = getLodop();
-                                                                    LODOP.SET_PRINTER_INDEXA(print);
+                                                                    LODOP.SET_PRINTER_INDEXA(-1);
 
                                                                     var boxlabel = "^XA" +
                                                                         "^FO736,8^GB0,1192,4^FS" +
@@ -1081,7 +1359,7 @@ td{
                         $('#c04').html("");
                         $('#c05').html("");
 
-                        var inputs = document.getElementById("editable").getElementsByTagName("input");
+                        var inputs = document.getElementById("editable1").getElementsByTagName("input");
 
                         for (var i = 0; i < inputs.length; i++) {
                             var row = {};
@@ -1298,7 +1576,8 @@ td{
     //取消箱牌
     function cancelLabel() {
 
-        var roel;
+        if (confirm("Cancel this create label?")) {
+            var roel;
         //获取当前用户角色
         $.ajax({
             type: "Post",
@@ -1315,7 +1594,7 @@ td{
                         return;
                     }
                     else {
-                        var inputs = document.getElementById("editable").getElementsByTagName("input");
+                        var inputs = document.getElementById("editable1").getElementsByTagName("input");
 
                         for (var i = 0; i < inputs.length; i++) {
                             var row = {};
@@ -1326,7 +1605,7 @@ td{
                                     var tr = checkedRow.parentNode.parentNode;
                                     var tds = tr.cells;
 
-                                    var itemid = jQuery.trim(tds[18].innerHTML);;
+                                    var itemid = jQuery.trim(tds[14].innerHTML);;
 
                                     //取消箱牌
                                     $.ajax({
@@ -1352,7 +1631,7 @@ td{
                 }
             }
         });
-        
+        }
     }
 
 </script>

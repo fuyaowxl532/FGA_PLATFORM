@@ -106,7 +106,7 @@ namespace FGA_PLATFORM.business.ITAsset
                               " FAT.[MacAddress],FAT.[Note],FIT.Status,FIT.PlexID,FIT.Issue_Date,FIT.Return_Date,FAT.LastAction,'" + model.USERNAME + "',GETDATE() from [FGA_AssetCard_T] FAT left join FGA_ITAssetInfos_T FIT ON FAT.AssetKey = FIT.AssetKey" +
                               " WHERE FAT.AssetKey IN (" + akeys + ")";
 
-                string sql2 = "update [FGA_ITAssetInfos_T] set [Issue_Date] = convert(varchar(10),getdate(),120),[PlexID] = '" + plexid + "',Return_Date =null ,,IsCheck = 0,CheckDate = null,Status = 'InUse' ,UpdateDate =GETDATE() ," +
+                string sql2 = "update [FGA_ITAssetInfos_T] set [Issue_Date] = convert(varchar(10),getdate(),120),[PlexID] = '" + plexid + "',Return_Date =null ,IsCheck = 0,CheckDate = null,Status = 'InUse' ,UpdateDate =GETDATE() ," +
                               "UpdateBy ='" + model.USERNAME + "'  where AssetKey in (" + akeys + ") ";
 
                 string sql3 = "update [WMS_BarCode_V10].[dbo].[FGA_AssetCard_T] set LastAction = 'Asset Transfer' where [AssetKey] in (" + akeys + ")";

@@ -40,12 +40,15 @@ namespace FGA_PLATFORM.business.production
 
             foreach (EDIReleaseModel pc in listmodel)
             {
-                if (!String.IsNullOrEmpty(""))
-                {
-                    string sql = "";
+                string sql = "insert into [FGA_EDIOrder_List] " +
+                                "([customer_name],[Customer_Address_Code],[Customer_Part_No],[Customer_Part_Revision],[part_no] " +
+                                ",[part_name],[Due_Date],[Ship_Date],[ORDER_NO],[Lot_No],[BATCH_NO],[EDI_Key],[EDI_Action] " +
+                                ",[EDI_Status],[Docname],[Standard_Quantity],[Quantity],[JOB_SEQUENCE],[rstatus]) " +
+                                "values('"+ pc.customer_name + "','"+pc.Customer_Address_Code+"','"+pc.Customer_Part_No+"','"+pc.Customer_Part_Revision+"','"+pc.part_no+"'," +
+                                "'"+pc.part_name+"','"+pc.Due_Date+"','"+pc.Ship_Date+"','"+pc.ORDER_NO+"','"+pc.Lot_No+"','"+pc.BATCH_NO+"',"+pc.EDI_Key+"" +
+                                ",'"+pc.EDI_Action+"','"+pc.EDI_Status+"','"+pc.Docname+"',"+pc.Standard_Quantity+","+pc.Quantity+","+pc.JOB_SEQUENCE+",0)";
 
-                    sqllist.Add(sql);
-                }
+                sqllist.Add(sql);
             }
 
             if (FGA_DAL.Base.SQLServerHelper_WMS.ExecuteSqlTran(sqllist) > 0)
@@ -54,6 +57,17 @@ namespace FGA_PLATFORM.business.production
                 return "0";
         }
 
+        /// <summary>
+        /// 页面初始化读取workcenter
+        /// </summary>
+        /// <returns></returns>
+        [WebMethod]
+        public static string onSearch()
+        {
+            String res = String.Empty;
+
+            return res;
+        }
         /// <summary>
         /// 页面初始化读取workcenter
         /// </summary>

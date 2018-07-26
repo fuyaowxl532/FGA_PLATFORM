@@ -86,7 +86,8 @@ td{
                 <a href="javascript:;" class="file" style="background-color:#00BACE;color:white;font-weight:bold;top:9px">IMPORT
                         <input type="file"  onchange="importf(this)"  name="" id="_import"/>
                 </a>
-                <button class="btn btn-primary btn-sm" id ="btnSearch"  onclick ="MergeData()">MergeData</button>
+                <button class="btn btn-primary btn-sm" id ="btnSearch"  onclick ="onSearch()">Search</button>
+                <button class="btn btn-primary btn-sm" id ="btnMerge"  onclick ="MergeData()">MergeData</button>
 	</div>
     <!-- /table -->
     <div class='table-cont' id='table-cont' style="width:100%;margin-left: 0px;float:left;" >
@@ -166,7 +167,7 @@ td{
                         async: true,
                         success: function (data) {
                             if (data.d == "1") {
-                                SearchData();
+                                //SearchData();
                                 alert("Success");
                             }
                             else
@@ -188,6 +189,11 @@ td{
         for (; l < data.byteLength / w; ++l) o += String.fromCharCode.apply(null, new Uint8Array(data.slice(l * w, l * w + w)));
         o += String.fromCharCode.apply(null, new Uint8Array(data.slice(l * w)));
         return o;
+    }
+
+    //Query
+    function onSearch() {
+
     }
 
     //合并EDI数据

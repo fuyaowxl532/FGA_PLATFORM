@@ -181,7 +181,7 @@ namespace FGA_PLATFORM.business.ITAsset
 
             string sql = "SELECT AssetKey FROM [WMS_BarCode_V10].[dbo].[FGA_AssetCard_T] where isnull(dr,'0') = 0 and " + col;
 
-            sql = sql + "= '" + value + " ";
+            sql = sql + "= '" + value + "' ";
 
             string data = FGA_DAL.Base.SQLServerHelper_WMS.GetSingle(sql) == null ? "" : FGA_DAL.Base.SQLServerHelper_WMS.GetSingle(sql).ToString();
 

@@ -77,19 +77,22 @@
 								<input type="text"  id = "sn" placeholder="Placeholder" class="form-control"/> 
 							</div> 
 							</div>
-							<div class="line-dashed"></div>                            <div class="form-group"> 
+							<div class="line-dashed"></div>
+                            <div class="form-group"> 
 							<label class="col-sm-2 control-label">MAC ID</label> 
 							<div class="col-sm-10"> 
 								<input type="text"  id = "macid" placeholder="Placeholder" class="form-control"/> 
 							</div> 
 							</div>
-							<div class="line-dashed"></div>                            <div class="form-group"> 
+							<div class="line-dashed"></div>
+                            <div class="form-group"> 
 							<label class="col-sm-2 control-label">Insurance Date</label> 
 							<div class="col-sm-10"> 
 								<input type="text" placeholder="Placeholder" class="form-control"/> 
 							</div> 
 							</div>
-							<div class="line-dashed"></div>                            <div class="form-group"> 
+							<div class="line-dashed"></div>
+                            <div class="form-group"> 
 							<label class="col-sm-2 control-label">Note</label> 
 							<div class="col-sm-10"> 
 								<textarea placeholder="Textarea"  id = "note" class="form-control"></textarea> 

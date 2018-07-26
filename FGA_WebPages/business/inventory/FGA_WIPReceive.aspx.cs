@@ -14,7 +14,7 @@ using FGA_NUtility.Consts;
 
 namespace FGA_PLATFORM.business.production
 {
-    public partial class Arg_CrateLabel : System.Web.UI.Page
+    public partial class FGA_WIPReceive : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
