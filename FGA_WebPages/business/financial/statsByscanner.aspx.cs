@@ -126,6 +126,31 @@ namespace FGA_PLATFORM.business.financial
             return res;
         }
 
+        //更改库位
+        //update by it-wxl 20180503
+        [WebMethod]
+        public static string ChangeLoc(string CycleNO, string Location)
+        {
+            string res = "0";
+            List<String> sqllist = new List<string>();
+
+            try
+            {
+                string sqlD = "update [FGA_CycleInventory_Detail] set TargetLocation ='"+ Location + "' where CycleNO ='"+ CycleNO + "'";
+                string sqlH = "update [FGA_CycleInventory_H] set Location = '"+ Location + "' where CycleNO = '"+ CycleNO + "'";
+
+                sqllist.Add(sqlD);
+                sqllist.Add(sqlH);
+
+                if (FGA_DAL.Base.SQLServerHelper_WMS.ExecuteSqlTran(sqllist) > 0)
+                    res = "1";
+            }
+            catch
+            { return "0"; }
+
+            return res;
+        }
+
         //禁用，该方法写在getDataBySerialNO
         //update by it-wxl 20180503
         [WebMethod]
@@ -263,16 +288,20 @@ namespace FGA_PLATFORM.business.financial
             {
                 FGA_NUtility.POL.ExecuteDataSourceResult da_rst = null;
 
+                FGA_NUtility.POL.ExecuteDataSourceResult move = PlexHelper.PlexGetResult_4("6601", "Container_Move", "@Serial_No", "@Location", "@Last_Action", "@Update_By",
+                    vo.SerialNO, toloc.Trim(), "Cycle Inventory", plexid);
+
                 if (vo.Quantity != vo.ActualQty)
                 {
-                    da_rst = PlexHelper.PlexGetResult_7("27181", "Container_Update_Simple",
-                    "@Serial_No", "@Location", "@Quantity", "@Last_Action", "@Update_By", "@Tracking_No", "@Adjustment_Reason_Key", vo.SerialNO, toloc.Trim(), vo.ActualQty.ToString(),
-                    "Cycle Inventory", plexid, "inv" + pdate,"2874");
+
+                    da_rst = PlexHelper.PlexGetResult_6("27181", "Container_Update_Simple",
+                    "@Serial_No",  "@Quantity", "@Last_Action", "@Update_By", "@Tracking_No", "@Adjustment_Reason_Key", vo.SerialNO,  vo.ActualQty.ToString(),
+                    "Cycle Inventory", plexid, "INV" + pdate,"2874");
                 }
                 else
                 {
-                    da_rst = PlexHelper.PlexGetResult_6("27181", "Container_Update_Simple",
-                    "@Serial_No", "@Location", "@Last_Action", "@Update_By", "@Tracking_No", "@Adjustment_Reason_Key", vo.SerialNO, toloc.Trim(), "Cycle Inventory", plexid, "inv" + pdate,"2874");
+                    da_rst = PlexHelper.PlexGetResult_5("27181", "Container_Update_Simple",
+                    "@Serial_No",  "@Last_Action", "@Update_By", "@Tracking_No", "@Adjustment_Reason_Key", vo.SerialNO,  "Cycle Inventory", plexid, "INV" + pdate,"2874");
                 }
 
                 if (!da_rst.Error)

@@ -86,8 +86,10 @@ td{
                 <a href="javascript:;" class="file" style="background-color:#00BACE;color:white;font-weight:bold;top:9px">IMPORT
                         <input type="file"  onchange="importf(this)"  name="" id="_import"/>
                 </a>
-                <button class="btn btn-primary btn-sm" id ="btnSearch"  onclick ="onSearch()">Search</button>
+                <button class="btn btn-primary btn-sm" id ="btnSearch"  onclick ="SearchData()">Search</button>
                 <button class="btn btn-primary btn-sm" id ="btnMerge"  onclick ="MergeData()">MergeData</button>
+                <button class="btn btn-primary btn-sm" id ="btnExport"  onclick ="$('#editable').tableExport({ type: 'excel', tableName: 'OEM_IR', escape: 'false' })">Export</button>
+
 	</div>
     <!-- /table -->
     <div class='table-cont' id='table-cont' style="width:100%;margin-left: 0px;float:left;" >
@@ -167,7 +169,7 @@ td{
                         async: true,
                         success: function (data) {
                             if (data.d == "1") {
-                                //SearchData();
+                                SearchData();
                                 alert("Success");
                             }
                             else
@@ -192,7 +194,49 @@ td{
     }
 
     //Query
-    function onSearch() {
+    function SearchData() {
+        $("#editable tr:not(:first)").remove();
+        $.ajax({
+            type: "Post",
+            url: "EDICtrlCenter.aspx/SearchData",
+            data: "",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            async: true,
+            success: function (data) {
+                if (data.d != "") {
+                    var json = $.parseJSON(data.d);
+                    var slct = "";
+                    for (var i = 0; i < json.length; i++) {
+                            slct = slct + '<tr>' +
+                                '<td> ' + (i+1) + '</td> ' +
+                                '<td> ' + json[i].Customer_Name + '</td> ' +
+                                '<td> ' + json[i].Customer_Address_Code + '</td> ' +
+                                '<td> ' + json[i].Customer_Part_NO + '</td> ' +
+                                '<td> ' + json[i].Customer_Part_Revision + '</td> ' +
+                                '<td> ' + json[i].Part_NO + '</td> ' +
+                                '<td> ' + json[i].Part_Name + '</td> ' +
+                                '<td> ' + new Date(parseInt(json[i].Due_Date)).toLocaleString() + '</td> ' +
+                                '<td> ' + new Date(parseInt(json[i].Ship_Date)).toLocaleString() + '</td> ' +
+                                '<td> ' + json[i].Quantity + '</td> ' +
+                                '<td> ' + json[i].Order_NO + '</td> ' +
+                                '<td> ' + json[i].Lot_NO + '</td> ' +
+                                '<td> ' + json[i].Batch_NO + '</td> ' +
+                                '<td> ' + json[i].Job_Sequence + '</td> ' +
+                                '<td> ' + json[i].EDI_Key + '</td> ' +
+                                '<td> ' + json[i].EDI_Action + '</td> ' +
+                                '<td> ' + json[i].EDI_Status + '</td> ' +
+                                '<td> ' + json[i].Docname + '</td> ' +
+                                '<td> ' + json[i].Standard_Quantity + '</td> ' +
+                                '<td> ' + json[i].Creator + '</td> ' +
+                                '<td> ' + new Date(parseInt(json[i].Createdate)).toLocaleString() + '</td> ' +
+                                '</tr>';
+                        }
+                    }
+
+                    $("#tby").html(slct);
+                }
+        });
 
     }
 
@@ -207,7 +251,7 @@ td{
             async: true,
             success: function (data) {
                 if (data.d != "") {
-                 
+                 SearchData();
                 }
             }
         });

@@ -98,10 +98,10 @@ namespace FGA_PLATFORM.business.ITAsset
                 string akey = "ITA" + FGA_DAL.Base.SQLServerHelper_WMS.GetSingle(sql1).ToString();
 
                 string sql2 = " INSERT INTO [FGA_AssetCard_T]([AssetKey],[AssetName],[Category],[Brand],[IT_AssetNO],[FIN_AssetNO],[SerialNO] " +
-                              ",[CreateDate],[Creator],[InsuranceDate],[MacAddress],[Note],[Dr],[LastAction],[AssetConfig]) " +
+                              ",[CreateDate],[Creator],[InsuranceDate],[MacAddress],[Note],[Dr],[LastEditUser],[LastAction],[AssetConfig]) " +
                               "VALUES('" + akey + "','" + AssetVO.AssetName + "','" + AssetVO.Category + "','" + AssetVO.Brand + "','" + AssetVO.IT_AssetNO + "' " +
                               " ,'" + AssetVO.FIN_AssetNO + "','" + AssetVO.SerialNO + "',getdate(),'" + model.USERNAME + "','' " +
-                              " ,'" + AssetVO.MacAddress + "','" + AssetVO.Note + "','0','Asset Added','" + AssetVO.AssetConfig + "')";
+                              " ,'" + AssetVO.MacAddress + "','" + AssetVO.Note + "','0',null,'Asset Added','" + AssetVO.AssetConfig + "')";
 
                 string sql3 = "insert into [FGA_ITAssetInfos_T]([Issue_Date],[Creator],[CreateDate],[PlexID],[Active],[Status],[AssetKey],[Note],[IsCheck]) " +
                               "values(convert(varchar(10),getdate(),120),'" + model.USERNAME + "',getdate(),'fy.it','0','Idle','" + akey + "','" + AssetVO.Note + "',0) ";

@@ -59,6 +59,7 @@
     <Compile Include="Asset\IT_AssetCategory.cs" />
     <Compile Include="Asset\IT_AssetInfoModel.cs" />
     <Compile Include="Asset\IT_AssetLogModel.cs" />
+    <Compile Include="EDIOrderListModel.cs" />
     <Compile Include="Financial\CycleInventory_Detail.cs" />
     <Compile Include="Financial\CycleInventory_H.cs" />
     <Compile Include="index\PlexLocation.cs" />

@@ -7,10 +7,10 @@
 // </自动生成>
 //------------------------------------------------------------------------------
 
-namespace FGA_PLATFORM.business.financial {
+namespace FGA_PLATFORM.business.production {
     
     
-    public partial class statsByscanner {
+    public partial class EDIJobCenter {
         
         /// <summary>
         /// pageskinstyle 控件。

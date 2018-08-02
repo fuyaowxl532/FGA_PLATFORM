@@ -48,7 +48,8 @@ th
 							  </div>
 							  <button type="submit" class="btn btn-primary" onclick="SearchData()">Search</button>
                               <button type="submit" class="btn btn-primary" onclick=" releaseData()">RELEASE</button>
-			</div>
+			</div>
+
 			
         </div>
 	    </div>

@@ -80,6 +80,7 @@ td{
 	    <input type="button" id ="stp" value="Synchronize to Plex" onclick="SynToPlex()" class="btn btn-blue btn-sm"/>
         <input type="button" id ="export" value="Export" onclick="onExport()" class="btn btn-blue btn-sm"/>
 	    <input type="button" id="clear" value="Clear" onclick = "clr()" class="btn btn-blue btn-sm"/>
+        <input type="button" id="chLoc" value="Change Location" onclick = "changeLoc()" class="btn btn-red btn-sm"/>
 
         <input type="button" id = "ulock" style="float:right;display:none" value="Unlock" onclick = "unlock()" class="btn btn-blue btn-sm"/>
 
@@ -226,6 +227,40 @@ td{
                 $("#crt").attr("disabled", "true");
             }
         });
+    }
+
+    function changeLoc() {
+
+        var trcd = $('#trcd').html().trim();
+        if (trcd != "") { 
+                window.parent.showDialog('select a cycle location', 'business/financial/SelectLocation.aspx', 400, 600, function (res) {
+                if (res != "" && res != "close") {
+                    var CycleNO = $('#cn').html().trim();
+                    var loc = res.trim();
+                    if (trcd == "0") {
+
+                         $('#loc').html(loc);
+                    }
+                    else {
+                        $.ajax({
+                            type: "post",
+                            url: "statsByscanner.aspx/ChangeLoc",
+                            data: "{CycleNO:'" + CycleNO + "',Location:'" + loc + "'}",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            async: true,
+                            success: function (data) {
+                                if (data.d == "1") {
+                                    $('#loc').html(loc);
+                                }
+                                else
+                                    alert("fail");
+                            }
+                        });
+                    }
+                }
+            });
+        }
     }
 
 	function inRow() {

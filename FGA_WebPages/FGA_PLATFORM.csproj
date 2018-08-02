@@ -150,6 +150,7 @@
     <Content Include="business\production\ProcessHOverAudit.aspx" />
     <Content Include="business\production\PartTransferCtrl.aspx" />
     <Content Include="business\production\ProcessUserCtrl.aspx" />
+    <Content Include="business\production\Small Lot\EDIJobCenter.aspx" />
     <Content Include="business\production\SupervisorLockOut.aspx" />
     <Content Include="business\production\ARGBoxLabelItem.aspx" />
     <Content Include="business\Test\ExcelTest.aspx" />
@@ -1852,6 +1853,13 @@
     </Compile>
     <Compile Include="business\production\ProcessUserCtrl.aspx.designer.cs">
       <DependentUpon>ProcessUserCtrl.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="business\production\Small Lot\EDIJobCenter.aspx.cs">
+      <DependentUpon>EDIJobCenter.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="business\production\Small Lot\EDIJobCenter.aspx.designer.cs">
+      <DependentUpon>EDIJobCenter.aspx</DependentUpon>
     </Compile>
     <Compile Include="business\production\SupervisorLockOut.aspx.cs">
       <DependentUpon>SupervisorLockOut.aspx</DependentUpon>

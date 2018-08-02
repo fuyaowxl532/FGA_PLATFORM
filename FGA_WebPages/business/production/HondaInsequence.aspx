@@ -762,22 +762,23 @@
                                 var LODOP;
                                 var json = data.d;
                                 LODOP = getLodop();
-                                if (user == "Honda_front") {
-                                    print = "ZDesigner_HONDA_SORT_FRONT";
-                                    LODOP.SET_PRINTER_INDEXA(print);
-                                }
-                                if (user == "Honda_side") {
-                                    print = "ZDesigner_SmallLot_Side";
-                                    LODOP.SET_PRINTER_INDEXA(print);
-                                }
-                                if (user == "Honda_rear") {
-                                    print = "ZDesigner_HONDA_SORT_REAR";
-                                    LODOP.SET_PRINTER_INDEXA(print);
-                                }
-                                if (user == "administrator") {
-                                    //LODOP.SET_PRINTER_INDEX(-1);
-                                    LODOP.SET_PRINTER_INDEXA("ZDesigner ZT230-200dpi EPL_IT");
-                                }
+                                LODOP.SET_PRINTER_INDEX(-1);
+                                //if (user == "Honda_front") {
+                                //    print = "ZDesigner_HONDA_SORT_FRONT";
+                                //    LODOP.SET_PRINTER_INDEXA(print);
+                                //}
+                                //if (user == "Honda_side") {
+                                //    print = "ZDesigner_SmallLot_Side";
+                                //    LODOP.SET_PRINTER_INDEXA(print);
+                                //}
+                                //if (user == "Honda_rear") {
+                                //    print = "ZDesigner_HONDA_SORT_REAR";
+                                //    LODOP.SET_PRINTER_INDEXA(print);
+                                //}
+                                //if (user == "administrator") {
+                                //    //LODOP.SET_PRINTER_INDEX(-1);
+                                //    LODOP.SET_PRINTER_INDEXA("ZDesigner ZT230-200dpi EPL_IT");
+                                //}
 
                                 var TL = "^XA^FO5,5^GB780,1170,3^FS" + //方框
                                     "^FO195,5^GB0,1170,3^FS" +        //横线
@@ -857,25 +858,27 @@
                             //前档----ZDesigner_HONDA_SORT_FRONT
                             //边窗----ZDesigner_SmallLot_Side
                             //后档----ZDesigner_HONDA_SORT_REAR
+                            //updated by IT-WXL 20180731.使用默认打印机
                             var LODOP;
                             var json = data.d;
                             LODOP = getLodop();
-                            if (user == "Honda_front") {
-                                print = "ZDesigner_HONDA_SORT_FRONT";
-                                LODOP.SET_PRINTER_INDEXA(print);
-                            }
-                            if (user == "Honda_side") {
-                                print = "ZDesigner_SmallLot_Side";
-                                LODOP.SET_PRINTER_INDEXA(print);
-                            }
-                            if (user == "Honda_rear") {
-                                print = "ZDesigner_HONDA_SORT_REAR";
-                                LODOP.SET_PRINTER_INDEXA(print);
-                            }
-                            if (user == "administrator") {
-                                //LODOP.SET_PRINTER_INDEX(-1);
-                                LODOP.SET_PRINTER_INDEXA("ZDesigner ZT230-200dpi EPL_IT");
-                            }
+                            LODOP.SET_PRINTER_INDEX(-1);
+                            //if (user == "Honda_front") {
+                            //    print = "ZDesigner_HONDA_SORT_FRONT";
+                            //    LODOP.SET_PRINTER_INDEXA(print);
+                            //}
+                            //if (user == "Honda_side") {
+                            //    print = "ZDesigner_SmallLot_Side";
+                            //    LODOP.SET_PRINTER_INDEXA(print);
+                            //}
+                            //if (user == "Honda_rear") {
+                            //    print = "ZDesigner_HONDA_SORT_REAR";
+                            //    LODOP.SET_PRINTER_INDEXA(print);
+                            //}
+                            //if (user == "administrator") {
+                            //    //LODOP.SET_PRINTER_INDEX(-1);
+                            //    LODOP.SET_PRINTER_INDEXA("ZDesigner ZT230-200dpi EPL_IT");
+                            //}
 
                             var TL = "^XA^FO5,5^GB780,1170,3^FS" + //方框
                                 "^FO195,5^GB0,1170,3^FS" +        //横线

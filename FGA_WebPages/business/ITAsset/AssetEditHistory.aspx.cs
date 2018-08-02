@@ -32,11 +32,12 @@ namespace FGA_PLATFORM.business.ITAsset
         {
             string res = String.Empty;
 
-            string sql = "select * from (SELECT * FROM[WMS_BarCode_V10].[dbo].[FGA_AssetLog_T] where AssetKey = '" + assetKey + "' " +
+            string sql = "select * from (SELECT * FROM [WMS_BarCode_V10].[dbo].[FGA_AssetLog_T] where AssetKey = '" + assetKey + "' " +
                          "union all " +
                          "select 10000 Tid,FAT.[AssetKey],FAT.[AssetName],FAT.[Category],FAT.[Brand],FAT.[IT_AssetNO],FAT.[FIN_AssetNO], " +
                          "FAT.[SerialNO],FAT.[InsuranceDate], FAT.[MacAddress],FAT.[Note],FIT.Status,FIT.PlexID,FIT.Issue_Date, " +
-                         "FIT.Return_Date,FAT.LastAction,isnull(FAT.LastEditUser,FAT.Creator),GETDATE() from[FGA_AssetCard_T] FAT left join " +
+                         "FIT.Return_Date,FAT.LastAction,isnull(FAT.LastEditUser,FAT.Creator),case when FAT.LastEditDate = '1900-01-01' then FAT.CreateDate else FAT.LastEditDate " +
+                         "end as LastEditDate from [FGA_AssetCard_T] FAT left join " +
                          "FGA_ITAssetInfos_T FIT ON FAT.AssetKey = FIT.AssetKey WHERE FAT.AssetKey = '" + assetKey + "' " +
                          ") AA order by AA.Tid";
 

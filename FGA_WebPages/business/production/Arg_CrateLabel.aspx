@@ -75,8 +75,8 @@ td{
                 <label><input type="checkbox" id ="cbdii" checked="checked"/> Hide GREEN Orders</label>
                 &nbsp;&nbsp;&nbsp;
 			    <button type="submit" class="btn btn-blue" onclick="queryData()">Query</button>
+                <button type="submit" class="btn btn-blue" onclick="viewDetails()">View</button>
                 <button type="submit" class="btn btn-blue" onclick="printLabel()">Print</button>
-                <%--<button type="submit" class="btn btn-blue" onclick="viewDetails()">View</button>--%>
                 <button type="submit" class="btn btn-red" onclick="cancelLabel()">Cancel</button>
             </div>
 		 </div>
@@ -137,7 +137,7 @@ td{
 			</table>
 	    </div>	
 
-        <%--<div id="viewLabel" style="height:40%;">
+        <div id="viewLabel" style="height:40%;">
         <div class="row" style="margin-top:20%">
 				<div class="col-lg-12">
 					<div class="panel panel-default">
@@ -146,12 +146,12 @@ td{
 						</div>
 						<div class="panel-body">
                             <div style="padding-left:2%">
-                                <table  border="1" style="white-space:nowrap;table-layout:fixed" id ="boxLabel" >
+                                <table  border="1" style="width:100%" id ="boxLabel" >
                                     <tr>
-                                            <td style="font-weight:bold;"><p></p>Order Number<p></p></td>
+                                            <td style="font-weight:bold;"><p></p>OrderNumber<p></p></td>
                                             <td style="font-weight:bold;"><p></p>Customer<p></p></td>
-                                            <td style="font-weight:bold;"><p></p>Delivery Date<p></p></td>
-                                            <td style="font-weight:bold;"><p></p>Packing Method<p></p></td>
+                                            <td style="font-weight:bold;"><p></p>DeliveryDate<p></p></td>
+                                            <td style="font-weight:bold;"><p></p>PackingMethod<p></p></td>
                                             <td colspan="4" rowspan="2" id ="Bbid">BarcodeNO</td>
                                         </tr>
                                         <tr>
@@ -161,14 +161,14 @@ td{
                                             <td align="center"><p id="boxtypid" style="font-size:larger;flex-align:center">*</p></td>                     
                                         </tr>
                                         <tr>
-                                            <td style="font-weight:bold; "><p></p>FYG PART No.<p></p></td>   
-                                            <td style="font-weight:bold;" ><p></p>Base<p></p></td>
-                                            <td style="font-weight:bold;" ><p></p>Pallet QTY<p></p></td>
-                                            <td style="font-weight:bold;" ><p></p>Load QTY<p></p></td>
-                                            <td style="font-weight:bold;" ><p></p>Accessory Quantity<p></p></td>
-                                            <td style="font-weight:bold;" ><p></p>Corner Tape<p></p></td> 
+                                            <td style="font-weight:bold; "><p></p>FYGPartNo.<p></p></td>   
+                                            <td style="font-weight:bold;" ><p></p>Mirror<p></p></td>
+                                            <td style="font-weight:bold;" ><p></p>CrateQty<p></p></td>
+                                            <td style="font-weight:bold;" ><p></p>LoadQty<p></p></td>
+                                            <td style="font-weight:bold;" ><p></p>AccessoryQty<p></p></td>
+                                            <td style="font-weight:bold;" ><p></p>CornerTape<p></p></td> 
                                             <td style="font-weight:bold;" ><p></p>Height<p></p></td>
-                                            <td style="font-weight:bold;" ><p></p>Cusion Block<p></p></td>
+                                            <td style="font-weight:bold;" ><p></p>Spacer<p></p></td>
                                         </tr>
                                         <tr>
                                             <td align="center"><p  id ="partid" style="font-size:larger;font-weight:bold">*</p></td>
@@ -181,10 +181,10 @@ td{
                                             <td id="b07" align="center"></td>
                                         </tr>
                                         <tr>
-                                            <th>Component Part</th>
-                                            <th>Accessory Part Type</th>
-                                            <th>Accessory Part</th>
-                                            <th>Accessory Part Type</th>
+                                            <th>Part#</th>
+                                            <th>Accessory PartType</th>
+                                            <th>Part#</th>
+                                            <th>Accessory PartType</th>
                                             <th colspan="2" ></th>
                                             <td >C</td>
                                             <td id="c01" ></td>
@@ -228,105 +228,11 @@ td{
 					</div>
 				</div>
 		</div>
-
-    </div>--%>
 
     </div>
 
-    <%--<div id="viewLabel" style="height:40%;margin-left:46%;width: 55%;">
-        <div class="row" style="margin-top:10%">
-				<div class="col-lg-12">
-					<div class="panel panel-default">
-						<div class="panel-heading no-border clearfix"> 
-							<h2 class="panel-title">Crate Label View</h2>
-						</div>
-						<div class="panel-body">
-                            <div>
-                                <table  border="1" style="white-space:nowrap;table-layout:fixed" id ="boxLabel" >
-                                    <tr>
-                                            <td style="font-weight:bold;"><p></p>Order Number<p></p></td>
-                                            <td style="font-weight:bold;"><p></p>Customer<p></p></td>
-                                            <td style="font-weight:bold;"><p></p>Delivery Date<p></p></td>
-                                            <td style="font-weight:bold;"><p></p>Packing Method<p></p></td>
-                                            <td colspan="4" rowspan="2" id ="Bbid">BarcodeNO</td>
-                                        </tr>
-                                        <tr>
-                                            <td align="center"><p id="orderid" style="font-size:larger; font-weight:bold">*</p></td>
-                                            <td align="center"><p id="custid" style="font-size:larger;flex-align:center">*</p></td>
-                                            <td align="center"><p id="shipid" style="font-size:larger;flex-align:center">*</p></td>
-                                            <td align="center"><p id="boxtypid" style="font-size:larger;flex-align:center">*</p></td>                     
-                                        </tr>
-                                        <tr>
-                                            <td style="font-weight:bold; "><p></p>FYG PART No.<p></p></td>   
-                                            <td style="font-weight:bold;" ><p></p>Base<p></p></td>
-                                            <td style="font-weight:bold;" ><p></p>Pallet QTY<p></p></td>
-                                            <td style="font-weight:bold;" ><p></p>Load QTY<p></p></td>
-                                            <td style="font-weight:bold;" ><p></p>Accessory Quantity<p></p></td>
-                                            <td style="font-weight:bold;" ><p></p>Corner Tape<p></p></td> 
-                                            <td style="font-weight:bold;" ><p></p>Height<p></p></td>
-                                            <td style="font-weight:bold;" ><p></p>Cusion Block<p></p></td>
-                                        </tr>
-                                        <tr>
-                                            <td align="center"><p  id ="partid" style="font-size:larger;font-weight:bold">*</p></td>
-                                            <td id="b01" align="center" ></td>
-                                            <td id="b02" align="center"></td>
-                                            <td id="b03" align="center"></td>
-                                            <td id="b04" align="center" ></td>
-                                            <td id="b05" align="center"></td>
-                                            <td id="b06" align="center"></td>
-                                            <td id="b07" align="center"></td>
-                                        </tr>
-                                        <tr>
-                                            <th>Component Part</th>
-                                            <th>Accessory Part Type</th>
-                                            <th>Accessory Part</th>
-                                            <th>Accessory Part Type</th>
-                                            <th colspan="2" ></th>
-                                            <td >C</td>
-                                            <td id="c01" ></td>
-                                        </tr>
-                                        <tr>
-                                            <td id ="f01" ></td>
-                                            <td id ="t01" ></td>
-                                            <td id ="f05" ></td>
-                                            <td id ="t05" ></td>
-                                            <td colspan="2" rowspan="4" ></td>
-                                            <td>Antenna</td>
-                                            <td id="c02"></td>
-                                        </tr>
-                                        <tr>
-                                            <td id ="f02"></td>
-                                            <td id ="t02" ></td>
-                                            <td id ="f06"></td>
-                                            <td id ="t06"></td>
-                                            <td>Rain sensor</td>
-                                            <td id="c03" ></td>
-                                        </tr>
-                                        <tr>
-                                            <td id ="f03" ></td>
-                                            <td id ="t03" ></td>
-                                            <td id ="f07"></td>
-                                            <td id ="t07" ></td>
-                                            <td>Lace</td>
-                                            <td id="c04" ></td>
-                                        </tr>
-                                        <tr>
-                                            <td id ="f04" ></td>
-                                            <td id ="t04"></td>
-                                            <td id ="f08" ></td>
-                                            <td id ="t08" ></td>
-                                            <td>3M Lace</td>
-                                            <td id="c05" ></td>
-                                        </tr>
-                                </table>
-                            </div>
-						</div>
-					</div>
-				</div>
-		</div>
-
-    </div>--%>
-
+    </div>
+   
 <script src="../../mouldifi-v-2.0/js/plugins/jasny/jasny-bootstrap.min.js"></script>
 <!-- Select2-->
 <script src="../../mouldifi-v-2.0/js/plugins/select2/select2.full.min.js"></script>
@@ -532,12 +438,12 @@ td{
 
                     var value = "";//条码号
 
-                    var invno = jQuery.trim(tds[12].innerHTML);
-                    var boxno = jQuery.trim(tds[13].innerHTML);
+                    var invno = jQuery.trim(tds[15].innerHTML);
+                    var boxno = jQuery.trim(tds[16].innerHTML);
                     var partNO = jQuery.trim(tds[2].innerHTML);
                     var boxtype = jQuery.trim(tds[3].innerHTML);
                     var labelid = jQuery.trim(tds[10].innerHTML);
-                    var itemid = jQuery.trim(tds[18].innerHTML);
+                    var itemid = jQuery.trim(tds[14].innerHTML);
                     var shipdate = tds[7].innerHTML;
                     var orderQty = tds[4].innerHTML;
 
@@ -552,7 +458,7 @@ td{
                     //获取产品附件信息
                     $.ajax({
                         type: "Post",
-                        url: "Arg_BoxLabel.aspx/getPartAcc",
+                        url: "Arg_CrateLabel.aspx/getPartAcc",
                         data: "{pncode:'" + partNO + "'}",
                         contentType: "application/json; charset=utf-8",
                         dataType: "json",
@@ -560,7 +466,7 @@ td{
                         success: function (data) {
                             if (data.d != "") {
                                 var json = $.parseJSON(data.d);
-                                $('#b03').html(json.length);
+                                $('#b04').html(json.length);
 
                                 for (i = 0; i < json.length; i++) {
                                     if (i == 0) {
@@ -598,13 +504,16 @@ td{
 
                                 }
                             }
+                            else {
+                                $('#b04').html("0");
+                            }
                         }
                     });
 
                     //获取产品属性
                     $.ajax({
                         type: "Post",
-                        url: "Arg_BoxLabel.aspx/getPartInfos",
+                        url: "Arg_CrateLabel.aspx/getPartInfos",
                         data: "{pncode:'" + partNO + "',pnum:'" + orderQty + "'}",
                         contentType: "application/json; charset=utf-8",
                         dataType: "json",
@@ -612,16 +521,20 @@ td{
                         success: function (data) {
                             if (data.d != "") {
                                 var json = data.d;
-                                var high = json.substr(4, json.indexOf("gasket") - 4);
-                                var gasket = json.substr(json.indexOf("gasket") + 6, json.indexOf("corner") - json.indexOf("gasket") - 6);
-                                var corner = json.substr(json.indexOf("corner") + 6, json.indexOf("base") - json.indexOf("corner") - 6);
-                                var base = json.substr(json.indexOf("base") + 4);
+                                  high = json.substr(4, json.indexOf("gasket") - 4);
+                                  gasket = json.substr(json.indexOf("gasket") + 6, json.indexOf("corner") - json.indexOf("gasket") - 6);
+                                  corner = json.substr(json.indexOf("corner") + 6, json.indexOf("base") - json.indexOf("corner") - 6);
+                                  base = json.substr(json.indexOf("base") + 4, json.indexOf("brack") - json.indexOf("base") - 4);
+                                  brack = json.substr(json.indexOf("brack") + 5);
+
+                                  if (brack != "" && boxtype.toUpperCase().indexOf("RACK") > -1)
+                                    boxtype = brack;
 
 
                                 $('#b01').html(base);    //底座编码
-                                $('#b04').html(corner);  //包角模式
-                                $('#b05').html(high);    //箱高
-                                $('#b06').html(gasket);  //垫片规格
+                                $('#b05').html(corner);  //包角模式
+                                $('#b06').html(high);    //箱高
+                                $('#b07').html(gasket);  //垫片规格
                             }
                             else {
                                 alert("error!");
@@ -633,7 +546,7 @@ td{
                     //获取包边模式
                     $.ajax({
                         type: "Post",
-                        url: "Arg_BoxLabel.aspx/getPartEdge",
+                        url: "Arg_CrateLabel.aspx/getPartEdge",
                         data: "{pncode:'" + partNO + "'}",
                         contentType: "application/json; charset=utf-8",
                         dataType: "json",
@@ -679,7 +592,7 @@ td{
         //获取当前用户角色
         $.ajax({
             type: "Post",
-            url: "Arg_BoxLabel.aspx/getRoleInfos",
+            url: "Arg_CrateLabel.aspx/getRoleInfos",
             data: "",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -695,38 +608,38 @@ td{
                     {
 
                         //查看前清空界面数据
-                        //$('#f01').html("");
-                        //$('#t01').html("");
-                        //$('#f02').html("");
-                        //$('#t02').html("");
-                        //$('#f03').html("");
-                        //$('#t03').html("");
-                        //$('#f04').html("");
-                        //$('#t04').html("");
-                        //$('#f05').html("");
-                        //$('#t05').html("");
-                        //$('#f06').html("");
-                        //$('#t06').html("");
-                        //$('#f07').html("");
-                        //$('#t07').html("");
-                        //$('#f08').html("");
-                        //$('#t08').html("");
+                        $('#f01').html("");
+                        $('#t01').html("");
+                        $('#f02').html("");
+                        $('#t02').html("");
+                        $('#f03').html("");
+                        $('#t03').html("");
+                        $('#f04').html("");
+                        $('#t04').html("");
+                        $('#f05').html("");
+                        $('#t05').html("");
+                        $('#f06').html("");
+                        $('#t06').html("");
+                        $('#f07').html("");
+                        $('#t07').html("");
+                        $('#f08').html("");
+                        $('#t08').html("");
 
-                        //$('#c01').html("");
-                        //$('#c02').html("");
-                        //$('#c03').html("");
-                        //$('#c04').html("");
-                        //$('#c05').html("");
+                        $('#c01').html("");
+                        $('#c02').html("");
+                        $('#c03').html("");
+                        $('#c04').html("");
+                        $('#c05').html("");
 
-                        //$('#P1').html("");
-                        //$('#P2').html("");
-                        //$('#P3').html("");
-                        //$('#P4').html("");
-                        //$('#P5').html("");
-                        //$('#P6').html("");
-                        //$('#P7').html("");
-                        //$('#P8').html("");
-                        //$('#P9').html("");
+                        $('#P1').html("");
+                        $('#P2').html("");
+                        $('#P3').html("");
+                        $('#P4').html("");
+                        $('#P5').html("");
+                        $('#P6').html("");
+                        $('#P7').html("");
+                        $('#P8').html("");
+                        $('#P9').html("");
 
                         var inputs = document.getElementById("editable1").getElementsByTagName("input");
 
@@ -828,16 +741,16 @@ td{
                                             if (parseInt(tall_f) <= lqty_f && parseInt(tall_f) >= 0)
                                             {
                                                 //基本信息
-                                                //$('#orderid').html(invno + "-" + boxno);
-                                                //$('#shipid').html(shipdate);
-                                                //$('#boxtypid').html(boxtype);
-                                                //$('#labelid').html(labelid);
-                                                //$('#partid').html(partNO);
-                                                //$('#b02').html(orderQty);
+                                                $('#orderid').html(invno + "-" + boxno);
+                                                $('#shipid').html(shipdate);
+                                                $('#boxtypid').html(boxtype);
+                                                $('#labelid').html(labelid);
+                                                $('#partid').html(partNO);
+                                                $('#b02').html(orderQty);
                                                 //获取产品附件信息
                                                 $.ajax({
                                                     type: "Post",
-                                                    url: "Arg_BoxLabel.aspx/getPartAcc",
+                                                    url: "Arg_CrateLabel.aspx/getPartAcc",
                                                     data: "{pncode:'" + partNO + "'}",
                                                     contentType: "application/json; charset=utf-8",
                                                     dataType: "json",
@@ -851,58 +764,57 @@ td{
                                                                 if (i == 0) {
                                                                     bom1  = json[0].Component_Part;
                                                                     //bomt1 = json[0].Component_Type;
-                                                                    //$('#f01').html(json[0].Component_Part);
-                                                                    //$('#t01').html(json[0].Component_Type);
+                                                                    $('#f01').html(json[0].Component_Part);
+                                                                    $('#t01').html(json[0].Component_Type);
 
                                                                 }
                                                                 if (i == 1) {
                                                                     bom2 = json[1].Component_Part;
                                                                     //bomt2 = json[1].Component_Type;
-                                                                    //$('#f02').html(json[1].Component_Part);
-                                                                    //$('#t02').html(json[1].Component_Type);
+                                                                    $('#f02').html(json[1].Component_Part);
+                                                                    $('#t02').html(json[1].Component_Type);
 
                                                                 }
                                                                 if (i == 2) {
                                                                     bom3 = json[2].Component_Part;
                                                                     //bomt3 = json[2].Component_Type;
-                                                                    //$('#f03').html(json[2].Component_Part);
-                                                                    //$('#t03').html(json[2].Component_Type);
+                                                                    $('#f03').html(json[2].Component_Part);
+                                                                    $('#t03').html(json[2].Component_Type);
 
                                                                 }
                                                                 if (i == 3) {
                                                                     bom4 = json[3].Component_Part;
                                                                     //bomt4 = json[3].Component_Type;
-                                                                    //$('#f04').html(json[3].Component_Part);
-                                                                    //$('#t04').html(json[3].Component_Type);
+                                                                    $('#f04').html(json[3].Component_Part);
+                                                                    $('#t04').html(json[3].Component_Type);
 
                                                                 }
                                                                 if (i == 4) {
                                                                     bom5 = json[4].Component_Part;
                                                                     //bomt5 = json[4].Component_Type;
-                                                                    //$('#f05').html(json[4].Component_Part);
-                                                                    //$('#t05').html(json[4].Component_Type);
+                                                                    $('#f05').html(json[4].Component_Part);
+                                                                    $('#t05').html(json[4].Component_Type);
 
                                                                 }
                                                                 if (i == 5) {
                                                                     bom6 = json[5].Component_Part;
                                                                     //bomt6 = json[5].Component_Type;
-                                                                    //$('#f06').html(json[5].Component_Part);
-                                                                    //$('#t06').html(json[5].Component_Type);
+                                                                    $('#f06').html(json[5].Component_Part);
+                                                                    $('#t06').html(json[5].Component_Type);
 
                                                                 }
                                                                 if (i == 6) {
                                                                     bom7 = json[6].Component_Part;
                                                                     //bomt7 = json[6].Component_Type;
-                                                                    //$('#f07').html(json[6].Component_Part);
-                                                                    //$('#t07').html(json[6].Component_Type);
+                                                                    $('#f07').html(json[6].Component_Part);
+                                                                    $('#t07').html(json[6].Component_Type);
 
                                                                 }
                                                                 if (i == 7) {
                                                                     bom8 = json[7].Component_Part;
                                                                     //bomt8 = json[7].Component_Type;
-                                                                    //$('#f08').html(json[7].Component_Part);
-                                                                    //$('#t08').html(json[7].Component_Type);
-
+                                                                    $('#f08').html(json[7].Component_Part);
+                                                                    $('#t08').html(json[7].Component_Type);
                                                                 }
 
                                                             }
@@ -912,7 +824,7 @@ td{
                                                 //获取产品属性
                                                 $.ajax({
                                                     type: "Post",
-                                                    url: "Arg_BoxLabel.aspx/getPartInfos",
+                                                    url: "Arg_CrateLabel.aspx/getPartInfos",
                                                     data: "{pncode:'" + partNO + "',pnum:'" + orderQty + "'}",
                                                     contentType: "application/json; charset=utf-8",
                                                     dataType: "json",
@@ -930,11 +842,11 @@ td{
                                                             if (brack != "" && boxtype.toUpperCase().indexOf("RACK") > -1)
                                                                 boxtype = brack;
 
-                                                            //$('#b01').html(base);    //底座编码
-                                                            //$('#b04').html(corner);  //包角模式
-                                                            //$('#b05').html(high);    //箱高
-                                                            //$('#b06').html(gasket);  //垫片规格
-                                                            //$('#b09').html(tall_f);  //本次打印数量
+                                                            $('#b01').html(base);    //底座编码
+                                                            $('#b04').html(corner);  //包角模式
+                                                            $('#b05').html(high);    //箱高
+                                                            $('#b06').html(gasket);  //垫片规格
+                                                            $('#b09').html(tall_f);  //本次打印数量
                                                         }
                                                         else {
                                                             alert("error!");
@@ -945,7 +857,7 @@ td{
                                                 //获取包边模式
                                                 $.ajax({
                                                     type: "Post",
-                                                    url: "Arg_BoxLabel.aspx/getPartEdge",
+                                                    url: "Arg_CrateLabel.aspx/getPartEdge",
                                                     data: "{pncode:'" + partNO + "'}",
                                                     contentType: "application/json; charset=utf-8",
                                                     dataType: "json",
@@ -957,52 +869,33 @@ td{
                                                                 //判断包边模式
                                                                 if (json[i].EdgeType == "Antenna") {
                                                                     N2 = "N";
-                                                                    //$('#c02').html("N");
+                                                                    $('#c02').html("N");
                                                                 }
                                                                 if (json[i].EdgeType == "Rain Sensor") {
                                                                     R3 = "R";
-                                                                    //$('#c03').html("R");
+                                                                    $('#c03').html("R");
                                                                 }
                                                                 if (json[i].EdgeType == "Lace") {
                                                                     L4 = "L";
-                                                                    //$('#c04').html("L");
+                                                                    $('#c04').html("L");
                                                                 }
                                                                 if (json[i].EdgeType == "3M Lace") {
                                                                     A5 = "A";
-                                                                    //$('#c05').html("A");
+                                                                    $('#c05').html("A");
                                                                 }
                                                             }
                                                         }
                                                         else {
                                                             C1 = "C";
-                                                            //$('#c01').html("C");
+                                                            $('#c01').html("C");
                                                         }
                                                     }
                                                 });
 
-                                                //获取当前用户打印机
-                                                //$.ajax({
-                                                //    type: "Post",
-                                                //    url: "Arg_BoxLabel.aspx/getPrinter",
-                                                //    data: "",
-                                                //    contentType: "application/json; charset=utf-8",
-                                                //    dataType: "json",
-                                                //    async: false,
-                                                //    success: function (data) {
-                                                //        if (data.d != "") {
-                                                //            print = data.d;
-                                                //        }
-                                                //        else {
-                                                //            print = "ZDesigner_ARGPackingSlip_OldOfice";
-                                                //        }
-                                                //    }
-                                                //});
-
-
                                                 //获取条码号
                                                 $.ajax({
                                                     type: "Post",
-                                                    url: "Arg_BoxLabel.aspx/getBoxLabel",
+                                                    url: "Arg_CrateLabel.aspx/getBoxLabel",
                                                     data: "{itemid:'" + itemid + "',invoiceno:'" + invno + "',pncode:'" + partNO + "',orderqty:" + orderQty + ",finqty:" + (parseInt(tall_f) + parseInt(wipqty_f)) + "}",
                                                     contentType: "application/json; charset=utf-8",
                                                     dataType: "json",
@@ -1217,7 +1110,7 @@ td{
                                                         //获取产品属性
                                                         $.ajax({
                                                             type: "Post",
-                                                            url: "Arg_BoxLabel.aspx/getPartInfos",
+                                                            url: "Arg_CrateLabel.aspx/getPartInfos",
                                                             data: "{pncode:'" + partNO + "',pnum:'" + orderQty + "'}",
                                                             contentType: "application/json; charset=utf-8",
                                                             dataType: "json",
@@ -1239,7 +1132,7 @@ td{
                                                         //获取半箱箱牌
                                                         $.ajax({
                                                             type: "Post",
-                                                            url: "Arg_BoxLabel.aspx/setPartialBoxLabel",
+                                                            url: "Arg_CrateLabel.aspx/setPartialBoxLabel",
                                                             data: "{itemid:'" + itemid + "',orderqty:" + orderQty + ",finqty:" + tl+ "}",
                                                             contentType: "application/json; charset=utf-8",
                                                             dataType: "json",
@@ -1282,8 +1175,6 @@ td{
 
                                                                         //更新界面
                                                                         queryData();
-                                                                        //取消半箱
-                                                                        //$("#_partialbox").jqprint();
                                                                     }
                                                                    
                                                                 }
@@ -1321,7 +1212,7 @@ td{
         //获取当前用户角色
         $.ajax({
             type: "Post",
-            url: "Arg_BoxLabel.aspx/getRoleInfos",
+            url: "Arg_CrateLabel.aspx/getRoleInfos",
             data: "",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -1392,7 +1283,7 @@ td{
                                     //获取产品附件信息
                                     $.ajax({
                                         type: "Post",
-                                        url: "Arg_BoxLabel.aspx/getPartAcc",
+                                        url: "Arg_CrateLabel.aspx/getPartAcc",
                                         data: "{pncode:'" + partNO + "'}",
                                         contentType: "application/json; charset=utf-8",
                                         dataType: "json",
@@ -1444,7 +1335,7 @@ td{
                                     //获取产品属性
                                     $.ajax({
                                         type: "Post",
-                                        url: "Arg_BoxLabel.aspx/getPartInfos",
+                                        url: "Arg_CrateLabel.aspx/getPartInfos",
                                         data: "{pncode:'" + partNO + "',pnum:'" + orderQty + "'}",
                                         contentType: "application/json; charset=utf-8",
                                         dataType: "json",
@@ -1473,7 +1364,7 @@ td{
                                     //获取包边模式
                                     $.ajax({
                                         type: "Post",
-                                        url: "Arg_BoxLabel.aspx/getPartEdge",
+                                        url: "Arg_CrateLabel.aspx/getPartEdge",
                                         data: "{pncode:'" + partNO + "'}",
                                         contentType: "application/json; charset=utf-8",
                                         dataType: "json",
@@ -1506,7 +1397,7 @@ td{
                                     //获取条码号
                                     $.ajax({
                                         type: "Post",
-                                        url: "Arg_BoxLabel.aspx/getBoxLabel",
+                                        url: "Arg_CrateLabel.aspx/getBoxLabel",
                                         data: "{itemid:'" + itemid + "',invoiceno:'" + invno + "',pncode:'" + partNO + "'}",
                                         contentType: "application/json; charset=utf-8",
                                         dataType: "json",

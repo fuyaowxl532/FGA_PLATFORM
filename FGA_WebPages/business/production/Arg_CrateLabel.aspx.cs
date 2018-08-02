@@ -647,7 +647,7 @@ namespace FGA_PLATFORM.business.production
             if (pnum == 10)
                 std = 38;
             if (pnum == 11)
-                std = 35;
+                std = 38;
             if (pnum == 12)
                 std = 33;
             if (pnum == 13)
