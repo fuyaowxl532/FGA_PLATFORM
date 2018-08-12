@@ -33,6 +33,7 @@
 <script src="../../mouldifi-v-2.0/js/tableExport.js"></script>
 <script src="../../mouldifi-v-2.0/js/jquery.base64.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 <style type="text/css">
 .file {
     position: relative;
@@ -61,13 +62,6 @@
     color: #004974;
     text-decoration: none;
 }
-.table-cont{
-  max-height: 75%;
-  overflow: auto;
-  background: #ddd;
-  margin: 5px 5px;
-  box-shadow: 0 0 1px 3px #ddd;
-}
 thead{
   background-color: #ddd;
 }
@@ -82,56 +76,135 @@ td{
 </head>
 <body style="overflow:hidden">
     <div class="head"><i class="icon-tools"></i>&nbsp;&nbsp;Production=> SmallLot=> EDICtrlCenter</div>
-    <div class="header-secondary " style="margin-top:-20px; margin-left:-10px;">
+<%--    <div class="header-secondary " style="margin-top:-20px; margin-left:-10px;">
+                
                 <a href="javascript:;" class="file" style="background-color:#00BACE;color:white;font-weight:bold;top:9px">IMPORT
                         <input type="file"  onchange="importf(this)"  name="" id="_import"/>
                 </a>
                 <button class="btn btn-primary btn-sm" id ="btnSearch"  onclick ="SearchData()">Search</button>
-                <button class="btn btn-primary btn-sm" id ="btnMerge"  onclick ="MergeData()">MergeData</button>
+                <button class="btn btn-primary btn-sm" id ="btnMerge"   onclick ="MergeData()">MergeData</button>
                 <button class="btn btn-primary btn-sm" id ="btnExport"  onclick ="$('#editable').tableExport({ type: 'excel', tableName: 'OEM_IR', escape: 'false' })">Export</button>
 
-	</div>
+	</div>--%>
+
+    <div class="row" style="margin-top:2px">
+		 <div class="col-lg-8">
+			 <div class="form-inline">
+                <label style="color:black;font-weight:bold;height:20px">Ship Date</label> 
+
+				<div class="form-group">
+                    <div id="date-popup" class="input-group date"> 
+					<input type="text" id = "_fdate"  data-format="D, dd MM yyyy" class="form-control" style="width:120px"/> 
+						<span class="input-group-addon"><i class="fa fa-calendar"></i></span> 
+				    </div>
+				</div>
+				<div class="form-group">
+				    <div id="date-popup1" class="input-group date"> 
+					<input type="text" id ="_tdate"  data-format="D, dd MM yyyy" class="form-control" style="width:120px"/> 
+						<span class="input-group-addon"><i class="fa fa-calendar"></i></span> 
+				    </div>
+				</div>
+				<a href="javascript:;" class="file" style="background-color:#00BACE;color:white;font-weight:bold;top:13px;height:30px">IMPORT
+                <input type="file"  onchange="importf(this)"  name="" id="_import"/>
+                </a>
+                <button class="btn btn-primary btn-sm" id ="btnSearch"  style="height:30px" onclick ="SearchData()">Search</button>
+                <button class="btn btn-primary btn-sm" id ="btnMerge"   style="height:30px" onclick ="MergeData()">MergeData</button>
+                <button class="btn btn-primary btn-sm" id ="btnExport"  style="height:30px" onclick ="$('#editable').tableExport({ type: 'excel', tableName: 'Small Lot Orders', escape: 'false' })">Export</button>
+               
+			</div>
+			
+        </div>
+	    </div>
+
     <!-- /table -->
-    <div class='table-cont' id='table-cont' style="width:100%;margin-left: 0px;float:left;" >
-        <table class="table  table-bordered table-hover dataTables-example" id ="editable">
+    <div style="width:100%;height:85%;overflow:auto;margin-left: 0px;float:left;margin-top:2px;">
+							<div class="table-responsive">
+								<table id = "editable" class="table table-bordered" >
 	        <thead>
 		        <tr>
                     <th style ="background-color:black;color:white;text-align:left">No</th>
-                    <th style ="background-color:black;color:white;text-align:left">Customer</th>
-			        <th style ="background-color:black;color:white;text-align:left">ShipTO</th>
-			        <th style ="background-color:black;color:white;text-align:left">CustomerPN</th>
-			        <th style ="background-color:black;color:white;text-align:left">Part Rev</th>
-                    <th style ="background-color:black;color:white;text-align:left">PartNO</th>
-                    <th style ="background-color:black;color:white;text-align:left">PartName</th>
-                    <th style ="background-color:black;color:white;text-align:left">DueDate</th>
-                    <th style ="background-color:black;color:white;text-align:left">ShipDate</th>
+                    <th style ="background-color:black;color:white;text-align:left">Group</th>
+                    <th style ="background-color:black;color:white;text-align:left">Customer_Name</th>
+			        <th style ="background-color:black;color:white;text-align:left">Customer_Address_Code</th>
+			        <th style ="background-color:black;color:white;text-align:left">Customer_Part_NO</th>
+			        <th style ="background-color:black;color:white;text-align:left">Customer_Part_Revision</th>
+                    <th style ="background-color:black;color:white;text-align:left">Part_NO</th>
+                    <th style ="background-color:black;color:white;text-align:left">Part_Name</th>
+                    <th style ="background-color:black;color:white;text-align:left">Due_Date</th>
+                    <th style ="background-color:black;color:white;text-align:left">Ship_Date</th>
 			        <th style ="background-color:black;color:white;text-align:left">Quantity</th>
-			        <th style ="background-color:black;color:white;text-align:left">OrderNO</th>
-                    <th style ="background-color:black;color:white;text-align:left">LotNO</th>
-                    <th style ="background-color:black;color:white;text-align:left">BatchNO</th>
-                    <th style ="background-color:black;color:white;text-align:left">JobSequence</th>
-                    <th style ="background-color:black;color:white;text-align:left">EDIKey</th>
-                    <th style ="background-color:black;color:white;text-align:left">EDIAction</th>
-			        <th style ="background-color:black;color:white;text-align:left">EDIStatus</th>
-			        <th style ="background-color:black;color:white;text-align:left">Docname</th>
-                    <th style ="background-color:black;color:white;text-align:left">StandardQty</th>
+			        <th style ="background-color:black;color:white;text-align:left">Order_NO</th>
+                    <th style ="background-color:black;color:white;text-align:left">Lot_NO</th>
+                    <th style ="background-color:black;color:white;text-align:left">Batch_NO</th>
+                    <th style ="background-color:black;color:white;text-align:left">Job_Sequence</th>
+                    <th style ="background-color:black;color:white;text-align:left">Standard_Quantity</th>
                     <th style ="background-color:black;color:white;text-align:left">Creator</th>
 			        <th style ="background-color:black;color:white;text-align:left">CreateDate</th>
 		        </tr>
 	        </thead>
 	        <tbody id ="tby" style="background-color:white"></tbody>
                                    
-        </table>
-    </div>
+       </table>
+							</div>
+						</div>		
    		   
 
+<!-- Input Mask-->
 <script src="../../mouldifi-v-2.0/js/plugins/jasny/jasny-bootstrap.min.js"></script>
+<!-- Select2-->
 <script src="../../mouldifi-v-2.0/js/plugins/select2/select2.full.min.js"></script>
+<!--Bootstrap ColorPicker-->
 <script src="../../mouldifi-v-2.0/js/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
+<!--Bootstrap DatePicker-->
 <script src="../../mouldifi-v-2.0/js/plugins/datepicker/bootstrap-datepicker.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.12.12/xlsx.full.min.js"></script>
-<script src="../../javascript/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="../../javascript/jquery-clock-timepicker.min.js"></script>
+
+<link href="../../javascript/artDialog/ui-dialog.css" rel="stylesheet" />
+<script src="../../javascript/JSPager.js"></script>
+<script src="../../javascript/DateOperate.js"></script>
 <script type="text/javascript">
+    var islock = '<%= isLocked %>';
+
+    $(document).ready(function () {
+
+        $('#datepicker').datepicker({
+            keyboardNavigation: false,
+            forceParse: false,
+            todayHighlight: true
+        });
+        $('#date-popup').datepicker({
+            keyboardNavigation: false,
+            forceParse: false,
+            todayHighlight: true
+        });
+        $('#date-popup1').datepicker({
+            keyboardNavigation: false,
+            forceParse: false,
+            todayHighlight: true
+        });
+        $('#date-popup2').datepicker({
+            keyboardNavigation: false,
+            forceParse: false,
+            todayHighlight: true
+        });
+        $('#year-view').datepicker({
+            startView: 2,
+            keyboardNavigation: false,
+            forceParse: false,
+            format: "mm/dd/yyyy"
+        });
+
+          //设置按钮权限
+        if (islock == 'Yes') {
+            $("#_import").attr("disabled", "true");
+        }
+        if (islock == 'No') {
+            $("#_import").removceAttr("disabled");
+        }
+
+        SearchData();
+    });
 
     //导入
     var rABS = false; //是否将文件读取为二进制字符串
@@ -153,7 +226,6 @@ td{
                 }
                 //获取界面数据
                 var json = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]);
-               
 
                 if (true)
                 {
@@ -169,11 +241,13 @@ td{
                         async: true,
                         success: function (data) {
                             if (data.d == "1") {
+                                alert("Import Successfully!");
                                 SearchData();
-                                alert("Success");
                             }
-                            else
-                                alert("fail");
+                            else {
+                                alert("Import failed");
+                                $("#tby").html('');
+                            }
                         }
                     });
                 }
@@ -196,9 +270,19 @@ td{
     //Query
     function SearchData() {
         $("#editable tr:not(:first)").remove();
+
+        //var _fdate = $("#_fdate").val();      //交付日期F
+        //var _tdate = $("#_tdate").val();      //交付日期T
+
+        //if (_fdate == "" || _tdate == "") {
+        //    alert("Please input ship date!");
+        //    return;
+        //}
+
         $.ajax({
             type: "Post",
             url: "EDICtrlCenter.aspx/SearchData",
+            //data: "{fdate:'" + _fdate + "',tdate:'" + _tdate + "'}",
             data: "",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -208,9 +292,22 @@ td{
                     var json = $.parseJSON(data.d);
                     var slct = "";
                     for (var i = 0; i < json.length; i++) {
-                            slct = slct + '<tr>' +
-                                '<td> ' + (i+1) + '</td> ' +
-                                '<td> ' + json[i].Customer_Name + '</td> ' +
+                        slct = slct + '<tr>' +
+                            '<td> ' + (i + 1) + '</td> ';
+
+                        if (i == 0) {
+                               slct = slct + '<td style="background-color:yellow;"> ' + json[i].MasterID + '</td>';
+                           }
+                           else {
+                               if (json[i].MasterID != json[i - 1].MasterID) {
+                                   slct = slct + '<td style="background-color:yellow;"> ' + json[i].MasterID + '</td>';
+                               }
+                               else {
+                                    slct = slct + '<td> ' + json[i].MasterID + '</td>';
+                               }
+                        }
+
+                        slct = slct + '<td> ' + json[i].Customer_Name + '</td> ' +
                                 '<td> ' + json[i].Customer_Address_Code + '</td> ' +
                                 '<td> ' + json[i].Customer_Part_NO + '</td> ' +
                                 '<td> ' + json[i].Customer_Part_Revision + '</td> ' +
@@ -223,10 +320,6 @@ td{
                                 '<td> ' + json[i].Lot_NO + '</td> ' +
                                 '<td> ' + json[i].Batch_NO + '</td> ' +
                                 '<td> ' + json[i].Job_Sequence + '</td> ' +
-                                '<td> ' + json[i].EDI_Key + '</td> ' +
-                                '<td> ' + json[i].EDI_Action + '</td> ' +
-                                '<td> ' + json[i].EDI_Status + '</td> ' +
-                                '<td> ' + json[i].Docname + '</td> ' +
                                 '<td> ' + json[i].Standard_Quantity + '</td> ' +
                                 '<td> ' + json[i].Creator + '</td> ' +
                                 '<td> ' + new Date(parseInt(json[i].Createdate)).toLocaleString() + '</td> ' +
@@ -250,8 +343,9 @@ td{
             dataType: "json",
             async: true,
             success: function (data) {
-                if (data.d != "") {
-                 SearchData();
+                if (data.d == "1") {
+                    SearchData();
+                    alert("Merge successfully!");
                 }
             }
         });

@@ -171,7 +171,7 @@ namespace FGA_PLATFORM.business.production
                 }
 
                 //生成LoadDetail表
-                //position排序规则：job_sequence大的排后面
+                //position排序规则：job_sequence大的先装
                 string sql3 = null;
                 int ccount = listmodel[0].Standard_Quantity;
 

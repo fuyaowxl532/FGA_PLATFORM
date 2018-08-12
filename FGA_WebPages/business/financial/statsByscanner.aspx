@@ -488,34 +488,6 @@ td{
                     }
 
                 }
-                //for (var i = 0; i < inputs.length; i++) {
-                //    var row = {};
-
-                //    if (inputs[i].type == "checkbox") {
-                //        if (inputs[i].checked && inputs[i].name == "cb1") {
-                //            var checkedRow = inputs[i];
-                //            var currRow = checkedRow.parentNode.parentNode.rowIndex;
-                //            var tr = checkedRow.parentNode.parentNode;
-                //            var tds = tr.cells;
-
-                //            row.serialNO = tds[1].innerHTML;
-                //            row.PartNO = tds[2].innerHTML;
-                //            row.Location = "FGA-INV";
-                //            row.Quantity = tds[6].innerHTML;
-                //            var aq = $("#editable tr").eq(currRow).find("td").eq(7).find("input").val();
-                //            if (aq == "") {
-                //                row.ActualQty = tds[6].innerHTML;
-                //            }
-                //            else {
-                //                row.ActualQty =  parseFloat(aq).toString();
-                //            }
-
-                //            if (row.PartNO != "") {
-                //                data.push(row);
-                //            }
-                //        }
-                //    }
-                //}
 
                 if (data.length > 0) {
 

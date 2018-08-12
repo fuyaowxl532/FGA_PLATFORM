@@ -31,6 +31,12 @@ namespace FGA_MODEL
         public int Job_Sequence { get; set; }
         public int EDI_RowID { get; set; }
         public int rstatus { get; set; }
+        public int IsConfirm { get; set; }
+        public string PartType { get; set; }
+        public string Creator { get; set; }
+        public DateTime Createdate { get; set; }
+        public string LastEditUser { get; set; }
+        public DateTime LastEditDate { get; set; }
         /// <summary>
         /// 默认构造函数
         /// </summary>
@@ -86,6 +92,18 @@ namespace FGA_MODEL
                 EDI_RowID = Convertor.ToInt32(row["EDI_RowID"]);
             if (row.Table.Columns.Contains("rstatus"))
                 rstatus = Convertor.ToInt32(row["rstatus"]);
+            if (row.Table.Columns.Contains("IsConfirm"))
+                IsConfirm = Convertor.ToInt32(row["IsConfirm"]);
+            if (row.Table.Columns.Contains("PartType"))
+                PartType = Convertor.ToString(row["PartType"]);
+            if (row.Table.Columns.Contains("Creator"))
+                Creator = Convertor.ToString(row["Creator"]);
+            if (row.Table.Columns.Contains("Createdate"))
+                Createdate = Convertor.ToDateTime(row["Createdate"]);
+            if (row.Table.Columns.Contains("LastEditUser"))
+                LastEditUser = Convertor.ToString(row["LastEditUser"]);
+            if (row.Table.Columns.Contains("LastEditDate"))
+                LastEditDate = Convertor.ToDateTime(row["LastEditDate"]);
 
         }
     }

@@ -67,18 +67,19 @@ th
     	<div class="row" style="margin-top:2px">
 		 <div class="col-lg-8">
 			 <div class="form-inline">
-							  <div class="form-group">
+							<%--  <div class="form-group">
 								<input type="text" class="form-control"  placeholder="Ship To" id="_orderno">
 							  </div>
 							  <div class="form-group">
 								<input type="text" class="form-control"  placeholder="Part NO" id="_partno">
-							  </div>
+							  </div>--%>
 							  <button type="submit" class="btn btn-primary" onclick="SearchData()">Search</button>
-                              <button type="submit" class="btn btn-primary" onclick="releaseData()">RELEASE</button>
-                              <button type="submit" class="btn btn-primary" onclick="delData()">Delete</button>
-                              <a href="javascript:;" class="file" style="background-color:#00BACE;color:white;font-weight:bold;top:12px">IMPORT
+                              <button type="submit" id="conf" class="btn btn-primary" onclick="confirmData()">Confirm</button>
+                              <button type="submit" id="rel" class="btn btn-primary" onclick="releaseData()">RELEASE</button>
+                             <%-- <button type="submit" id="_del" class="btn btn-primary" onclick="delData()">Delete</button>--%>
+                          <%--    <a href="javascript:;" id="imp" class="file" style="background-color:#00BACE;color:white;font-weight:bold;top:13px">IMPORT
                               <input type="file"  onchange="importf(this)"  name="" id="_import"/>
-                </a>
+                </a>--%>
 			</div>
 
 			
@@ -86,7 +87,6 @@ th
 	    </div>
 	
 		<div style="width:100%;position:absolute;height:85%;overflow:auto;margin-left: 0px;float:left;margin-top:5px;">
-			
 							<div class="table-responsive">
 								<table id = "editable" class="table table-bordered" >
 									<thead>
@@ -94,7 +94,7 @@ th
                                      	<th style ="background-color:black;color:white;text-align:left">#</th>
                                         <th style ="background-color:black;color:white;text-align:left">ROW</th>
                                         <th style ="background-color:black;color:white;text-align:left">Group</th>
-			                            <th style ="background-color:black;color:white;text-align:left">Customer</th>
+			                          <%--  <th style ="background-color:black;color:white;text-align:left">Customer</th>--%>
 			                            <th style ="background-color:black;color:white;text-align:left">Ship To</th>
 			                            <th style ="background-color:black;color:white;text-align:left">CstPartNo</th>
 			                            <th style ="background-color:black;color:white;text-align:left">PartNo</th>
@@ -105,10 +105,12 @@ th
 			                            <th style ="background-color:black;color:white;text-align:left">LotNo</th>
                                         <th style ="background-color:black;color:white;text-align:left">BatchNo</th>
                                         <th style ="background-color:black;color:white;text-align:left">JobSequence </th>
-                                        <th style ="background-color:black;color:white;text-align:left">CstPartRev</th>
-                                        <th style ="background-color:black;color:white;text-align:left">OrderNo</th>
+                                    <%--    <th style ="background-color:black;color:white;text-align:left">CstPartRev</th>
+                                        <th style ="background-color:black;color:white;text-align:left">OrderNo</th>--%>
+                                        <th style ="background-color:black;color:white;text-align:left">PartType</th>
+                                        <th style ="background-color:black;color:white;text-align:left">Status</th>
                                         <th style ="background-color:black;color:white;text-align:left">RowID</th>
-                                       
+                                        <th style ="background-color:black;color:white;text-align:left">CreateDate</th>
 										</tr>
 									</thead>
 									<tbody id ="tby" style="background-color:white"></tbody>
@@ -126,6 +128,22 @@ th
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.12.12/xlsx.full.min.js"></script>
 <script src="../../../javascript/jquery-1.11.1.min.js"></script>
 <script type="text/javascript">
+
+    var islock = '<%= isLocked %>';
+
+    $(document).ready(function () {
+        //加载自动检索
+        SearchData();
+        //设置按钮权限
+        if (islock == 'Yes') {
+            $("#_del").attr("disabled", "true");  
+            $("#_import").attr("disabled", "true");
+        }
+        if (islock == 'No') {
+            $("#_del").removceAttr("disabled");
+            $("#_import").removceAttr("disabled");
+        }
+    });
 
     //导入
     var rABS = false; //是否将文件读取为二进制字符串
@@ -162,11 +180,20 @@ th
                         async: true,
                         success: function (data) {
                             if (data.d == "1") {
+                                alert("Successfully imported");
                                 SearchData();
-                                alert("Success");
                             }
-                            else
-                                alert("fail");
+                            else {
+                                if (data.d == "-1") {
+                                    alert("MasterID can not be null.");
+                                    $("#tby").html('');
+                                }
+                                if (data.d == "0") {
+                                    alert("Import failed!");
+                                    $("#tby").html('');
+                                }
+                            }
+                              
                         }
                     });
                 }
@@ -201,7 +228,13 @@ th
                    var json = $.parseJSON(data.d);
                    var slct = "";
 
-                   for (var i = 0; i < json.length; i++) {
+                    for (var i = 0; i < json.length; i++) {
+                        var status = "";
+                        if (json[i].IsConfirm == 0)
+                            status = "Generation";
+                        if (json[i].IsConfirm == 1)
+                            status = "Confirmed";
+
                        slct = slct + '<tr><td><input type="checkbox" name = "cb1" /></td>' +
                            '<td> ' + (i + 1) + '</td> ';
 
@@ -217,25 +250,52 @@ th
                                }
                            }
 
-                       slct = slct + '<td> ' + json[i].customer_name + '</td> ' +
-                           '<td> ' + json[i].Customer_Address_Code + '</td> ' +
-                           '<td> ' + json[i].Customer_Part_No + '</td> ' +
-                           '<td> ' + json[i].part_no + '</td> ' +
+                       slct = slct + '<td> ' + json[i].Customer_Address_Code + '</td> ' +
+                           '<td> ' + json[i].Customer_Part_NO + '</td> ' +
+                           '<td> ' + json[i].Part_NO + '</td> ' +
                            '<td> ' + new Date(parseInt(json[i].Due_Date)).toLocaleString() + '</td> ' +
                            '<td> ' + new Date(parseInt(json[i].Ship_Date)).toLocaleString() + '</td> ' +
                            '<td> ' + json[i].Quantity + '</td> ' +
                            '<td> ' + json[i].Standard_Quantity + '</td> ' +
-                           '<td> ' + json[i].Lot_No + '</td> ' +
-                           '<td> ' + json[i].BATCH_NO + '</td> ' +
-                           '<td> ' + json[i].JOB_SEQUENCE + '</td> ' +
-                           '<td> ' + json[i].Customer_Part_Revision + '</td> ' +
-                           '<td> ' + json[i].ORDER_NO + '</td> ' +
+                           '<td> ' + json[i].Lot_NO + '</td> ' +
+                           '<td> ' + json[i].Batch_NO + '</td> ' +
+                           '<td> ' + json[i].Job_Sequence + '</td> ' +
+                           //'<td> ' + json[i].Customer_Part_Revision + '</td> ' +
+                           //'<td> ' + json[i].Order_NO + '</td> ' +
+                           '<td> ' + json[i].PartType + '</td> ' +
+                           '<td> ' + status + '</td> ' +
                            '<td> ' + json[i].EDI_RowID + '</td> ' +
+                           '<td> ' + new Date(parseInt(json[i].Createdate)).toLocaleString() + '</td> ' +
                            '</tr>';
 
                    }
 
                    $("#tby").html(slct);
+                }
+            }
+        });
+    }
+
+    //计划确认 
+    //20180809
+    function confirmData() {
+          $.ajax({
+            type: "Post",
+            url: "EDIJobCenter.aspx/ConfirmData",
+            data: "",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            async: true,
+            success: function (data) {
+                if (data.d == "1") {
+                    SearchData();
+                    alert("Success!");
+                }
+                 if (data.d == "0") {
+                    alert("Failure!");
+                }
+                 if (data.d == "-1") {
+                    alert("All orders have been confirmed!");
                 }
             }
         });
@@ -260,20 +320,20 @@ th
                     var tds = tr.cells;
                     //循环列
                     row.MasterID = tds[2].innerHTML;
-                    row.customer_name = tds[3].innerHTML;
-                    row.Customer_Address_Code = tds[4].innerHTML;
-                    row.Customer_Part_No = tds[5].innerHTML;
-                    row.Part_No = tds[6].innerHTML;
-                    row.Due_Date = tds[7].innerHTML;
-                    row.Ship_Date = tds[8].innerHTML;
-                    row.Quantity = parseInt(tds[9].innerHTML);
-                    row.Standard_Quantity = parseInt(tds[10].innerHTML);
-                    row.Lot_No = tds[11].innerHTML;
-                    row.Batch_No = tds[12].innerHTML;
-                    row.Job_Sequence = parseInt(tds[13].innerHTML);
-                    row.Customer_Part_Revision = tds[14].innerHTML;
-                    row.Order_No = tds[15].innerHTML;
-                    row.EDI_RowID = tds[16].innerHTML;
+                    row.customer_name = "Honda North America";
+                    row.Customer_Address_Code = tds[3].innerHTML;
+                    row.Customer_Part_No = tds[4].innerHTML;
+                    row.Part_No = tds[5].innerHTML;
+                    row.Due_Date = tds[6].innerHTML;
+                    row.Ship_Date = tds[7].innerHTML;
+                    row.Quantity = parseInt(tds[8].innerHTML);
+                    row.Standard_Quantity = parseInt(tds[9].innerHTML);
+                    row.Lot_No = tds[10].innerHTML;
+                    row.Batch_No = tds[11].innerHTML;
+                    row.Job_Sequence = parseInt(tds[12].innerHTML);
+                    //row.Customer_Part_Revision = tds[14].innerHTML;
+                    //row.Order_No = tds[15].innerHTML;
+                    row.EDI_RowID = tds[15].innerHTML;
 
                     data.push(row);
                 }

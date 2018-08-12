@@ -10,14 +10,29 @@ using System.Web.UI.WebControls;
 using FGA_MODEL;
 using FGA_MODEL.index;
 using FGA_NUtility.Consts;
+using FGA_NUtility;
 
 namespace FGA_PLATFORM.business.production
 {
     public partial class EDIJobCenter : System.Web.UI.Page
     {
+        protected string isLocked = "";
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            UsersModel model = (UsersModel)HttpContext.Current.Session[SysConst.S_LOGIN_USER];
+            string sql = "SELECT rid FROM userroles where uid = (select userid from userinfo where username ='" + model.USERNAME + "')";
+            DataSet dst = new DataSet();
+            dst = FGA_DAL.Base.SQLServerHelper_FGA.Query(sql);
+            if (dst != null && dst.Tables.Count > 0 && dst.Tables[0].Rows.Count > 0)
+            {
+                for (int i = 0; i < dst.Tables[0].Rows.Count; i++)
+                {
+                    if (Convert.ToInt32(dst.Tables[0].Rows[i][0]) == 7)
+                        isLocked = "Yes";
+                    else
+                        isLocked = "No";
+                }
+            }
         }
 
         /// <summary>
@@ -29,6 +44,7 @@ namespace FGA_PLATFORM.business.production
         [WebMethod]
         public static string saveDataImport(string data)
         {
+            string res = String.Empty;
             string user = (HttpContext.Current.Session[SysConst.S_LOGIN_USER] as UsersModel).USERNAME;
             List<string> sqllist = new List<string>();
 
@@ -36,27 +52,48 @@ namespace FGA_PLATFORM.business.production
             JavaScriptSerializer jssl = new JavaScriptSerializer();
             listmodel = jssl.Deserialize<List<EDIOrderListModel>>(data);
 
-            foreach (EDIOrderListModel vo in listmodel)
+            //数据校验
+            //MasterID不能为空.前端检验
+            //获取PartNO是否在系统中维护ModuleCode,PartType。服务器校验
+            string pn = "";
+            for (int i = 0; i < listmodel.Count; i++)
             {
-                string insertsql = "insert into [FGA_EDI_862_T]([customer_name],[Customer_Address_Code],[Customer_Part_Revision],[Customer_Part_No],[part_no],[part_name]" +
-                                           ",[Due_Date],[Ship_Date],[ORDER_NO],[Lot_No],[BATCH_NO],[Standard_Quantity],[Quantity],[JOB_SEQUENCE],[rstatus],[MasterID],[EDI_RowID],[Creator],[CreateDate])" +
-                                           "values('Honda North America','" + vo.Customer_Address_Code + "','" + vo.Customer_Part_Revision + "','" + vo.Customer_Part_NO + "','" + vo.Part_NO + "'," +
-                                           "'" + vo.Part_Name + "','" + vo.Due_Date + "','" + vo.Ship_Date + "','" + vo.Order_NO + "','" + vo.Lot_NO + "','" + vo.Batch_NO + "'," + vo.Standard_Quantity + "," +
-                                           "" + vo.Quantity + ",'" + vo.Job_Sequence + "','0','" + vo.MasterID + "',NEXT VALUE FOR OEM_OrderKey_seq,'" + user + "',getdate())";
-
-                sqllist.Add(insertsql);
+                if (String.IsNullOrEmpty(listmodel[i].MasterID))
+                {
+                    res = "-1";
+                    break;
+                }
+                else
+                    pn = pn + ',' + '\'' + listmodel[i].Part_NO + '\'';
             }
 
-            string sqlupdate = "update [FGA_EDI_862_T] SET [FGA_EDI_862_T].PartType = [SmallLot_PartType_T].[PartType] " +
-                                     "FROM [FGA_EDI_862_T] ,[SmallLot_PartType_T] WHERE[FGA_EDI_862_T].Part_NO = [SmallLot_PartType_T].[PartNO] " +
-                                     "AND ISNULL([FGA_EDI_862_T].PartType,'') = ''";
+            if (String.IsNullOrEmpty(res))
+            {
+                foreach (EDIOrderListModel vo in listmodel)
+                {
+                    string insertsql = "insert into [FGA_EDI_862_T]([Customer_Name],[Customer_Address_Code],[Customer_Part_Revision],[Customer_Part_No],[Part_NO],[Part_Name]" +
+                                               ",[Due_Date],[Ship_Date],[Order_NO],[Lot_NO],[Batch_NO],[Standard_Quantity],[Quantity],[Job_Sequence],[rstatus],[MasterID],[EDI_RowID],[Creator],[CreateDate])" +
+                                               "values('" + vo.Customer_Name + "','" + vo.Customer_Address_Code + "','" + vo.Customer_Part_Revision + "','" + vo.Customer_Part_NO + "','" + vo.Part_NO + "'," +
+                                               "'" + vo.Part_Name + "','" + vo.Due_Date + "','" + vo.Ship_Date + "','" + vo.Order_NO + "','" + vo.Lot_NO + "','" + vo.Batch_NO + "'," + vo.Standard_Quantity + "," +
+                                               "" + vo.Quantity + ",'" + vo.Job_Sequence + "','0','" + vo.MasterID + "',NEXT VALUE FOR OEM_OrderKey_seq,'" + user + "',getdate())";
 
-            sqllist.Add(sqlupdate);
+                    sqllist.Add(insertsql);
+                }
 
-            if (FGA_DAL.Base.SQLServerHelper_WMS.ExecuteSqlTran(sqllist) > 0)
-                return "1";
-            else
-                return "0";
+                string sqlupdate = "update [FGA_EDI_862_T] SET [FGA_EDI_862_T].PartType = [SmallLot_PartType_T].[PartType] " +
+                                         "FROM [FGA_EDI_862_T] ,[SmallLot_PartType_T] WHERE[FGA_EDI_862_T].Part_NO = [SmallLot_PartType_T].[PartNO] " +
+                                         "AND ISNULL([FGA_EDI_862_T].PartType,'') = ''";
+
+                sqllist.Add(sqlupdate);
+
+                if (FGA_DAL.Base.SQLServerHelper.ExecuteSqlTran(sqllist) > 0)
+                    res = "1";
+                else
+                    res = "0";
+            }
+            
+
+            return res;
         }
 
         /// <summary>
@@ -78,8 +115,6 @@ namespace FGA_PLATFORM.business.production
             if (model.USERNAME == "Honda_side")
                 ET = "Side";
 
-
-
             string res = string.Empty;
             try
             {
@@ -87,28 +122,28 @@ namespace FGA_PLATFORM.business.production
                 {
                     sql = "SELECT [customer_name],[Customer_Address_Code],[Customer_Part_No],[Customer_Part_Revision] " +
                             " ,[part_no],[Due_Date] ,[Ship_Date],[ORDER_NO] ,[Lot_No],[BATCH_NO]" +
-                            " ,[Standard_Quantity],[Quantity],[JOB_SEQUENCE],[EDI_RowID],[MasterID] " +
-                            " FROM [FGA_EDI_862_T] where isnull(rstatus,0) = 0 and PARTTYPE = '" + ET + "' " +
+                            " ,[Standard_Quantity],[Quantity],[JOB_SEQUENCE],[EDI_RowID],[MasterID],isnull([LastEditDate],[CreateDate]) as [CreateDate],[PartType],[IsConfirm] " +
+                            " FROM [FGA_EDI_862_T] where isnull(rstatus,0) = 0 and PARTTYPE = '" + ET + "' and isnull(IsConfirm,0) = 1 " +
                             "order by [Ship_Date],[MasterID],[JOB_SEQUENCE]";
                 }
 
-                if (model.USERNAME == "administrator")
+                if (model.USERNAME == "administrator" || model.USERNAME == "fy.hxu")
                 {
                     sql = "SELECT [customer_name],[Customer_Address_Code],[Customer_Part_No],[Customer_Part_Revision] " +
                                                 " ,[part_no],[Due_Date] ,[Ship_Date],[ORDER_NO] ,[Lot_No],[BATCH_NO]" +
-                                                " ,[Standard_Quantity],[Quantity],[JOB_SEQUENCE],[EDI_RowID],[MasterID] " +
+                                                " ,[Standard_Quantity],[Quantity],[JOB_SEQUENCE],[EDI_RowID],[MasterID],isnull([LastEditDate],[CreateDate]) as [CreateDate],[CreateDate],[PartType],[IsConfirm] " +
                                                 " FROM [FGA_EDI_862_T] where isnull(rstatus,0) = 0  " +
                                                 "order by [Ship_Date],[MasterID],[JOB_SEQUENCE]";
                 }
                 
                 DataSet ds = new DataSet();
-                ds = FGA_DAL.Base.SQLServerHelper_WMS.Query(sql);
+                ds = FGA_DAL.Base.SQLServerHelper.Query(sql);
                 if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
                 {
-                    List<EDIReleaseModel> luw = new List<EDIReleaseModel>();
+                    List<EDIOrderListModel> luw = new List<EDIOrderListModel>();
                     foreach (DataRow row in ds.Tables[0].Rows)
                     {
-                        EDIReleaseModel ERM = new EDIReleaseModel(row);
+                        EDIOrderListModel ERM = new EDIOrderListModel(row);
                         luw.Add(ERM);
                     }
 
@@ -121,6 +156,34 @@ namespace FGA_PLATFORM.business.production
             {
 
             }
+            return res;
+        }
+
+        [WebMethod]
+        public static string ConfirmData() {
+
+            string res = "0";
+            try
+            {
+                string isExist = "SELECT count(*) total FROM [FGA_PLATFORM].[dbo].[FGA_EDI_862_T] where isnull([IsConfirm],0) = 0";
+                if (Int32.Parse(FGA_DAL.Base.SQLServerHelper.GetSingle(isExist).ToString()) > 0)
+                {
+                    UsersModel model = (UsersModel)HttpContext.Current.Session[SysConst.S_LOGIN_USER];
+                    string sql = "update [FGA_EDI_862_T] set [LastEditUser] = '" + model.USERNAME + "',[LastEditDate] = getdate(),[IsConfirm] = 1 where isnull([IsConfirm],0) = 0";
+                    if (FGA_DAL.Base.SQLServerHelper.ExecuteSql(sql) > 0)
+                    {
+                        res = "1";
+                        MailHelper.SendMailUseGmail("xwang6@fuyaousa.com","","Confirm","This is a test mail!");
+                    }
+                       
+                }
+                else
+                    res = "-1";
+            }
+            catch {
+                res = "0";
+            }
+
             return res;
         }
 
@@ -170,7 +233,7 @@ namespace FGA_PLATFORM.business.production
                 //生成Load主表
                 string sql1 = "insert into FGA_EDI_LOAD_T ([Quantity],[Creator],[Createdate],[LoadStatus],[LoadID],[CustomerName] " +
                               " ,[CustomerAddress],[ShipDate],[BatchNO],[PartType],[Slstatus]) values ({0},'{1}',getdate(),'Release','{6}','{2}','{3}','{4}','{5}','{7}','0')";
-                sql1 = string.Format(sql1, listmodel[0].Standard_Quantity, model.USERNAME, listmodel[0].customer_name, listmodel[0].Customer_Address_Code,
+                sql1 = string.Format(sql1, listmodel[0].Standard_Quantity, model.USERNAME, "Honda North America", listmodel[0].Customer_Address_Code,
                     listmodel[0].Ship_Date, listmodel[0].BATCH_NO, SEQ,ET);
 
                 FGA_DAL.Base.SQLServerHelper.ExecuteSql(sql1);

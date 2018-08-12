@@ -156,7 +156,7 @@ td{
 					<div id="date-popup" class="input-group date"> 
 					<input type="text" id = "_fdate"  data-format="D, dd MM yyyy" class="form-control" style="width:120px"/> 
 						<span class="input-group-addon"><i class="fa fa-calendar"></i></span> 
-						</div>
+				    </div>
                     </div>
                 <div class="form-group"style="margin-left:-35px;"> 
                     <label class="form-label">ShipmentDate(to)</label> 

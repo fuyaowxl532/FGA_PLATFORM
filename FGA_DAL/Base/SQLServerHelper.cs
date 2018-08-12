@@ -16,7 +16,7 @@ namespace FGA_DAL.Base
     public abstract class SQLServerHelper
     {
         //数据库连接字符串(web.config来配置)，可以动态更改connectionString支持多数据库.		
-        public static string connectionString = FGA_NUtility.ConfigHelper.GetConfigValue("ConnectionString");
+        public static string connectionString = FGA_NUtility.ConfigHelper.GetConfigValue("ConnectionString_FGA");
 
         public SQLServerHelper()
         {

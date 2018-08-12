@@ -126,13 +126,15 @@ namespace FGA_PLATFORM.business.ITAsset
             string sql1 = "insert into [FGA_AssetLog_T]([AssetKey],[AssetName],[Category],[Brand],[IT_AssetNO],[FIN_AssetNO],[SerialNO],[InsuranceDate]," +
                           " [MacAddress],[Note],[Status],[AssetUser],[Issue_Date],[Return_Date],[LastAction],[UpdateBy],[UpdateDate])" +
                           " select FAT.[AssetKey],FAT.[AssetName],FAT.[Category],FAT.[Brand],FAT.[IT_AssetNO],FAT.[FIN_AssetNO],FAT.[SerialNO],FAT.[InsuranceDate]," +
-                          " FAT.[MacAddress],FAT.[Note],FIT.Status,FIT.PlexID,FIT.Issue_Date,FIT.Return_Date,FAT.LastAction,'" + model.USERNAME + "',GETDATE() from[FGA_AssetCard_T] FAT left join FGA_ITAssetInfos_T FIT ON FAT.AssetKey = FIT.AssetKey" +
+                          " FAT.[MacAddress],FAT.[Note],FIT.Status,FIT.PlexID,FIT.Issue_Date,FIT.Return_Date,FAT.LastAction,isnull(FAT.LastEditUser,FAT.Creator)," +
+                          " case when FAT.LastEditDate = '1900-01-01' then FAT.CreateDate else FAT.LastEditDate " +
+                          " end as LastEditDate from [FGA_AssetCard_T] FAT left join FGA_ITAssetInfos_T FIT ON FAT.AssetKey = FIT.AssetKey" +
                           " WHERE FAT.AssetKey IN (" + assetKey + ")";
 
 
             string sql2 = " update [FGA_AssetCard_T] set [AssetName] = '" + AssetVO.AssetName + "',[Category]= '" + AssetVO.Category + "',[Brand] = '" + AssetVO.Brand + "', " +
                          " [IT_AssetNO] = '" + AssetVO.IT_AssetNO + "',[FIN_AssetNO] = '" + AssetVO.FIN_AssetNO + "',[SerialNO] = '" + AssetVO.SerialNO + "'," +
-                         " [MacAddress] = '" + AssetVO.MacAddress + "' where [AssetKey] = '" + assetKey + "' ";
+                         " [MacAddress] = '" + AssetVO.MacAddress + "',[LastAction] = 'Update Asset Card Infos',LastEditUser ='" + model.USERNAME + "',LastEditDate=GETDATE() where [AssetKey] = '" + assetKey + "' ";
 
             sqllist.Add(sql1);
             sqllist.Add(sql2);

@@ -10,7 +10,7 @@
 namespace FGA_PLATFORM.business.ITAsset {
     
     
-    public partial class AssetEditHistory {
+    public partial class AssetCardDetailView {
         
         /// <summary>
         /// Head1 控件。

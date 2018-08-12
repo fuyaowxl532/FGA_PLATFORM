@@ -18,9 +18,18 @@ namespace FGA_PLATFORM.business.ITAsset
 {
     public partial class MyITAssets : System.Web.UI.Page
     {
+        protected string ReadPolicy = "";
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            UsersModel model = (UsersModel)HttpContext.Current.Session[SysConst.S_LOGIN_USER];
+            string sql = "SELECT FPT.FirstName+' '+FPT.LastName UserName,FAP.[SignatureDate] " +
+                         "FROM [FGA_AssetUsePolicy] FAP LEFT JOIN[FGA_PlexUser_T] FPT ON FAP.PLEXID = FPT.PLEXID where FAP.PLEXID = '"+ model.USERNAME+ "'";
+            DataSet dst = new DataSet();
+            dst = FGA_DAL.Base.SQLServerHelper_WMS.Query(sql);
+            if (dst != null && dst.Tables.Count > 0 && dst.Tables[0].Rows.Count > 0)
+                ReadPolicy = dst.Tables[0].Rows[0][0].ToString() + "&" + dst.Tables[0].Rows[0][1].ToString();
+            else
+                ReadPolicy = "No";
         }
 
         //获取当前用户名及部门
@@ -37,6 +46,40 @@ namespace FGA_PLATFORM.business.ITAsset
                 dept = ds.Tables[0].Rows[0][1] == null ? "Non" : ds.Tables[0].Rows[0][1].ToString();
 
             return "UName@"+ model.USERNAME +"Dept&"+dept;
+        }
+
+        //读取Use Policy并点击Agree
+        [WebMethod]
+        public static string agreePolicy()
+        {
+            UsersModel model = (UsersModel)HttpContext.Current.Session[SysConst.S_LOGIN_USER];
+
+            String sql = "insert into [FGA_AssetUsePolicy]([PlexID],[SignatureDate])" +
+                         "values('"+ model.USERNAME+ "', getdate()) ";
+
+            if (FGA_DAL.Base.SQLServerHelper_WMS.ExecuteSql(sql) > 0)
+                return "1";
+            else
+                return "0";
+        }
+
+        //点击Agree获取签名
+        [WebMethod]
+        public static string getSign()
+        {
+            string signInfo = String.Empty;
+
+            UsersModel model = (UsersModel)HttpContext.Current.Session[SysConst.S_LOGIN_USER];
+            string sql = "SELECT FPT.FirstName+' '+FPT.LastName UserName,FAP.[SignatureDate] " +
+                         "FROM [FGA_AssetUsePolicy] FAP LEFT JOIN[FGA_PlexUser_T] FPT ON FAP.PLEXID = FPT.PLEXID where FAP.PLEXID = '" + model.USERNAME + "'";
+            DataSet dst = new DataSet();
+            dst = FGA_DAL.Base.SQLServerHelper_WMS.Query(sql);
+            if (dst != null && dst.Tables.Count > 0 && dst.Tables[0].Rows.Count > 0)
+                signInfo = dst.Tables[0].Rows[0][0].ToString() + "&" + dst.Tables[0].Rows[0][1].ToString();
+            else
+                signInfo = "No";
+
+            return signInfo;
         }
 
         /// <summary>

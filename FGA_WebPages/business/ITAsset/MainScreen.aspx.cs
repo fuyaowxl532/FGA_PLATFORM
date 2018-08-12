@@ -178,7 +178,7 @@ namespace FGA_PLATFORM.business.ITAsset
                                   " end as LastEditDate from [FGA_AssetCard_T] FAT left join FGA_ITAssetInfos_T FIT ON FAT.AssetKey = FIT.AssetKey" +
                                   " WHERE FAT.AssetKey IN (" + akeys + ")";
 
-                    string sql2 = "update [FGA_ITAssetInfos_T] set PlexID = 'FY.IT',IsCheck = 0,CheckDate = null,Return_Date =GETDATE() ,Status = case when status = 'In Use' then 'Idle'" +
+                    string sql2 = "update [FGA_ITAssetInfos_T] set PlexID = 'FY.IT',IsCheck = 0,CheckDate = null,Return_Date =GETDATE() ,Status = case when status = 'InUse' then 'Idle'" +
                                   "else status end,UpdateDate =GETDATE() ,UpdateBy ='" + model.USERNAME + "' " +
                                   "where AssetKey in (" + akeys + ")";
 

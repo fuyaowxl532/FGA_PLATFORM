@@ -212,9 +212,9 @@ td{
 					 
 				</div>
 
-                <div class="checkbox">
+                <%--<div class="checkbox">
 					 <label><input type="checkbox" id ="cbdii" checked="checked"/> Display IT Inventory</label>
-				</div>
+				</div>--%>
 			</div>
 		
 	</div>
