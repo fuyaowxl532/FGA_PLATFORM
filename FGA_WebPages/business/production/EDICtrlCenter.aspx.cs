@@ -40,14 +40,24 @@ namespace FGA_PLATFORM.business.production
         /// </summary>
         /// <returns></returns>
         [WebMethod]
-        public static string SearchData()
+        public static string SearchData(String history, String fdate,String tdate)
         {
-            //String fdate,String tdate
+            
             string res = string.Empty;
             try
             {
-                String sql = "SELECT * FROM [FGA_EDIOrder_List] WHERE isnull(rstatus,0) = 0 " +
-                             " order by [Ship_Date],[MasterID],[JOB_SEQUENCE] ";
+                string sql = "";
+
+                if (history == "1")
+                {
+                    sql = "SELECT * FROM [FGA_EDIOrder_List] WHERE [Ship_Date] >= cast('" + fdate + "' as datetime) and [Ship_Date] < DATEADD(DAY,1 ,cast('" + tdate + "' as datetime)) " +
+                           " order by [Ship_Date],[MasterID],[JOB_SEQUENCE] ";
+                }
+                else
+                {
+                    sql = "SELECT * FROM [FGA_EDIOrder_List] WHERE isnull(rstatus,0) = 0 " +
+                            " order by [Ship_Date],[MasterID],[JOB_SEQUENCE] ";
+                }
 
                 DataSet ds = new DataSet();
                 ds = FGA_DAL.Base.SQLServerHelper.Query(sql);
@@ -81,6 +91,8 @@ namespace FGA_PLATFORM.business.production
         [WebMethod]
         public static string saveDataImport(string data)
         {
+            string res = String.Empty;
+            string errmstID = String.Empty;
             //按用户查看EDI的数据
             string user = (HttpContext.Current.Session[SysConst.S_LOGIN_USER] as UsersModel).USERNAME;
             List<string> sqllist = new List<string>();
@@ -90,27 +102,70 @@ namespace FGA_PLATFORM.business.production
             JavaScriptSerializer jssl = new JavaScriptSerializer();
             listmodel = jssl.Deserialize<List<EDIOrderListModel>>(data);
 
-            foreach (EDIOrderListModel pc in listmodel)
-            {
-                string sql = "insert into [FGA_EDIOrder_List] " +
-                                "([MasterID],[customer_name],[Customer_Address_Code],[Customer_Part_No],[Customer_Part_Revision],[part_no] " +
-                                ",[part_name],[Due_Date],[Ship_Date],[ORDER_NO],[Lot_No],[BATCH_NO],[EDI_Key],[EDI_Action] " +
-                                ",[EDI_Status],[Docname],[Standard_Quantity],[Quantity],[JOB_SEQUENCE],[rstatus],[Creator],[CreateDate]) " +
-                                "values('" + pc.MasterID + "','" + pc.Customer_Name + "','"+pc.Customer_Address_Code+"','"+pc.Customer_Part_NO+"','"+pc.Customer_Part_Revision+"','"+pc.Part_NO+"'," +
-                                "'"+pc.Part_Name+"','"+pc.Due_Date+"','"+pc.Ship_Date+"','"+pc.Order_NO+"','"+pc.Lot_NO+"','"+pc.Batch_NO+"',"+pc.EDI_Key+"" +
-                                ",'"+pc.EDI_Action+"','"+pc.EDI_Status+"','"+pc.Docname+"',"+pc.Standard_Quantity+","+pc.Quantity+","+pc.Job_Sequence+",0,'"+ user + "',getdate())";
+            Dictionary<String, int> Dic = new Dictionary<String, int>();
 
-                sqllist.Add(sql);
+            //数据校验
+            //MasterID不能为空.前端检验
+            //获取PartNO是否在系统中维护ModuleCode,PartType。服务器校验
+            string pn = "";
+            for (int i = 0; i < listmodel.Count; i++)
+            {
+                string dkey = listmodel[i].MasterID + "@" + listmodel[i].Standard_Quantity;
+                if (String.IsNullOrEmpty(listmodel[i].MasterID))
+                {
+                    res = "-1";
+                    break;
+                }
+                else
+                {
+                    pn = pn + ',' + '\'' + listmodel[i].Part_NO + '\'';
+                    if (Dic.ContainsKey(dkey))
+                    {
+                        Dic[dkey] = Dic[dkey] + listmodel[i].Quantity;
+                    }
+                    else
+                        Dic.Add(dkey, listmodel[i].Quantity);
+                }
             }
 
-            if (FGA_DAL.Base.SQLServerHelper.ExecuteSqlTran(sqllist) > 0)
+            //检验MasterID之和是否等于Standard Quantity
+            foreach (string key in Dic.Keys)
             {
-                SendMailUseGmail();
-                return "1";
+                string value = Dic[key].ToString();
+                if (key.Substring(key.IndexOf("@")+1) != value)
+                    errmstID = errmstID + key;
             }
-               
-            else
-                return "0";
+            
+            if (String.IsNullOrEmpty(res))
+            {
+                if (String.IsNullOrEmpty(errmstID))
+                {
+                    foreach (EDIOrderListModel pc in listmodel)
+                    {
+                        string sql = "insert into [FGA_EDIOrder_List] " +
+                                        "([MasterID],[customer_name],[Customer_Address_Code],[Customer_Part_No],[Customer_Part_Revision],[part_no] " +
+                                        ",[part_name],[Due_Date],[Ship_Date],[ORDER_NO],[Lot_No],[BATCH_NO],[EDI_Key],[EDI_Action] " +
+                                        ",[EDI_Status],[Docname],[Standard_Quantity],[Quantity],[JOB_SEQUENCE],[rstatus],[Creator],[CreateDate]) " +
+                                        "values('" + pc.MasterID + "','" + pc.Customer_Name + "','" + pc.Customer_Address_Code + "','" + pc.Customer_Part_NO + "','" + pc.Customer_Part_Revision + "','" + pc.Part_NO + "'," +
+                                        "'" + pc.Part_Name + "','" + pc.Due_Date + "','" + pc.Ship_Date + "','" + pc.Order_NO + "','" + pc.Lot_NO + "','" + pc.Batch_NO + "'," + pc.EDI_Key + "" +
+                                        ",'" + pc.EDI_Action + "','" + pc.EDI_Status + "','" + pc.Docname + "'," + pc.Standard_Quantity + "," + pc.Quantity + "," + pc.Job_Sequence + ",0,'" + user + "',getdate())";
+
+                        sqllist.Add(sql);
+                    }
+
+                    if (FGA_DAL.Base.SQLServerHelper.ExecuteSqlTran(sqllist) > 0)
+                    {
+                        SendMailUseGmail();
+                        res = "1";
+                    }
+                    else
+                        res = "0";
+                }
+                else
+                    res = "-2";
+            }
+
+            return res;
         }
 
         /// <summary>
@@ -130,8 +185,10 @@ namespace FGA_PLATFORM.business.production
         public static void SendMailUseGmail()
         {
             System.Net.Mail.MailMessage msg = new System.Net.Mail.MailMessage();
-            msg.To.Add("xwang6@fuyaousa.com,wxl340826@outlook.com,xshen@fuyaousa.com");
-            //msg.CC.Add("xshen@fuyaousa.com");
+            //hxu@fuyaousa.com
+            //xshen@fuyaousa.com
+            msg.To.Add("hxu@fuyaousa.com");
+            msg.CC.Add("xshen@fuyaousa.com,xwang6@fuyaousa.com");
 
             msg.From = new MailAddress("FGA_Platform@fuyaousa.com", "autoMail", System.Text.Encoding.UTF8);
             /* 上面3个参数分别是发件人地址（可以随便写），发件人姓名，编码*/
@@ -180,6 +237,7 @@ namespace FGA_PLATFORM.business.production
                     EDIOrderListModel ERM = new EDIOrderListModel(ds.Tables[0].Rows[i]);
                     int count = ERM.Quantity;
 
+                    pcycle = 0;
                     if (i + 1 < ds.Tables[0].Rows.Count)
                     {
                         for (int j = i + 1; j < ds.Tables[0].Rows.Count; j++)
@@ -209,7 +267,6 @@ namespace FGA_PLATFORM.business.production
                             {
                                 ERM.Quantity = count;
                                 luw.Add(ERM);
-                                pcycle = 0;
                                 break;
                             }
                         }
@@ -218,15 +275,12 @@ namespace FGA_PLATFORM.business.production
                     {
                         ERM.Quantity = count;
                         luw.Add(ERM);
-                        pcycle = 0;
                     }
                 }
 
                 if (luw.Count > 0)
                 {
                     List<String> sqllist = new List<String>();
-                    string delsql = "delete from [FGA_EDI_862_T]";
-                    sqllist.Add(delsql);
 
                     foreach (EDIOrderListModel vo in luw)
                     {
@@ -245,7 +299,6 @@ namespace FGA_PLATFORM.business.production
 
                     sqllist.Add(sqlupdate);
                     sqllist.Add("UPDATE [FGA_EDIOrder_List] set [rstatus] = 1,[UpdateDate] = getdate(),[UpdateBy] = '" + model.USERNAME + "' where isnull(rstatus,0) = 0");
-
 
                     if (FGA_DAL.Base.SQLServerHelper.ExecuteSqlTran(sqllist) > 0)
                         res = "1";

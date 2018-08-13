@@ -10,7 +10,7 @@
 namespace FGA_PLATFORM.business.ITAsset {
     
     
-    public partial class AssetCardDetailView {
+    public partial class AssetCardDetail {
         
         /// <summary>
         /// Head1 控件。

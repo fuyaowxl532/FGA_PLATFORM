@@ -37,40 +37,41 @@
 
 						<div class='form-group'>
 							<label for="Fin_AssetNO" >FIN_AssetNO</label>
-							<input type="text"  id="Fin_AssetNO" placeholder="Finance Asset Number" style='width:250px; margin-left: 9px '/>
+							<input type="text"  id="Fin_AssetNO" style='width:250px; margin-left: 9px '/>
 							<label for="IT_AssetNO" style="margin-left: 200px">IT_AssetNO</label>
-							<input type="text"  id="IT_AssetNO" placeholder="IT Asset Number" style='width:250px; margin-left: 9px '/>
+							<input type="text"  id="IT_AssetNO"  style='width:250px; margin-left: 9px '/>
 						</div>
 
 						<div class='form-group'>
                             <label for="serial number">S/N</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp
-							<input type="text"  id="serialno" placeholder="Serial Number" style='width:250px; margin-left: 35px'/>
+							<input type="text"  id="serialno" style='width:250px; margin-left: 35px'/>
 							<label for="MACID"  style="margin-left: 200px">MAC ID</label>
-							<input type="text"  id="MACID" placeholder="MAC ID" style='width:250px; margin-left: 50px '/>
+							<input type="text"  id="MACID" style='width:250px; margin-left: 50px '/>
 						</div>
 
 						<div class='form-group'>
                             <label for="InBoundDate">InBoundDate</label>
-							<input id='date-popup' type="text"  placeholder="InBound Date" data-format="D, dd MM yyyy" style='width:250px; margin-left: 7px '/>
+							<input id='date-popup' type="text"  data-format="D, dd MM yyyy" style='width:250px; margin-left: 7px '/>
 							<span  style="width: 10px; margin-left: 10px"></span> 
 							<label for="Insur_Date"  style="margin-left: 200px">Insurance Date</label>
-							<input id='date-popup1'  type="text" placeholder="Insurance Date" data-format="D, dd MM yyyy" style='width:250px; margin-left: 3px '/>
+							<input id='date-popup1'  type="text" data-format="D, dd MM yyyy" style='width:250px; margin-left: 3px '/>
 							<span  style="width: 10px; margin-left: 10px"></span>
 						</div>
 							<div class='form-group'>
 							<label for="Creator" >Creator</label>
-							<input type="text"  id="Creator" placeholder="Creator" style='width:250px; margin-left: 47px '/>
+							<input type="text"  id="Creator" style='width:250px; margin-left: 47px '/>
 							<label  style="margin-left: 200px">Create Date</label>
-							<input id='date-popup2'  type="text" placeholder="Create Date" data-format="D, dd MM yyyy" style='width:250px; margin-left: 17px '/>
+							<input id='date-popup2'  type="text" data-format="D, dd MM yyyy" style='width:250px; margin-left: 17px '/>
 							<span  style="width: 10px; margin-left: 10px"></span>
 							</div>
 						<div class='form-group'>
 							<label style="">Note</label></div>
 						<div>	
-							<textarea style="margin-top: -40px; margin-left: 95px;margin-bottom: 10px;width: 795px; height: 80px" placeholder="Input Notes"></textarea> 
+							<textarea id = "note" style="margin-top: -40px; margin-left: 95px;margin-bottom: 10px;width: 795px; height: 80px"></textarea> 
 						</div>
 							  
 				        <button type="submit" class="btn btn-primary" onclick="update()"><i class="glyphicon glyphicon-floppy-disk"></i></button>
+                        <span id="success" style="background-color:yellow"></span>
 				</div>
 </div>
 <script src="../../mouldifi-v-2.0/js/jquery.min.js"></script>
@@ -188,10 +189,25 @@
                     $('#serialno').val(json[0].SerialNO);
                     $('#Creator').val(json[0].Creator);
                     $('#date-popup2').val(new Date(parseInt(json[0].CreateDate)).toLocaleString());
+                    $('#note').val(json[0].Note);
                 }
 
             }
         });
+    }
+    var clearFlag = 0;
+    var count     = 1;
+    var showModal = function () {
+        clearFlag = self.setInterval("autoClose()", 1000);//每过一秒调用一次autoClose方法
+    }
+    var autoClose = function () {
+        if (count > 0) {
+            $("#time").html(count + " seconds before next scan allowed");
+            count--;
+        } else if (count <= 0) {
+            window.clearInterval(clearFlag);
+            $('#success').hide();
+        }
     }
 
     function update() {
@@ -204,6 +220,8 @@
         row.FIN_AssetNO = $('#Fin_AssetNO').val();
         row.MacAddress = $('#MACID').val();
         row.InBoundDate = $('#InBoundDate').val();
+        row.Note = $('#note').val();
+        row.SerialNO = $('#serialno').val();
 
         var jsondata = JSON.stringify(row);
 
@@ -216,8 +234,10 @@
             async: true,
             success: function (data) {
                 var json = data.d;
-                if (json != '') {
-
+                if (json == "1") {
+                      $('#success').html("Update Successsfully!");
+                      $('#success').show();
+                      showModal();
                 }
 
             }

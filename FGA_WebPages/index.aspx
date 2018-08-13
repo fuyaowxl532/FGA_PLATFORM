@@ -54,7 +54,7 @@
 
                             <!-- User action menu -->
                             <ul class="dropdown-menu">
-                                <li><a href="system/changepsd.aspx"><i class="icon-vcard"></i>ChangePsd</a></li>
+                              <%--  <li><a href="system/changepsd.aspx"><i class="icon-vcard"></i>ChangePsd</a></li>--%>
                                 <li><a href="javascript:systemout()"><i class="icon-logout"></i>Logout</a></li>
                             </ul>
                             <!-- /user action menu -->

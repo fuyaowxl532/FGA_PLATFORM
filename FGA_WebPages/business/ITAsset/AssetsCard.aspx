@@ -89,7 +89,7 @@
                 <th style ="text-align:left">Fin_AssetNO</th>
                 <th style ="text-align:left">MacID</th>
                 <th style ="text-align:left">Status</th>
-                <th style ="text-align:left">InBoundDate</th>
+               <%-- <th style ="text-align:left">InBoundDate</th>--%>
                 <th style ="text-align:left">Creator</th>
                 <th style ="text-align:left">Operation</th>
             </tr>
@@ -138,7 +138,7 @@
         });
 
         function Search() {
-            $('#tabResult').html('<tr class="tr_loading"><td colspan="8"><img src="../../images/loading.gif" alt="" />Loading...</td></tr>');
+            $('#tabResult').html('<tr class="tr_loading"><td colspan="14"><img src="../../images/loading.gif" alt="" />Loading...</td></tr>');
             //var curstate = state[$.trim($("#ddpStatus").val())];
             var itsn   = $('#txtITassetno').val();
             var finsn  = $('#txtFinassetno').val();
@@ -178,7 +178,7 @@
                             html += '<td style ="text-align:left">' + json[i].FIN_AssetNO + '</td>';
                             html += '<td style ="text-align:left">' + json[i].MacAddress + '</td>';
                             html += '<td style ="text-align:left">' + json[i].Status + '</td>';
-                            html += '<td style ="text-align:left">' + new Date(parseInt(json[i].InBoundDate)).toLocaleString() + '</td>';
+                            //html += '<td style ="text-align:left">' + new Date(parseInt(json[i].InBoundDate)).toLocaleString() + '</td>';
                             html += '<td style ="text-align:left">' + json[i].Creator + '</td>';
                             html += '<td>';
 

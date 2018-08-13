@@ -72,7 +72,7 @@
 							    <label style="">Note</label>
 						    </div>
 						    <div>	
-							    <textarea style="margin-top: -40px; margin-left: 95px;margin-bottom: 10px;width: 795px; height: 100px" placeholder="Input Notes"></textarea> 
+							    <textarea id = 'note' style="margin-top: -40px; margin-left: 95px;margin-bottom: 10px;width: 795px; height: 100px" placeholder="Input Notes"></textarea> 
 						    </div>
                         </div>
 				</div>
@@ -126,6 +126,7 @@
                     $('#serialno').html(json[0].SerialNO);
                     $('#Creator').html(json[0].Creator);
                     $('#date-popup2').html(new Date(parseInt(json[0].CreateDate)).toLocaleString());
+                    $('#note').val(json[0].Note);
                 }
 
             }

@@ -38,32 +38,22 @@ namespace FGA_PLATFORM.system
                     oldpsd =FGA_NUtility.Encrypt.MD5EnCode(oldpsd);
                 }
 
-               
-                
-
                 if (!oldpsd.Equals(base.CurrentUser.PASSWORD))
                 {
-                    //base.ShowAlert("提示", "当前密码输入有误!");
-                    //ShowTopMessage("提示:当前密码输入有误!", "40px", "100%");
-                    AutoCloseMessage("txtcurrent", "当前密码输入有误！", "bottom left");
+                    AutoCloseMessage("txtcurrent", "Current password is wrong!", "bottom left");
                     return;
                 }
                 if (newpsd.Length < 6)
                 {
-                    //base.ShowAlert("提示", "密码长度至少6位!");
-                    //ShowTopMessage("提示:密码长度至少6位!", "40px", "100%");
-                    AutoCloseMessage("txtnew", "密码长度至少6位！", "bottom left");
+                    AutoCloseMessage("txtnew", "The length of new password must be greater than six!", "bottom left");
                     return;
                 }
                 if (!newpsd.Equals(newpsd2))
                 {
-                    //base.ShowAlert("提示", "新密码两次输入不一致!");
-                    //ShowTopMessage("提示:新密码两次输入不一致!", "40px", "100%");
-                    AutoCloseMessage("txtnew2", "新密码两次输入不一致！", "bottom left");
+                    AutoCloseMessage("txtnew2", "The passwords you entered do not match!", "bottom left");
                     return;
                 }
-
-                //三次md5加密
+                
                 for (int i = 0; i < 3; i++)
                 {
                     newpsd =FGA_NUtility.Encrypt.MD5EnCode(newpsd);
@@ -73,9 +63,7 @@ namespace FGA_PLATFORM.system
                 bool res = FGA_BLL.UsersBLL.UpdateUsers(base.CurrentUser);
                 if (res)
                 {
-                    //base.ShowAlert("提示", "密码修改成功，将于下次登录生效!");
-                     //ShowTopMessage("提示:密码修改成功，将于下次登录生效!", "40px", "100%");
-                    AutoCloseMessage("btnSub", "密码修改成功！", "bottom left");
+                    AutoCloseMessage("btnSub", "Update Successfully!", "bottom left");
 
                     
                 }
@@ -89,10 +77,7 @@ namespace FGA_PLATFORM.system
             catch (Exception ex)
             {
                 FGA_NUtility.SysLog.WriteException(this.GetType().Name, ex);
-                //ShowTopMessage("提示:密码修改失败!", "40px", "100%");
-                AutoCloseMessage("btnSub", "密码修改成功！", "bottom left");
-
-                //base.ShowAlert("提示", "密码修改失败!");
+                AutoCloseMessage("btnSub", "Update Successfully!", "bottom left");
             }
         }
     }

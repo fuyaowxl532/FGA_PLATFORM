@@ -135,14 +135,14 @@ th
         //加载自动检索
         SearchData();
         //设置按钮权限
-        if (islock == 'Yes') {
-            $("#_del").attr("disabled", "true");  
-            $("#_import").attr("disabled", "true");
-        }
-        if (islock == 'No') {
-            $("#_del").removceAttr("disabled");
-            $("#_import").removceAttr("disabled");
-        }
+        //if (islock == 'Yes') {
+        //    $("#_del").attr("disabled", "true");  
+        //    $("#_import").attr("disabled", "true");
+        //}
+        //if (islock == 'No') {
+        //    $("#_del").removceAttr("disabled");
+        //    $("#_import").removceAttr("disabled");
+        //}
     });
 
     //导入

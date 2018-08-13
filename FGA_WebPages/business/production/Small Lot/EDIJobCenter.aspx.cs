@@ -173,9 +173,8 @@ namespace FGA_PLATFORM.business.production
                     if (FGA_DAL.Base.SQLServerHelper.ExecuteSql(sql) > 0)
                     {
                         res = "1";
-                        MailHelper.SendMailUseGmail("xwang6@fuyaousa.com","","Confirm","This is a test mail!");
+                        MailHelper.SendMailUseGmail("smalllot@fuyaousa.com", "xwang6@fuyaousa.com,xshen@fuyaousa.com", "Small Lot have been confirmed by planner", "Small Lot have been confirmed by planner!");
                     }
-                       
                 }
                 else
                     res = "-1";

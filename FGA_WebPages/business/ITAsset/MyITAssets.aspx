@@ -199,7 +199,7 @@
                             '<td>' + json[i].AssetName + '</td> ' +
                             '<td>' + json[i].IT_AssetNO + '</td> ' +
                             '<td>' + json[i].FIN_AssetNO + '</td> ' +
-                            '<td>' + new Date(parseInt(json[i].Issue_Date)).toLocaleString() + '</td> ' +
+                            '<td>' + issueDate + '</td> ' +
                             '<td> ' + json[i].Status + '</td> ' +
                             '<td>' + json[i].MacAddress + '</td> ' +
                             '<td>' + json[i].Note + '</td> ' +

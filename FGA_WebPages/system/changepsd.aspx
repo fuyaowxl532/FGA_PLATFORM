@@ -68,25 +68,15 @@
 
         <script type="text/javascript">
             function initValidation() {
-                //var formValidation = new FormValidation("form1", "1");
-                //formValidation.addFieldValInfo("txtcurrent", new RequiredStrValidator("当前密码"));
-                //formValidation.addFieldValInfo("txtnew", new RequiredStrValidator("新密码"));
-                //formValidation.addFieldValInfo("txtnew2", new RequiredStrValidator("新密码确认"));
-                //return formValidation;
             }
             function saveCheck() {
-                //if (checkFormData(initValidation())) {
-                //    return true;
-                //}
-                //return false;
+               
                 if ($.trim($("#txtcurrent").val()) == "") {
                     AutoClose("txtcurrent", "Current Password is empty!", "right");
-                    //showTopMessage('当前密码不能为空!', '40px', '100%');
                     return false;
                 }
                 if ($.trim($("#txtnew").val()) == "") {
                     AutoClose("txtnew", "New Password is empty!", "right");
-                    //showTopMessage('新密码不能为空!', '40px', '100%');
                     return false;
                 }
                 else if (!filterSqlStr($.trim($("#txtnew").val()))) {
@@ -95,12 +85,10 @@
                 }
                 if ($.trim($("#txtnew2").val()) == "") {
                     AutoClose("txtnew2", "Confirm New Password is empty!", "right");
-                    //showTopMessage('新密码确认不能为空!', '40px', '100%');
                     return false;
                 }
                 if ($.trim($("#txtnew").val()) != $.trim($("#txtnew2").val())) {
                     AutoClose("txtnew2", "New Password and Confirm Password fileds don't match!", "right");
-                    //showTopMessage('两次密码不一致!', '40px', '100%');
                     return false;
                 }
 

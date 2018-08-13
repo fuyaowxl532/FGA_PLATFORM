@@ -74,7 +74,7 @@ td{
 
 </style>
 </head>
-<body style="overflow:hidden">
+<body>
     <div class="head"><i class="icon-tools"></i>&nbsp;&nbsp;Production=> SmallLot=> EDICtrlCenter</div>
 <%--    <div class="header-secondary " style="margin-top:-20px; margin-left:-10px;">
                 
@@ -110,6 +110,8 @@ td{
                 <button class="btn btn-primary btn-sm" id ="btnSearch"  style="height:30px" onclick ="SearchData()">Search</button>
                 <button class="btn btn-primary btn-sm" id ="btnMerge"   style="height:30px" onclick ="MergeData()">MergeData</button>
                 <button class="btn btn-primary btn-sm" id ="btnExport"  style="height:30px" onclick ="$('#editable').tableExport({ type: 'excel', tableName: 'Small Lot Orders', escape: 'false' })">Export</button>
+                &nbsp;&nbsp;&nbsp;
+                <label><input type="checkbox" id ="cbdii"/> Display History Orders</label>
                
 			</div>
 			
@@ -198,9 +200,11 @@ td{
           //设置按钮权限
         if (islock == 'Yes') {
             $("#_import").attr("disabled", "true");
+            $("#btnMerge").attr("disabled", "true");
         }
         if (islock == 'No') {
             $("#_import").removceAttr("disabled");
+            $("#btnMerge").attr("disabled", "true");
         }
 
         SearchData();
@@ -227,8 +231,7 @@ td{
                 //获取界面数据
                 var json = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]);
 
-                if (true)
-                {
+                if (json.length > 0) {
                     $("#tby").html('<tr class="tr_loading"><td colspan="20"><img src="../../images/loading.gif" alt="" />Importing...</td></tr>');
 
                     var jsondata = JSON.stringify(json);
@@ -245,11 +248,25 @@ td{
                                 SearchData();
                             }
                             else {
-                                alert("Import failed");
-                                $("#tby").html('');
+                                if (data.d == "-1") {
+                                    alert("MasterID can not be null.");
+                                    $("#tby").html('');
+                                }
+                                if (data.d == "-2") {
+                                    alert("MasterID Error!");
+                                    $("#tby").html('');
+                                }
+                                if (data.d == "0") {
+                                    alert("Import failed!");
+                                    $("#tby").html('');
+                                }
                             }
                         }
                     });
+                }
+                else {
+                      alert("Excel is empty!");
+                      $("#tby").html('');
                 }
             }
            
@@ -271,19 +288,26 @@ td{
     function SearchData() {
         $("#editable tr:not(:first)").remove();
 
-        //var _fdate = $("#_fdate").val();      //交付日期F
-        //var _tdate = $("#_tdate").val();      //交付日期T
+        var cbdii = "0";
+        if ($('#cbdii').is(':checked')) {
+            cbdii = "1";
+            var _fdate = $("#_fdate").val();      //交付日期F
+            var _tdate = $("#_tdate").val();      //交付日期T
 
-        //if (_fdate == "" || _tdate == "") {
-        //    alert("Please input ship date!");
-        //    return;
-        //}
+            if (_fdate == "" || _tdate == "") {
+                alert("Please input ship date!");
+                return;
+            }
+        }
+        else {
+            cbdii = "0";
+        }
+      
 
         $.ajax({
             type: "Post",
             url: "EDICtrlCenter.aspx/SearchData",
-            //data: "{fdate:'" + _fdate + "',tdate:'" + _tdate + "'}",
-            data: "",
+            data: "{history:'" + cbdii + "',fdate:'" + _fdate + "',tdate:'" + _tdate + "'}",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             async: true,

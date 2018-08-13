@@ -129,11 +129,11 @@ namespace FGA_PLATFORM.business.ITAsset
                           " FAT.[MacAddress],FAT.[Note],FIT.Status,FIT.PlexID,FIT.Issue_Date,FIT.Return_Date,FAT.LastAction,isnull(FAT.LastEditUser,FAT.Creator)," +
                           " case when FAT.LastEditDate = '1900-01-01' then FAT.CreateDate else FAT.LastEditDate " +
                           " end as LastEditDate from [FGA_AssetCard_T] FAT left join FGA_ITAssetInfos_T FIT ON FAT.AssetKey = FIT.AssetKey" +
-                          " WHERE FAT.AssetKey IN (" + assetKey + ")";
+                          " WHERE FAT.AssetKey = '" + assetKey + "' ";
 
 
             string sql2 = " update [FGA_AssetCard_T] set [AssetName] = '" + AssetVO.AssetName + "',[Category]= '" + AssetVO.Category + "',[Brand] = '" + AssetVO.Brand + "', " +
-                         " [IT_AssetNO] = '" + AssetVO.IT_AssetNO + "',[FIN_AssetNO] = '" + AssetVO.FIN_AssetNO + "',[SerialNO] = '" + AssetVO.SerialNO + "'," +
+                         " [IT_AssetNO] = '" + AssetVO.IT_AssetNO + "',[FIN_AssetNO] = '" + AssetVO.FIN_AssetNO + "',[SerialNO] = '" + AssetVO.SerialNO + "',[Note] = '" + AssetVO.Note + "', " +
                          " [MacAddress] = '" + AssetVO.MacAddress + "',[LastAction] = 'Update Asset Card Infos',LastEditUser ='" + model.USERNAME + "',LastEditDate=GETDATE() where [AssetKey] = '" + assetKey + "' ";
 
             sqllist.Add(sql1);

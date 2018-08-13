@@ -131,6 +131,44 @@ namespace FGA_PLATFORM.business.production
             return res;
         }
 
+        /// <summary>
+        /// 半箱界面查询
+        /// add by it-wxl 08/13/2018
+        /// </summary>
+        /// <returns></returns>
+        [WebMethod]
+        public static string getPartialData()
+        {
+            string res = string.Empty;
+            try
+            {
+                string sql = "SELECT [BarcodeNO],[PartNO],[BoxType],[OrderQty],[Quantity] " +
+                             ",[Creator],[CreateDate],[BoxStatus],[Location] " +
+                             " FROM [WMS_BarCode_V10].[dbo].[ARGPartialBox_T] where isnull(dr,0) = 0 and len(barcodeno) > 7 and [Location] not like '%T%' order by CreateDate DESC ";
+
+                DataSet ds = new DataSet();
+                ds = FGA_DAL.Base.SQLServerHelper_WMS.Query(sql);
+                if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+                {
+                    List<BarcodeHelperModel> luw = new List<BarcodeHelperModel>();
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        BarcodeHelperModel ERM = new BarcodeHelperModel(row);
+                        luw.Add(ERM);
+                    }
+
+                    JavaScriptSerializer jssl = new JavaScriptSerializer();
+                    res = jssl.Serialize(luw);
+                    res = res.Replace("\\/Date(", "").Replace(")\\/", "");
+                }
+            }
+            catch (Exception e)
+            {
+
+            }
+            return res;
+        }
+
         //获取用户权限
         [WebMethod]
         public static string getRoleInfos()
@@ -154,7 +192,6 @@ namespace FGA_PLATFORM.business.production
 
                 return urole;
         }
-
 
         /// <summary>
         /// 获取产品属性信息
